@@ -1,0 +1,10 @@
+[user]
+	name = nkwsqyyzx
+    email = nk.wangshuangquan@gmail.com
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+[help]
+    format = html
