@@ -8,3 +8,10 @@
     interactive = auto
 [help]
     format = html
+[alias]
+    br = branch
+    ca = commit -a
+    ci = commit
+	co = checkout
+    st = status
+
