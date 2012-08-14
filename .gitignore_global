@@ -1,0 +1,4 @@
+# usage:git config --global core.excludesfile ~/conf/.gitignore_global
+*~
+*.swp
+!.gitignore
