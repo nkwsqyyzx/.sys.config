@@ -1,5 +1,5 @@
 [user]
-	name = nkwsqyyzx
+    name = nkwsqyyzx
     email = nk.wangshuangquan@gmail.com
 [color]
     diff = auto
@@ -12,6 +12,12 @@
     br = branch
     ca = commit -a
     ci = commit
-	co = checkout
+    co = checkout
     st = status
+    oln = log --pretty=oneline --since='2 days ago'
+    olg = log -p -1
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue) <%an>%Creset' --abbrev-commit --
+    amend = !git log -n 1 --pretty=tformat:%s%n%n%b | git commit -F - --amend
+[log]
+    data = iso
 
