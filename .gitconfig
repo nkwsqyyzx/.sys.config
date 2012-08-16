@@ -20,4 +20,8 @@
     amend = !git log -n 1 --pretty=tformat:%s%n%n%b | git commit -F - --amend
 [log]
     data = iso
-
+[merge]
+    tool = gvimdiff
+[mergetool "gvimdiff"]
+    cmd = gvim -f -d $MERGED $LOCAL $REMOTE
+    trustExitCode = false
