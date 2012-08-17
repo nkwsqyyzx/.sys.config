@@ -18,6 +18,7 @@
     olg = log -p -1
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue) <%an>%Creset' --abbrev-commit --
     amend = !git log -n 1 --pretty=tformat:%s%n%n%b | git commit -F - --amend
+    zip = !git archive --format zip master --output
 [log]
     data = iso
 [merge]
