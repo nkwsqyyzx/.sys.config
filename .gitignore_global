@@ -2,3 +2,9 @@
 *~
 *.swp
 !.gitignore
+*.DS_Store
+*.xcodeproj/
+!*.xcodeproj/project.pbxproj
+xcuserdata
+.svn
+*.orig
