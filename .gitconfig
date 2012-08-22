@@ -19,6 +19,7 @@
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue) <%an>%Creset' --abbrev-commit --
     amend = !git log -n 1 --pretty=tformat:%s%n%n%b | git commit -F - --amend
     zip = !git archive --format zip master --output
+    rmd = !git ls-files -d  -z | xargs -0 git rm
 [log]
     data = iso
 [merge]
