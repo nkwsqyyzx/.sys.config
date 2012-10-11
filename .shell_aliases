@@ -8,7 +8,7 @@
 # Email:       nk.wangshuangquan@gmail.com
 # Version:     0.1
 #
-# usage: source ~/conf/.bash_aliases
+# usage: source ~/conf/.shell_aliases
 #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 # good experience with git.
@@ -22,3 +22,6 @@ alias go='git checkout'
 alias gb='git branch'
 alias gm='git merge'
 alias gd="git diff"
+
+# good experience with ls
+alias la='ls -al'
