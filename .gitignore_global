@@ -10,3 +10,8 @@ xcuserdata
 *.orig
 *.swo
 *.tmp
+*.user
+*.suo
+bin
+obj
+debug
