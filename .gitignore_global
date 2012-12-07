@@ -9,4 +9,12 @@ xcuserdata
 .svn
 *.orig
 *.swo
+*.suo
+*.usr
+*.user
 *.tmp
+obj/
+Obj/
+Debug/
+Bin/
+bin/

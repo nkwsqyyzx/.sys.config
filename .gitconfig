@@ -27,3 +27,5 @@
 [mergetool "gvimdiff"]
     cmd = gvim -f -d $MERGED $LOCAL $REMOTE
     trustExitCode = false
+[core]
+    excludesfile = ~/conf/.gitignore_global
