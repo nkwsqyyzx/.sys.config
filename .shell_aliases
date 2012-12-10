@@ -4,7 +4,7 @@
 #       http://github.com/nkwsqyyzx/conf/
 #
 # Maintainer:  wsq
-# Last Change: 2012-8-14 00:15:52
+# Last Change: 2012-12-10 16:42:29
 # Email:       nk.wangshuangquan@gmail.com
 # Version:     0.1
 #
@@ -23,5 +23,12 @@ alias gb='git branch'
 alias gm='git merge'
 alias gd="git diff"
 
-# good experience with ls
+# good experience with ls.
 alias la='ls -al'
+
+# good experience with ls.
+alias ll='ls --color=auto -al'
+
+# fast open the current folder in windows.
+# TODO must find a way to test if working in MAC or Windows.
+alias oo='explorer .'
