@@ -32,3 +32,15 @@ alias ll='ls --color=auto -al'
 # fast open the current folder in windows.
 # TODO must find a way to test if working in MAC or Windows.
 alias oo='explorer .'
+
+# thanks to oreilly,this is a really good alias.
+# http://www.oreillynet.com/onlamp/blog/2007/01/whats_in_your_bash_history.html
+# Compress the cd, ls -l series of commands.
+alias lc="cl"
+function cl () {
+   if [ $# = 0 ]; then
+      cd && ll
+   else
+      cd "$*" && ll
+   fi
+}
