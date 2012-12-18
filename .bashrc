@@ -64,16 +64,16 @@ __sys_info(){
     SYS_MACH=$(uname -m)
 
     # TODO.fix me when in mingw32 and other linux.
-    if [[ "${SYS_OS}" = "windowsnt" ]]; then
+    if [[ "${SYS_OS}" = "mingw32_nt-6.1" ]]; then
         SYS_OS=windows
     elif [[ "${SYS_OS}" = "darwin" ]]; then
         SYS_OS=mac
     else
         SYS_OS=linux
-        readonly SYS_OS
-        readonly SYS_KERNEL
-        readonly SYS_MACH
     fi
+    readonly SYS_OS
+    readonly SYS_KERNEL
+    readonly SYS_MACH
 }
 __sys_info
 
@@ -82,6 +82,7 @@ __sys_info
 # the platform specified settings.
 # ---------------------------------MAC PLATFORM-------------------------------
 if [[ "${SYS_OS}" = "mac" ]] ; then
+    alias o='open'
     alias oo='open .'
     alias ll='ls -alG'
     alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g'
@@ -90,7 +91,11 @@ fi
 
 # ---------------------------------WIN PLATFORM-------------------------------
 if [[ "${SYS_OS}" = "windows" ]] ; then
+    export LESSCHARSET=utf-8
+    alias ls="ls --show-control-chars"
+    alias o='explorer'
     alias oo='explorer .'
     alias ll='ls --color=auto -al'
+    alias gvim='/c/Program\ Files/Vim/vim73/gvim'
 fi
 # ---------------------------------WIN PLATFORM-------------------------------
