@@ -64,7 +64,7 @@ __sys_info(){
     SYS_MACH=$(uname -m)
 
     # TODO.fix me when in mingw32 and other linux.
-    if [[ "${SYS_OS}" = "mingw32_nt-6.1" ]]; then
+    if [[ "${SYS_OS}" == mingw32_nt* ]]; then
         SYS_OS=windows
     elif [[ "${SYS_OS}" = "darwin" ]]; then
         SYS_OS=mac
@@ -93,8 +93,8 @@ fi
 if [[ "${SYS_OS}" = "windows" ]] ; then
     export LESSCHARSET=utf-8
     alias ls="ls --show-control-chars"
-    alias o='explorer'
-    alias oo='explorer .'
+    alias o='start'
+    alias oo='start .'
     alias ll='ls --color=auto -al'
     alias gvim='/c/Program\ Files/Vim/vim73/gvim'
 fi
