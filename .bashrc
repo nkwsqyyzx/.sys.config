@@ -93,6 +93,6 @@ if [[ "${SYS_OS}" = "windows" ]] ; then
     alias o='start'
     alias oo='start .'
     alias ll='ls --color=auto -al'
-    alias gvim='/c/Program\ Files/Vim/vim73/gvim'
+    alias gvim='"$PROGRAMFILES"/Vim/vim73/gvim'
 fi
 # ---------------------------------WIN PLATFORM-------------------------------
