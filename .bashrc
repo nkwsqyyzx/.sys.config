@@ -45,18 +45,6 @@ alias up='svn up'
 # good experience with ls.
 alias la='ls -al'
 
-# thanks to oreilly,this is a really good alias.
-# http://www.oreillynet.com/onlamp/blog/2007/01/whats_in_your_bash_history.html
-# Compress the cd, ls -l series of commands.
-alias lc="cl"
-function cl () {
-   if [ $# = 0 ]; then
-      cd && ll
-   else
-      cd "$*" && ll
-   fi
-}
-
 # ----------------------------COMMON SETTINGS---------------------------------
 
 # ----------------------------HELPER FUNCTIONS--------------------------------
@@ -109,3 +97,18 @@ if [[ "${SYS_OS}" = "windows" ]] ; then
     alias gvim='"$PROGRAMFILES"/Vim/vim73/gvim'
 fi
 # ---------------------------------WIN PLATFORM-------------------------------
+
+# -------------------------DEPENDENT SETTINGS---------------------------------
+# contains some alias and settings dependening on previous ones.
+# thanks to oreilly,this is a really good alias.
+# http://www.oreillynet.com/onlamp/blog/2007/01/whats_in_your_bash_history.html
+# Compress the cd, ls -l series of commands.
+alias lc="cl"
+function cl () {
+   if [ $# = 0 ]; then
+      cd && ll
+   else
+      cd "$*" && ll
+   fi
+}
+# -------------------------DEPENDENT SETTINGS---------------------------------
