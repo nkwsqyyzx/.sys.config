@@ -71,9 +71,6 @@ __sys_info(){
     else
         SYS_OS=linux
     fi
-    readonly SYS_OS
-    readonly SYS_KERNEL
-    readonly SYS_MACH
 }
 __sys_info
 
