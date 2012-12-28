@@ -14,6 +14,19 @@
 
 # ----------------------------COMMON SETTINGS---------------------------------
 
+# ignore and delete duplicate
+export HISTCONTROL=ignoreboth:erasedups
+# ignore the following commands
+export HISTIGNORE="[ ]*:&:bg:fg:exit:history"
+# the filesize
+export HISTFILESIZE=1000000000
+# the history items count
+export HISTSIZE=1000000
+# append history
+shopt -s histappend
+# after the command finish,append it
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+
 # good experience with git.
 alias g='git'
 alias gs='git status'
