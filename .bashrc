@@ -25,7 +25,7 @@ export HISTSIZE=1000000
 # append history
 shopt -s histappend
 # after the command finish,append it
-PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+PROMPT_COMMAND="history -n;history -a;$PROMPT_COMMAND"
 
 # good experience with git.
 alias g='git'
