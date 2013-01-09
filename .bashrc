@@ -41,9 +41,15 @@ alias gd="git diff"
 
 # good experience with svn.
 alias up='svn up'
+alias st='svn st'
 
 # good experience with ls.
 alias la='ls -al'
+
+# good experience with cd.
+alias .='cd -'
+alias ..='cd ..'
+alias ...='cd ../..'
 
 # ----------------------------COMMON SETTINGS---------------------------------
 
