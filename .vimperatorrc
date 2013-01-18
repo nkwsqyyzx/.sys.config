@@ -1,10 +1,8 @@
-map h <C-p>
-map l <C-n>
-
 map K <C-b>
 map J <C-f>
 
 map 0 g0
 map $ g$
 
-set hintchars=abcdefghijklmnopqrstuvwxyz
+set hintchars=jksdflaghioweqprumnctyvbxz
+set gui=none
