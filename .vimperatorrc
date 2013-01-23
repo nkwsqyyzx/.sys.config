@@ -5,4 +5,3 @@ map 0 g0
 map $ g$
 
 set hintchars=jksdflaghioweqprumnctyvbxz
-set gui=none
