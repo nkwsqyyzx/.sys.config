@@ -117,4 +117,8 @@ function cl () {
       cd "$*" && ll
    fi
 }
+
+# alias to open favorite sites.
+alias ogoogle='o http://www.google.com.tw'
+alias oweibo='o http://weibo.com'
 # -------------------------DEPENDENT SETTINGS---------------------------------
