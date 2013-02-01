@@ -84,6 +84,15 @@ __sys_info
 # ----------------------------HELPER FUNCTIONS--------------------------------
 
 # the platform specified settings.
+# ---------------------------------NIX PLATFORM-------------------------------
+if [[ "${SYS_OS}" = "linux" ]] ; then
+    alias o='nautilus'
+    alias oo='o .'
+    alias ll='ls -al --color=auto'
+fi
+# ---------------------------------MAC PLATFORM-------------------------------
+
+# the platform specified settings.
 # ---------------------------------MAC PLATFORM-------------------------------
 if [[ "${SYS_OS}" = "mac" ]] ; then
     alias o='open'
@@ -120,5 +129,6 @@ function cl () {
 
 # alias to open favorite sites.
 alias ogoogle='o http://www.google.com.tw'
+alias oengoogle='o http://www.google.com/ncr'
 alias oweibo='o http://weibo.com'
 # -------------------------DEPENDENT SETTINGS---------------------------------
