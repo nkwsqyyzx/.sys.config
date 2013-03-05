@@ -1,6 +1,9 @@
 map K <C-b>
 map J <C-f>
 
+map <C-h> <C-p>
+map <C-l> <C-n>
+
 map 0 g0
 map $ g$
 
