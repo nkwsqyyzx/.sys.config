@@ -22,6 +22,8 @@ export HISTIGNORE="[ ]*:&:bg:fg:exit:history"
 export HISTFILESIZE=1000000000
 # the history items count
 export HISTSIZE=1000000
+# export the editor for svn commit
+export SVN_EDITOR=vim
 # append history
 shopt -s histappend
 # after the command finish,append it
