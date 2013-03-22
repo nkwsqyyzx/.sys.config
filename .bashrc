@@ -90,6 +90,7 @@ __sys_info
 if [[ "${SYS_OS}" = "linux" ]] ; then
     alias o='nautilus'
     alias oo='o .'
+    alias ou='xdg-open'
     alias ll='ls -al --color=auto'
 fi
 # ---------------------------------MAC PLATFORM-------------------------------
@@ -99,6 +100,7 @@ fi
 if [[ "${SYS_OS}" = "mac" ]] ; then
     alias o='open'
     alias oo='open .'
+    alias ou='open'
     alias ll='ls -alG'
     alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g'
 fi
@@ -110,6 +112,7 @@ if [[ "${SYS_OS}" = "windows" ]] ; then
     alias ls="ls --show-control-chars"
     alias o='start'
     alias oo='start .'
+    alias ou='start'
     alias ll='ls --color=auto -al'
     alias gvim='"$PROGRAMFILES"/Vim/vim73/gvim'
 fi
@@ -130,7 +133,7 @@ function cl () {
 }
 
 # alias to open favorite sites.
-alias ogoogle='o http://www.google.com.tw'
-alias oengoogle='o http://www.google.com/ncr'
-alias oweibo='o http://weibo.com'
+alias ogoogle='ou http://www.google.com.tw'
+alias oengoogle='ou http://www.google.com/ncr'
+alias oweibo='ou http://weibo.com'
 # -------------------------DEPENDENT SETTINGS---------------------------------
