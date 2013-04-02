@@ -74,7 +74,9 @@ __sys_info(){
 
     # TODO.fix me when in mingw32 and other linux.
     if [[ "${SYS_OS}" == mingw32_nt* ]]; then
-        SYS_OS=windows
+        SYS_OS=windows_mingw
+    elif [[ "${SYS_OS}" == cygwin_nt* ]]; then
+        SYS_OS=windows_cygwin
     elif [[ "${SYS_OS}" = "darwin" ]]; then
         SYS_OS=mac
     else
@@ -107,13 +109,24 @@ fi
 # ---------------------------------MAC PLATFORM-------------------------------
 
 # ---------------------------------WIN PLATFORM-------------------------------
-if [[ "${SYS_OS}" = "windows" ]] ; then
+if [[ "${SYS_OS}" = "windows_mingw" ]] ; then
     export LESSCHARSET=utf-8
     alias ls="ls --show-control-chars"
     alias o='start'
     alias oo='start .'
     alias ou='start'
     alias ll='ls --color=auto -al'
+    alias gvim='"$PROGRAMFILES"/Vim/vim73/gvim'
+fi
+
+if [[ "${SYS_OS}" = "windows_cygwin" ]] ; then
+    export LESSCHARSET=utf-8
+    alias ls="ls --show-control-chars"
+    alias o='cygstart'
+    alias oo='o .'
+    alias ou='o'
+    alias ls='ls --color=auto'
+    alias ll='ls -al'
     alias gvim='"$PROGRAMFILES"/Vim/vim73/gvim'
 fi
 # ---------------------------------WIN PLATFORM-------------------------------
