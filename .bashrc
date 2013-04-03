@@ -25,7 +25,10 @@ export HISTSIZE=1000000
 # export the editor for svn commit
 export SVN_EDITOR=vim
 # append history
-shopt -s histappend
+
+if which shopt >/dev/null; then
+    shopt -s histappend
+fi
 # after the command finish,append it
 PROMPT_COMMAND="history -n;history -a;$PROMPT_COMMAND"
 
