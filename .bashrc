@@ -121,6 +121,7 @@ fi
 
 if [[ "${SYS_OS}" = "windows_cygwin" ]] ; then
     export LESSCHARSET=utf-8
+    export CYGWIN=nodosfilewarning
     alias ls="ls --show-control-chars"
     alias o='cygstart'
     alias oo='o .'
