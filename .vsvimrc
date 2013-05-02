@@ -1,0 +1,7 @@
+map <SPACE> <C-F>
+map <S-SPACE> <C-B>
+
+set ignorecase
+set incsearch
+
+imap ,, <ESC>
