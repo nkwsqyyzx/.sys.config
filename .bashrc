@@ -150,7 +150,7 @@ function cl () {
 }
 
 # alias to open favorite sites.
-alias ogoogle='ou http://www.google.com.tw'
-alias oengoogle='ou http://www.google.com/ncr'
+alias ogoogle='ou https://www.google.com.tw'
+alias oengoogle='ou https://www.google.com/ncr'
 alias oweibo='ou http://weibo.com'
 # -------------------------DEPENDENT SETTINGS---------------------------------
