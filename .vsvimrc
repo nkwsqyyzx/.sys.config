@@ -5,3 +5,6 @@ set ignorecase
 set incsearch
 
 imap ,, <ESC>
+
+map <C-H> :tabprevious<CR>
+map <C-L> :tabnext<CR>
