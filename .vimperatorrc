@@ -14,3 +14,4 @@ map = +
 set complete=tslS
 
 nnoremap U :undo<Space>
+nnoremap ,s :OpenWithHttps<CR>
