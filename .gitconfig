@@ -30,8 +30,11 @@
     trustExitCode = false
 [core]
     excludesfile = ~/conf/.gitignore_global
+    whitespace = cr-at-eol
 [i18n]
-	commitencoding = utf-8
-	logoutputencoding = gbk
+    commitencoding = utf-8
+    logoutputencoding = gbk
 [gui]
-	encoding = utf-8
+    encoding = utf-8
+[push]
+    default = matching
