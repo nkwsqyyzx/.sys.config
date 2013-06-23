@@ -3,6 +3,7 @@ map <S-SPACE> <C-B>
 
 set ignorecase
 set incsearch
+set number
 
 imap ,, <ESC>
 
