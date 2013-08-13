@@ -23,6 +23,7 @@
     rmd = !git ls-files -d  -z | xargs -0 git rm
 [log]
     data = iso
+    date = local
 [merge]
     tool = gvimdiff
 [mergetool "gvimdiff"]
@@ -31,10 +32,12 @@
 [core]
     excludesfile = ~/conf/.gitignore_global
     whitespace = cr-at-eol
+    autocrlf = true
+    quotepath = false
 [i18n]
     commitencoding = utf-8
     logoutputencoding = gbk
 [gui]
     encoding = utf-8
 [push]
-    default = matching
+    default = current
