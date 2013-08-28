@@ -112,6 +112,21 @@ fi
 # ---------------------------------MAC PLATFORM-------------------------------
 
 # ---------------------------------WIN PLATFORM-------------------------------
+function ConfigureVim () {
+    gvimexe="$PROGRAMFILES"/Vim/vim74/gvim.exe
+    if [[ -f "$gvimexe" ]] ; then
+        alias gvim='"$gvimexe"'
+    else
+        gvimexe="$PROGRAMFILES"/Vim/vim73/gvim.exe
+        if [[ -f "$gvimexe" ]] ; then
+            alias gvim='"$gvimexe"'
+        else
+            echo 'i did not found gvim in "$PROGRAMFILES"/Vim/'
+        fi
+    fi
+}
+
+# ---------------------------------MINGW PLATFORM-----------------------------
 if [[ "${SYS_OS}" = "windows_mingw" ]] ; then
     export LESSCHARSET=utf-8
     alias ls="ls --show-control-chars"
@@ -119,9 +134,10 @@ if [[ "${SYS_OS}" = "windows_mingw" ]] ; then
     alias oo='start .'
     alias ou='start'
     alias ll='ls --color=auto -al'
-    alias gvim='"$PROGRAMFILES"/Vim/vim73/gvim'
+    ConfigureVim
 fi
 
+# ---------------------------------CYGWIN PLATFORM----------------------------
 if [[ "${SYS_OS}" = "windows_cygwin" ]] ; then
     export LESSCHARSET=utf-8
     export CYGWIN=nodosfilewarning
@@ -131,7 +147,7 @@ if [[ "${SYS_OS}" = "windows_cygwin" ]] ; then
     alias ou='o'
     alias ls='ls --color=auto'
     alias ll='ls -al'
-    alias gvim='"$PROGRAMFILES"/Vim/vim73/gvim'
+    ConfigureVim
 fi
 # ---------------------------------WIN PLATFORM-------------------------------
 
