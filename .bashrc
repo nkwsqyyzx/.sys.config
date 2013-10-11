@@ -47,6 +47,7 @@ alias gd="git diff"
 # good experience with svn.
 alias up='svn up'
 alias st='svn st'
+alias svnremovedeletedfiles="svn st|grep '^!'|sed 's/^! *//'|xargs -I% svn rm %"
 
 # good experience with ls.
 alias la='ls -al'
