@@ -22,7 +22,6 @@
     zipHead = !git archive --format=zip HEAD --output
     rmd = !git ls-files -d  -z | xargs -0 git rm
 [log]
-    data = iso
     date = local
 [merge]
     tool = gvimdiff
@@ -32,11 +31,10 @@
 [core]
     excludesfile = ~/conf/.gitignore_global
     whitespace = cr-at-eol
-    autocrlf = true
     quotepath = false
 [i18n]
     commitencoding = utf-8
-    logoutputencoding = gbk
+    logoutputencoding = utf-8
 [gui]
     encoding = utf-8
 [push]
