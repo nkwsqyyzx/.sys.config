@@ -1,0 +1,38 @@
+# function setting locales
+
+function gbk()
+{
+    export LC_ALL=zh_CN.CP936
+    export LC_CTYPE=zh_CN.CP936
+    export LANG=zh_CN.CP936
+    export OUTPUT_CHARSET="GBK"
+    export set LESSCHARSET=latin1
+}
+
+function unicode()
+{
+    export set LC_ALL=Unicode
+    export set LC_CTYPE=Unicode
+    export set LANG=Unicode
+    export set LESSCHARSET=Unicode
+}
+
+function utf8()
+{
+    export set LC_ALL=en.UTF-8
+    export set LC_CTYPE=en.UTF-8
+    export set LANG=en.UTF-8
+    export set LESSCHARSET=latin1
+}
+
+function web()
+{
+    export LC_ALL=en_US.UTF-16
+    export LC_CTYPE=en_US.UTF-16
+    export LANG=en_US.UTF-16
+    export XMODIFIERS=@im=Chinput3
+    stty cs8 -istrip
+    stty pass8
+    export LESSCHARSET=latin1
+}
+

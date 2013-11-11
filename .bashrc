@@ -32,6 +32,9 @@ fi
 # after the command finish,append it
 PROMPT_COMMAND="history -n;history -a;$PROMPT_COMMAND"
 
+# load locales
+source $(dirname $0)/.locales
+
 # good experience with git.
 alias g='git'
 alias gs='git status'
@@ -149,6 +152,8 @@ if [[ "${SYS_OS}" = "windows_cygwin" ]] ; then
     alias ls='ls --color=auto'
     alias ll='ls -al'
     ConfigureVim
+    # windows use gbk
+    gbk
 fi
 # ---------------------------------WIN PLATFORM-------------------------------
 
@@ -171,3 +176,4 @@ alias ogoogle='ou https://www.google.com.tw'
 alias oengoogle='ou https://www.google.com/ncr'
 alias oweibo='ou http://weibo.com'
 # -------------------------DEPENDENT SETTINGS---------------------------------
+
