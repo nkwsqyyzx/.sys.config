@@ -33,7 +33,7 @@ fi
 PROMPT_COMMAND="history -n;history -a;$PROMPT_COMMAND"
 
 # load locales
-source $(dirname $0)/.locales
+source ~/conf/.locales
 
 # good experience with git.
 alias g='git'
@@ -152,8 +152,8 @@ if [[ "${SYS_OS}" = "windows_cygwin" ]] ; then
     alias ls='ls --color=auto'
     alias ll='ls -al'
     ConfigureVim
-    # windows use gbk
-    gbk
+    # windows use GBK
+    myencoding
 fi
 # ---------------------------------WIN PLATFORM-------------------------------
 
