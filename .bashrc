@@ -118,14 +118,18 @@ fi
 # ---------------------------------WIN PLATFORM-------------------------------
 function ConfigureVim () {
     gvimexe="$PROGRAMFILES"/Vim/vim74/gvim.exe
+    vimexe="$PROGRAMFILES"/Vim/vim74/vim.exe
     if [[ -f "$gvimexe" ]] ; then
         alias gvim='"$gvimexe"'
+        alias vim='"$vimexe"'
     else
         gvimexe="$PROGRAMFILES"/Vim/vim73/gvim.exe
+        vimexe="$PROGRAMFILES"/Vim/vim73/vim.exe
         if [[ -f "$gvimexe" ]] ; then
             alias gvim='"$gvimexe"'
+            alias vim='"$vimexe"'
         else
-            echo 'i did not found gvim in "$PROGRAMFILES"/Vim/'
+            echo 'i did not found vim in "$PROGRAMFILES"/Vim/'
         fi
     fi
 }
