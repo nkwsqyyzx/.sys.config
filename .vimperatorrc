@@ -1,3 +1,5 @@
+cd ~
+
 map K <C-b>
 map J <C-f>
 
@@ -7,6 +9,9 @@ map <C-l> <C-n>
 map 0 g0
 map $ g$
 
+map b gt
+map B gT
+
 set hintchars=jksdflaghioweqprumnctyvbxz
 
 map = +
@@ -15,3 +20,5 @@ set complete=tslS
 
 nnoremap U :undo<Space>
 nnoremap ,s :OpenWithHttps<CR>
+
+autocmd DOMLoad .* ReloadWithHttps <tab>
