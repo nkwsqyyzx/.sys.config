@@ -5,7 +5,7 @@ commands.addUserCommand ("ReloadWithHttps", "reload url with https", function (a
         let url = buffer.URL;
         let google = /^http:\/\/www\.google\.com.+\/$/.test(url);
         let result = /^http:\/\/www\.google\.com.+url\?.+url=/.test(url);
-        let search = /^http:\/\/www\.google\.com.+search\?.+&q=/.test(url);
+        let search = /^http:\/\/www\.google\.com.+search\?.{0,}q=/.test(url);
         if (google || result || search) {
             let httpsUrl = url.replace(/^http:/,"https:");
             liberator.open(httpsUrl);
