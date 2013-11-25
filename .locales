@@ -50,3 +50,13 @@ function myencoding()
     stty pass8
     export set LESSCHARSET=UTF-8
 }
+
+function perfect()
+{
+    export set LANG=zh_CN.UTF-16@cjkwide
+    export set LC_CTYPE=zh_CN.UTF-16@cjkwide
+    export set XMODIFIERS=@im=Chinput3
+    stty cs8 -istrip
+    stty pass8
+    export set LESSCHARSET=UTF-8
+}

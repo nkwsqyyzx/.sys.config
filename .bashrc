@@ -45,7 +45,7 @@ alias ga='git add'
 alias go='git checkout'
 alias gb='git branch'
 alias gm='git merge'
-alias gd="git diff"
+alias gd="git diff --color"
 
 # good experience with svn.
 alias up='svn up'
@@ -119,21 +119,24 @@ fi
 
 # ---------------------------------WIN PLATFORM-------------------------------
 function ConfigureVim () {
-    gvimexe="$PROGRAMFILES"/Vim/vim74/gvim.exe
-    vimexe="$PROGRAMFILES"/Vim/vim74/vim.exe
-    if [[ -f "$gvimexe" ]] ; then
-        alias gvim='"$gvimexe"'
-        alias vim='"$vimexe"'
-    else
-        gvimexe="$PROGRAMFILES"/Vim/vim73/gvim.exe
-        vimexe="$PROGRAMFILES"/Vim/vim73/vim.exe
-        if [[ -f "$gvimexe" ]] ; then
-            alias gvim='"$gvimexe"'
-            alias vim='"$vimexe"'
-        else
-            echo 'i did not found vim in "$PROGRAMFILES"/Vim/'
-        fi
-    fi
+vimpath="$PROGRAMFILES"/Vim/
+if ! [[ -d "$vimpath" ]] ; then
+    vimpath="$PROGRAMFILES (x86)"/Vim/
+fi
+
+vimversion=vim74
+if ! [[ -d "$vimpath"/$vimversion ]] ; then
+    vimversion=vim73
+fi
+
+gvimexe="$vimpath"/$vimversion/gvim.exe
+vimexe="$vimpath"/$vimversion/vim.exe
+if [[ -f "$gvimexe" ]] ; then
+    alias gvim='"$gvimexe"'
+    alias vim='"$vimexe"'
+else
+    echo i did not found vim in "$vimpath"
+fi
 }
 
 # ---------------------------------MINGW PLATFORM-----------------------------
@@ -158,8 +161,6 @@ if [[ "${SYS_OS}" = "windows_cygwin" ]] ; then
     alias ls='ls --color=auto'
     alias ll='ls -al'
     ConfigureVim
-    # windows use GBK
-    myencoding
 fi
 # ---------------------------------WIN PLATFORM-------------------------------
 
@@ -170,11 +171,11 @@ fi
 # Compress the cd, ls -l series of commands.
 alias lc="cl"
 function cl () {
-   if [ $# = 0 ]; then
-      cd && ll
-   else
-      cd "$*" && ll
-   fi
+if [ $# = 0 ]; then
+    cd && ll
+else
+    cd "$*" && ll
+fi
 }
 
 # alias to open favorite sites.
@@ -183,3 +184,4 @@ alias oengoogle='ou https://www.google.com/ncr'
 alias oweibo='ou http://weibo.com'
 # -------------------------DEPENDENT SETTINGS---------------------------------
 
+perfect
