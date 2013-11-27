@@ -1,9 +1,9 @@
-commands.addUserCommand ("DeleteTitan007Ads", "delete titan007 ads", function (args) {
-    let d = tabs.getTab(args-1).linkedBrowser.contentDocument;
-    // ×óÓÒµÄ¹ã¸æ
+commands.addUserCommand("DeleteTitan007Ads", "delete titan007 ads", function (args) {
+    let d = tabs.getTab(args - 1).linkedBrowser.contentDocument;
+    // å·¦å³çš„å¹¿å‘Š
     var a = d.getElementsByTagName('div');
-    for (i in a){
-        if (!a[i]){
+    for (i in a) {
+        if (!a[i]) {
             continue;
         }
         var src = a[i].id;
@@ -13,10 +13,10 @@ commands.addUserCommand ("DeleteTitan007Ads", "delete titan007 ads", function (a
         }
     }
 
-    // ±È·ÖÅÔ±ßµÄ¹ã¸æ
+    // æ¯”åˆ†æ—è¾¹çš„å¹¿å‘Š
     a = d.getElementsByTagName('span');
-    for (i in a){
-        if (!a[i]){
+    for (i in a) {
+        if (!a[i]) {
             continue;
         }
         var b = /^(left)|(right)_ad$/.test(a[i].id);
@@ -25,10 +25,10 @@ commands.addUserCommand ("DeleteTitan007Ads", "delete titan007 ads", function (a
         }
     }
 
-    // ±È·ÖÖ®¼äµÄ¹ã¸æ
+    // æ¯”åˆ†ä¹‹é—´çš„å¹¿å‘Š
     var a = d.getElementsByTagName('tr');
-    for (i in a){
-        if (!a[i]){
+    for (i in a) {
+        if (!a[i]) {
             continue;
         }
         var b = /^tr_ad\d*$/.test(a[i].id);
@@ -37,4 +37,9 @@ commands.addUserCommand ("DeleteTitan007Ads", "delete titan007 ads", function (a
         }
     }
 });
+
+autocommands.add('DOMLoad', /live2\.titan007\.com/, 'DeleteTitan007Ads <tab>');
+autocommands.add('PageLoad', /live2\.titan007\.com/, 'DeleteTitan007Ads <tab>');
+autocommands.add('DOMLoad', /news\.bet007\.com/, 'DeleteTitan007Ads <tab>');
+autocommands.add('PageLoad', /news\.bet007\.com/, 'DeleteTitan007Ads <tab>');
 /* vim:se sts=4 sw=4 et: */

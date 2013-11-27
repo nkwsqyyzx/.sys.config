@@ -51,4 +51,7 @@ commands.addUserCommand("AdsKill", "kill adds", function (args) {
     }
     if (c1 + c2 + c3 > 0) liberator.echo('移除内容中广告' + c1 + '个，移除边栏广告' + c2 + '个，悬浮广告' + c3 + '个');
 });
+
+autocommands.add('PageLoad', /.*/, 'AdsKill <tab>');
+autocommands.add('DOMLoad', /.*/, 'AdsKill <tab>');
 /* vim:se sts=4 sw=4 et: */

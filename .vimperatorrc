@@ -21,9 +21,3 @@ set complete=tslS
 nnoremap U :undo<Space>
 nnoremap ,s :OpenWithHttps<CR>
 
-autocmd DOMLoad .* ReloadWithHttps <tab>
-
-autocmd PageLoad live2\\.titan007\\.com DeleteTitan007Ads <tab>
-autocmd PageLoad news\\.bet007\\.com DeleteTitan007Ads <tab>
-
-autocmd PageLoad .* AdsKill <tab>
