@@ -6,7 +6,7 @@
 # Maintainer:  wsq
 # Last Change: 2012-12-18 17:12:33
 # Email:       nk.wangshuangquan@gmail.com
-# Version:     0.1
+# Version:     0.2
 #
 # usage: source ~/conf/.bashrc
 #"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -91,6 +91,7 @@ __sys_info(){
     else
         SYS_OS=linux
     fi
+    export SYS_OS
 }
 __sys_info
 
@@ -98,60 +99,42 @@ __sys_info
 
 # the platform specified settings.
 # ---------------------------------NIX PLATFORM-------------------------------
-if [[ "${SYS_OS}" = "linux" ]] ; then
+function _linux
+{
     alias o='nautilus'
     alias oo='o .'
     alias ou='xdg-open'
     alias ll='ls -al --color=auto'
-fi
+}
 # ---------------------------------MAC PLATFORM-------------------------------
 
 # the platform specified settings.
 # ---------------------------------MAC PLATFORM-------------------------------
-if [[ "${SYS_OS}" = "mac" ]] ; then
+function _mac
+{
     alias o='open'
     alias oo='open .'
     alias ou='open'
     alias ll='ls -alG'
     alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g'
-fi
+}
 # ---------------------------------MAC PLATFORM-------------------------------
 
-# ---------------------------------WIN PLATFORM-------------------------------
-function ConfigureVim () {
-vimpath="$PROGRAMFILES"/Vim/
-if ! [[ -d "$vimpath" ]] ; then
-    vimpath="$PROGRAMFILES (x86)"/Vim/
-fi
-
-vimversion=vim74
-if ! [[ -d "$vimpath"/$vimversion ]] ; then
-    vimversion=vim73
-fi
-
-gvimexe="$vimpath"/$vimversion/gvim.exe
-vimexe="$vimpath"/$vimversion/vim.exe
-if [[ -f "$gvimexe" ]] ; then
-    alias gvim='"$gvimexe"'
-    alias vim='"$vimexe"'
-else
-    echo i did not found vim in "$vimpath"
-fi
-}
-
+# windows platform
 # ---------------------------------MINGW PLATFORM-----------------------------
-if [[ "${SYS_OS}" = "windows_mingw" ]] ; then
+function _windows_mingw
+{
     export LESSCHARSET=utf-8
     alias ls="ls --show-control-chars"
     alias o='start'
     alias oo='start .'
     alias ou='start'
     alias ll='ls --color=auto -al'
-    ConfigureVim
-fi
+}
 
 # ---------------------------------CYGWIN PLATFORM----------------------------
-if [[ "${SYS_OS}" = "windows_cygwin" ]] ; then
+function _windows_cygwin
+{
     export LESSCHARSET=utf-8
     export CYGWIN=nodosfilewarning
     alias ls="ls --show-control-chars"
@@ -160,8 +143,7 @@ if [[ "${SYS_OS}" = "windows_cygwin" ]] ; then
     alias ou='o'
     alias ls='ls --color=auto'
     alias ll='ls -al'
-    ConfigureVim
-fi
+}
 # ---------------------------------WIN PLATFORM-------------------------------
 
 # -------------------------DEPENDENT SETTINGS---------------------------------
@@ -184,4 +166,25 @@ alias oengoogle='ou https://www.google.com/ncr'
 alias oweibo='ou http://weibo.com'
 # -------------------------DEPENDENT SETTINGS---------------------------------
 
-perfect
+case $SYS_OS in
+    linux )
+        _linux
+        ;;
+    mac )
+        _mac
+        ;;
+    windows_mingw )
+        _windows_mingw
+        ;;
+    windows_cygwin )
+        _windows_cygwin
+        ;;
+esac
+
+case $SYS_OS in
+    windows_* )
+        source ~/conf/ConfigureVim.sh
+        # windows terminal encoding
+        perfect
+        ;;
+esac
