@@ -1,0 +1,12 @@
+.bashrc text eol=lf
+.gitattributes text eol=lf
+.gitconfig text eol=lf
+.gitignore_global text eol=lf
+.locales text eol=lf
+.vimperatorrc text eol=lf
+.vsvimrc text eol=lf
+.zshrc text eol=lf
+ConfigureVim.sh text eol=lf
+README.md text eol=lf
+gitEditor.sh text eol=lf
+visual_studio_text_editor_settings.vssettings text eol=lf
