@@ -125,7 +125,7 @@ function _mac
 function _windows_mingw
 {
     export LESSCHARSET=utf-8
-    alias ls="ls --show-control-chars"
+    alias ls='ls --show-control-chars'
     alias o='start'
     alias oo='start .'
     alias ou='start'
@@ -137,7 +137,7 @@ function _windows_cygwin
 {
     export LESSCHARSET=utf-8
     export CYGWIN=nodosfilewarning
-    alias ls="ls --show-control-chars"
+    alias ls='ls --show-control-chars'
     alias o='cygstart'
     alias oo='o .'
     alias ou='o'
@@ -151,7 +151,7 @@ function _windows_cygwin
 # thanks to oreilly,this is a really good alias.
 # http://www.oreillynet.com/onlamp/blog/2007/01/whats_in_your_bash_history.html
 # Compress the cd, ls -l series of commands.
-alias lc="cl"
+alias lc='cl'
 function cl () {
 if [ $# = 0 ]; then
     cd && ll
