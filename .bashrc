@@ -125,10 +125,10 @@ function _mac
 function _windows_mingw
 {
     export LESSCHARSET=utf-8
-    alias ls='ls --show-control-chars'
     alias o='start'
     alias oo='start .'
     alias ou='start'
+    alias ls='ls --show-control-chars --color=auto'
     alias ll='ls --color=auto -al'
 }
 
@@ -137,11 +137,10 @@ function _windows_cygwin
 {
     export LESSCHARSET=utf-8
     export CYGWIN=nodosfilewarning
-    alias ls='ls --show-control-chars'
     alias o='cygstart'
     alias oo='o .'
     alias ou='o'
-    alias ls='ls --color=auto'
+    alias ls='ls --show-control-chars --color=auto'
     alias ll='ls -al'
 }
 # ---------------------------------WIN PLATFORM-------------------------------
