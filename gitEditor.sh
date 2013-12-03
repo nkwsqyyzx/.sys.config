@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# $SYS_OS is from .bashrc in conf
+# $SYS_OS is from system.detect.sh in .sys.config
 
-source ~/conf/ConfigureVim.sh
+source ~/.sys.config/ConfigureVim.sh
 case $SYS_OS in
     windows_mingw )
         FILE_PATH="$1"

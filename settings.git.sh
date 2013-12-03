@@ -8,4 +8,5 @@ alias ga='git add'
 alias go='git checkout'
 alias gb='git branch'
 alias gm='git merge'
-alias gd="git diff --color"
+alias gd='git diff --color'
+alias gdd='git difftool'

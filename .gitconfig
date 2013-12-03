@@ -23,16 +23,21 @@
     rmd = !git ls-files -d  -z | xargs -0 git rm
 [log]
     date = local
+[diff]
+    tool = sgdm
+[difftool "diffmerge"]
+    cmd = sgdm $LOCAL $REMOTE
+    prompt = false
 [merge]
     tool = gvimdiff
 [mergetool "gvimdiff"]
     cmd = gvim -f -d $MERGED $LOCAL $REMOTE
     trustExitCode = false
 [core]
-    excludesfile = ~/conf/.gitignore_global
+    excludesfile = ~/.sys.config/.gitignore_global
     whitespace = cr-at-eol
     quotepath = false
-    editor = ~/conf/gitEditor.sh
+    editor = ~/.sys.config/gitEditor.sh
 [i18n]
     commitencoding = utf-8
     logoutputencoding = utf-8
