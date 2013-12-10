@@ -1,5 +1,4 @@
 # good experience with git.
-alias g='git'
 alias gs='git status'
 alias gg='git status'
 alias gc='git commit'
