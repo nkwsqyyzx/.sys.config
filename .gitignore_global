@@ -13,6 +13,7 @@ xcuserdata
 *.usr
 *.user
 *.tmp
+*.pyc
 obj/
 Obj/
 Debug/
