@@ -10,15 +10,14 @@ case $SYS_OS in
         FILE_PATH="$1"
         ;;
 esac
-vim "$FILE_PATH"
 
 case $SYS_OS in
     windows_* )
         # first configure vim path for windows
         source ~/.sys.config/ConfigureVim.sh
-        gvim "$1"
+        gvim "$FILE_PATH"
         ;;
     * )
-        vim "$1"
+        vim "$FILE_PATH"
         ;;
 esac
