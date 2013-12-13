@@ -32,11 +32,14 @@ alias ogoogle='ou https://www.google.com.tw'
 alias oengoogle='ou https://www.google.com/ncr'
 alias oweibo='ou http://weibo.com'
 
+# better less
+alias L='less -R'
+
 # thanks to oreilly,this is a really good alias.
 # http://www.oreillynet.com/onlamp/blog/2007/01/whats_in_your_bash_history.html
 # Compress the cd, ls -l series of commands.
 alias lc='cl'
-function cl () 
+function cl ()
 {
     if [ $# = 0 ]; then
         cd && ll
