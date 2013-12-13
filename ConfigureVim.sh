@@ -14,12 +14,32 @@ function ConfigureVim()
 
     gvimexe="$vimpath"/$vimversion/gvim.exe
     vimexe="$vimpath"/$vimversion/vim.exe
-    if [[ -f "$gvimexe" ]] ; then
-        alias gvim='"$gvimexe"'
-        alias vim='"$vimexe"'
-    else
+}
+
+check_vim()
+{
+    if ! [[ -f "$gvimexe" ]] ; then
         echo i did not found vim in "$vimpath"
+        return 1
+    else
+        return 0
     fi
 }
 
 ConfigureVim
+
+gvim()
+{
+    check_vim
+    if [[ $? -eq 0 ]] ; then
+        "$gvimexe" $*
+    fi
+}
+
+vim()
+{
+    check_vim
+    if [[ $? -eq 0 ]] ; then
+        "$vim" $*
+    fi
+}
