@@ -14,20 +14,21 @@ function _echo_help
 {
     if [ "$1" = "-h" ] || [ "$1" = "-help" ] || [ "$1" = "--help" ] ; then
         cat <<EOF
-a <tag_name> - Add the current directory as "tag_name"
-g <tag_name> - Go (cd) to the directory associated with "tag_name"
-p <tag_name> - Prints the directory associated with "tag_name"
-d <tag_name> - Deletes the item
-l            - Lists all items
+a - Add the current directory to the marks
+g - Go (cd) to the saved directory
+d - Deletes the directory item
+l - Lists all directory items
 EOF
         kill -SIGINT $$
     fi
 }
 
-function _bookmark_name_valid {
+function _bookmark_name_valid
+{
     error_message=""
     if [ -z $1 ]; then
         #echo "note:you have added an empty taged directory"
+        #for future develop
     elif [ "$1" != "$(echo $1 | sed 's/[^A-Za-z0-9_]//g')" ]; then
         error_message="bookmark name is not valid"
         echo $error_message
@@ -82,3 +83,18 @@ if [ $ZSH_VERSION ]; then
 else
     echo the script just support zsh
 fi
+
+_tab_complete_dirmark()
+{
+    if [[ -z $BUFFER || "$BUFFER" = "g " ]] ; then
+        BUFFER="g "
+        zle end-of-line
+        zle expand-or-complete
+        zle expand-or-complete
+        zle expand-or-complete
+    else
+        zle expand-or-complete
+    fi
+}
+zle -N _tab_complete_dirmark
+bindkey "\t" _tab_complete_dirmark
