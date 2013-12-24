@@ -24,3 +24,4 @@ SAVEHIST=1000000
 #
 
 source ~/.bashrc
+source ~/.sys.config/dirmark/zsh.sh
