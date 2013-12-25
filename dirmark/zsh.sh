@@ -16,8 +16,8 @@ function _echo_help
         cat <<EOF
 a - Add the current directory to the marks
 g - Go (cd) to the saved directory
-d - Deletes the directory item
-l - Lists all directory items
+p - Open the saved directory
+x - Deletes the directory item
 EOF
         kill -SIGINT $$
     fi
@@ -62,6 +62,16 @@ function g
     cd "$1"
 }
 
+function p
+{
+    cygstart "$1"
+}
+
+function x
+{
+    echo "delete not implemented $1"
+}
+
 # return all diretoires in cached
 function _l
 {
@@ -79,22 +89,38 @@ if [ $ZSH_VERSION ]; then
     compctl -K _compzsh a
     compctl -K _compzsh g
     compctl -K _compzsh p
-    compctl -K _compzsh d
+    compctl -K _compzsh x
 else
     echo the script just support zsh
 fi
 
+_3tabs()
+{
+    zle expand-or-complete
+    zle expand-or-complete
+    zle expand-or-complete
+}
+
 _tab_complete_dirmark()
 {
-    if [[ -z $BUFFER || "$BUFFER" = "g " ]] ; then
-        BUFFER="g "
-        zle end-of-line
-        zle expand-or-complete
-        zle expand-or-complete
-        zle expand-or-complete
-    else
-        zle expand-or-complete
-    fi
+    case $BUFFER in
+        "" )
+            BUFFER="g "
+            zle end-of-line
+            _3tabs
+            ;;
+        "g"|"p"|"x")
+            BUFFER="$BUFFER "
+            zle end-of-line
+            _3tabs
+            ;;
+        "g "|"p "|"x ")
+            _3tabs
+            ;;
+        * )
+            zle expand-or-complete
+            ;;
+    esac
 }
 zle -N _tab_complete_dirmark
 bindkey "\t" _tab_complete_dirmark
