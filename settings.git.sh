@@ -9,5 +9,9 @@ alias gb='git branch'
 alias gm='git merge'
 alias gd='git diff'
 alias gdc='git diff --color'
-alias gdv='git diff|gvim -R -'
 alias gdd='git difftool'
+
+function gdv()
+{
+    git diff "$*"|gvim -R -
+}
