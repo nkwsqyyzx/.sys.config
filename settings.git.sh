@@ -13,5 +13,9 @@ alias gdd='git difftool'
 
 function gdv()
 {
-    git diff "$*"|gvim -R -
+    if [[ -n "$1" ]] ; then
+        git diff "$*"|gvim -R -
+    else
+        git diff|gvim -R -
+    fi
 }
