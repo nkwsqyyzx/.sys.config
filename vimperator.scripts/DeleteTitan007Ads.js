@@ -36,6 +36,16 @@ commands.addUserCommand("DeleteTitan007Ads", "delete titan007 ads", function (ar
             a[i].remove();
         }
     }
+    $('[id^="Ad"]',d).each(function(){
+        $(this).remove();
+    });
+
+    $('a[target=_blank]',d).filter(function(){
+        var link = $(this).attr('href');
+        return link && !link.contains('007');
+    }).each(function(){
+        $(this).remove();
+    });
 });
 
 autocommands.add('DOMLoad', /live2\.titan007\.com/, 'DeleteTitan007Ads <tab>');
