@@ -52,4 +52,6 @@ autocommands.add('DOMLoad', /live2\.titan007\.com/, 'DeleteTitan007Ads <tab>');
 autocommands.add('PageLoad', /live2\.titan007\.com/, 'DeleteTitan007Ads <tab>');
 autocommands.add('DOMLoad', /news\.bet007\.com/, 'DeleteTitan007Ads <tab>');
 autocommands.add('PageLoad', /news\.bet007\.com/, 'DeleteTitan007Ads <tab>');
+autocommands.add('DOMLoad', /vip\.bet007\.com/, 'DeleteTitan007Ads <tab>');
+autocommands.add('PageLoad', /vip\.bet007\.com/, 'DeleteTitan007Ads <tab>');
 /* vim:se sts=4 sw=4 et: */
