@@ -19,3 +19,5 @@ Obj/
 Debug/
 Bin/
 bin/
+tags
+.settings
