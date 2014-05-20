@@ -21,3 +21,6 @@ Bin/
 bin/
 tags
 .settings
+*.apk
+lint.xml
+gen/
