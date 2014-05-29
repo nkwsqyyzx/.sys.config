@@ -3,6 +3,7 @@
 !.gitignore
 *.DS_Store
 *.apk
+*.db
 *.orig
 *.pyc
 *.suo
