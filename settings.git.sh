@@ -27,3 +27,8 @@ function gdv()
         git diff|gvim -R -
     fi
 }
+
+function editConfilicts()
+{
+    vim --remote-wait $(git status --short|grep ^UU|awk '{print $2}')
+}
