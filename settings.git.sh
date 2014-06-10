@@ -32,3 +32,18 @@ function editConfilicts()
 {
     vim --remote-wait $(git status --short|grep ^UU|awk '{print $2}')
 }
+
+function showConfilictsInRevesion()
+{
+    if [[ -n "$1" ]] ; then
+        echo "will show $*"
+    else
+        echo "you must specify a revision."
+        kill -INT $$
+    fi
+    git status --short|grep ^UU|awk '{print $2}'|while read -r file;
+    do
+        echo "file:$file in $*"
+        git show "$*:$file"
+    done
+}
