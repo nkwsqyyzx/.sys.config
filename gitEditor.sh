@@ -17,6 +17,9 @@ case $SYS_OS in
         source ~/.sys.config/ConfigureVim.sh
         gvim "$FILE_PATH"
         ;;
+    mac )
+        vim "$FILE_PATH"
+    ;;
     * )
         vim "$FILE_PATH"
         ;;
