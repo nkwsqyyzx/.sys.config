@@ -24,9 +24,9 @@
 [log]
     date = local
 [diff]
-    tool = sgdm
+    tool = diffmerge
 [difftool "diffmerge"]
-    cmd = sgdm $LOCAL $REMOTE
+    cmd = ~/.sys.config/diffmerge-diff.sh \"$LOCAL\" \"$REMOTE\"
     prompt = false
 [merge]
     tool = gvimdiff
@@ -45,3 +45,6 @@
     encoding = utf-8
 [push]
     default = current
+[mergetool "diffmerge"]
+    cmd = ~/.sys.config/diffmerge-merge.sh \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+    trustExitCode = true
