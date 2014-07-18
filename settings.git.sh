@@ -2,6 +2,7 @@
 alias ga='git add'
 alias gai='git add -i'
 alias gap='git add -p'
+alias gau='git add -u'
 alias gb='git branch'
 alias gc='git commit'
 alias gca='git commit -a'
@@ -28,9 +29,14 @@ function gdv()
     fi
 }
 
+function deleteNewFiles()
+{
+    git status --short|grep '^??'|awk '{print $2}'|xargs rm -rf
+}
+
 function editConfilicts()
 {
-    vim --remote-wait $(git status --short|grep ^UU|awk '{print $2}')
+    vim $(git status --short|grep ^UU|awk '{print $2}')
 }
 
 function showConfilictsInRevesion()
@@ -42,6 +48,21 @@ function showConfilictsInRevesion()
         kill -INT $$
     fi
     git status --short|grep ^UU|awk '{print $2}'|while read -r file;
+    do
+        echo "file:$file in $*"
+        git show "$*:$file"
+    done
+}
+
+function showModifiedFilesInRevesion()
+{
+    if [[ -n "$1" ]] ; then
+        echo "will show $*"
+    else
+        echo "you must specify a revision."
+        kill -INT $$
+    fi
+    git status --short|grep '^ M'|awk '{print $2}'|while read -r file;
     do
         echo "file:$file in $*"
         git show "$*:$file"
