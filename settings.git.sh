@@ -74,3 +74,48 @@ function showModifiedFilesInRevesion()
         git show "$*:$file"
     done
 }
+
+# copy lxf's scripts.
+function __cherry_pick_help()
+{
+	echo "Usage: git_cherry_pick_with_user <commit>..."
+}
+
+function __cherry_pick_single_commit()
+{
+	commit="$1"
+	committer="`git log --pretty=fuller -1 $1|grep 'Commit:'|sed 's/Commit: *//'`"
+	name="`echo $committer|sed 's/\(.*\) <.*/\1/'`"
+	email="`echo $committer|sed 's/[^<]*//'`"
+	date="`git log --pretty=fuller -1 $1|grep CommitDate|sed 's/CommitDate: *//'`"
+	echo "Picking $commit $name|$email|$date"
+	git config user.name "$name"
+	git config user.email "$email"
+	GIT_COMMITTER_DATE="$date" git cherry-pick "$commit"
+}
+
+function git_cherry_pick_with_user()
+{
+    case "$1" in
+    -h|--help)
+        __cherry_pick_help
+        ;;
+    *)
+        if [[ "$1" == "" ]]; then
+            __cherry_pick_help
+        else
+        while [[ $# -gt 0 ]]; do
+            commits="$1"
+            if [[ "$commits" =~ ".." ]]; then
+                for commit in `git rev-list --reverse "$commits"`; do
+                    __cherry_pick_single_commit "$commit"
+                done
+            else # Single commit.
+                __cherry_pick_single_commit "$commits"
+            fi
+            shift
+        done
+        fi
+        ;;
+    esac
+}
