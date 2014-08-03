@@ -84,10 +84,10 @@ function __cherry_pick_help()
 function __cherry_pick_single_commit()
 {
 	commit="$1"
-	committer="`git log --pretty=fuller -1 $1|grep 'Commit:'|sed 's/Commit: *//'`"
-	name="`echo $committer|sed 's/\(.*\) <.*/\1/'`"
-	email="`echo $committer|sed 's/[^<]*//'`"
-	date="`git log --pretty=fuller -1 $1|grep CommitDate|sed 's/CommitDate: *//'`"
+	committer="$(git log --pretty=fuller -1 $1|grep 'Commit:'|sed 's/Commit: *//')"
+	name="$(echo $committer|sed 's/\(.*\) <.*/\1/')"
+	email="$(echo $committer|sed 's/[^<]*//')"
+	date="$(git log --pretty=fuller -1 $1|grep CommitDate|sed 's/CommitDate: *//')"
 	echo "Picking $commit $name|$email|$date"
 	git config user.name "$name"
 	git config user.email "$email"
@@ -104,10 +104,12 @@ function git_cherry_pick_with_user()
         if [[ "$1" == "" ]]; then
             __cherry_pick_help
         else
+        oldName="$(git config user.name)"
+        oldEmail="$(git config user.email)"
         while [[ $# -gt 0 ]]; do
             commits="$1"
-            if [[ "$commits" =~ ".." ]]; then
-                for commit in `git rev-list --reverse "$commits"`; do
+            if [[ "$commits" =~ "\.\." ]]; then
+                for commit in $(git rev-list --reverse "$commits"); do
                     __cherry_pick_single_commit "$commit"
                 done
             else # Single commit.
@@ -115,6 +117,8 @@ function git_cherry_pick_with_user()
             fi
             shift
         done
+        git config user.name "$oldName"
+        git config user.email "$oldEmail"
         fi
         ;;
     esac
