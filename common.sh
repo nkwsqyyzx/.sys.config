@@ -16,6 +16,7 @@ _CONFIG_BASE=$HOME/.sys.config
 source $_CONFIG_BASE/settings.common.sh
 source $_CONFIG_BASE/settings.git.sh
 source $_CONFIG_BASE/settings.svn.sh
+source $_CONFIG_BASE/tool.function.sh
 
 # this script is wrote to detect system.
 source $_CONFIG_BASE/system.detect.sh
