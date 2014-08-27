@@ -12,3 +12,8 @@ function adblogcv
 {
     adb logcat -C -v time $ANDROIDPRO|LANG=C LC_CTYPE=C sed -n -e '/LSH:/p' -e '/AndroidRuntime/p'
 }
+
+function adblogv
+{
+    adb logcat -v time|LANG=C LC_CTYPE=C sed -n -e '/LSH:/p' -e '/AndroidRuntime/p'
+}
