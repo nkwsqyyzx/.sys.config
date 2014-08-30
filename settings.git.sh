@@ -108,7 +108,7 @@ function git_cherry_pick_with_user()
         oldEmail="$(git config user.email)"
         while [[ $# -gt 0 ]]; do
             commits="$1"
-            if [[ "$commits" =~ "\.\." ]]; then
+            if [[ -n $(echo "$commits"|grep "\.\.") ]]; then
                 for commit in $(git rev-list --reverse "$commits"); do
                     __cherry_pick_single_commit "$commit"
                 done
