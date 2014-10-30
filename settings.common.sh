@@ -47,3 +47,8 @@ function cl ()
         cd "$*" && ll
     fi
 }
+
+function mkcd ()
+{
+    mkdir -p "$@" && eval cd "\"\$$#\"";
+}
