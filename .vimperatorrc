@@ -21,3 +21,20 @@ set complete=tslS
 nnoremap U :undo<Space>
 nnoremap ,s :OpenWithHttps<CR>
 
+javascript <<EOF
+    /* 修改Google链接在新页面中打开，删除Google链接中的onmousedown事件 */
+    removeMouseDownEvent = function () {
+        let url = currentDoc.URL;
+        if (/www\.google\.com/.test(url)) {
+            $('a', currentDoc.activeElement).filter(function(){
+                return /^http/.test($(this).attr('href'));
+            }).each(function(){
+                $(this).attr('target', '_blank').removeAttr('onmousedown');
+            });
+        }
+    };
+EOF
+
+" 按F/f时调用函数处理google搜索结果
+nnoremap f :js removeMouseDownEvent()<CR>f
+nnoremap F :js removeMouseDownEvent()<CR>F
