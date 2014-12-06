@@ -13,6 +13,8 @@
 
 _CONFIG_BASE=$HOME/.sys.config
 
+export PATH=$PATH:"$_CONFIG_BASE/bin/"
+
 source $_CONFIG_BASE/settings.common.sh
 source $_CONFIG_BASE/settings.git.sh
 source $_CONFIG_BASE/settings.svn.sh
