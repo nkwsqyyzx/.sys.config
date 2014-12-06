@@ -101,6 +101,7 @@ else:
 
 def main():
     linebuf = StringIO.StringIO()
+    count = 0
     while True:
         try:
             line = input.readline()
@@ -151,6 +152,11 @@ def main():
             linebuf.truncate(0)
 
         print line
+        if len(line) == 0:
+            count = count + 1
+        if count > 3:
+            print('connection failed.')
+            break
 
 if __name__ == "__main__":
     main()
