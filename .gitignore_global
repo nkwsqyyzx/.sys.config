@@ -4,6 +4,7 @@
 *.DS_Store
 *.apk
 *.db
+*.db-journal
 *.pyc
 *.suo
 *.swo
