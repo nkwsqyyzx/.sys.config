@@ -24,9 +24,10 @@ nnoremap ,s :OpenWithHttps<CR>
 javascript <<EOF
     /* 修改Google链接在新页面中打开，删除Google链接中的onmousedown事件 */
     removeMouseDownEvent = function () {
-        let url = currentDoc.URL;
+        let doc = content.document;
+        let url = doc.location;
         if (/www\.google\.com/.test(url)) {
-            $('a', currentDoc.activeElement).filter(function(){
+            $('a', doc.activeElement).filter(function(){
                 return /^http/.test($(this).attr('href'));
             }).each(function(){
                 $(this).attr('target', '_blank').removeAttr('onmousedown');
