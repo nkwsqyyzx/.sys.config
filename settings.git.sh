@@ -20,11 +20,20 @@ alias grc='git rebase --continue'
 alias gra='git rebase --abort'
 alias gg='git lg'
 alias gs='git status'
+alias gss='git status --short'
 alias gsfrs='git stash;git fetch;git rebase;git stash pop;'
 alias gsp='git stash pop'
 alias gcp='git cherry-pick'
 alias gcpc='git cherry-pick --continue'
 alias gcpa='git cherry-pick --abort'
+
+function gom()
+{
+    git ls-files -m|while read -r file;
+    do
+        git checkout "$file";
+    done
+}
 
 function gdv()
 {
