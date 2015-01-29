@@ -87,48 +87,58 @@ function showModifiedFilesInRevesion()
 # copy lxf's scripts.
 function __cherry_pick_help()
 {
-	echo "Usage: git_cherry_pick_with_user <commit>..."
+	echo "Usage: git_cherry_pick_with_user [-n|--no-date] <commit>..."
 }
 
 function __cherry_pick_single_commit()
 {
-	commit="$1"
-	committer="$(git log --pretty=fuller -1 $1|grep 'Commit:'|sed 's/Commit: *//')"
+    nodate="$1"
+	commit="$2"
+	committer="$(git log --pretty=fuller -1 $commit|grep 'Commit:'|sed 's/Commit: *//')"
 	name="$(echo $committer|sed 's/\(.*\) <.*/\1/')"
 	email="$(echo $committer|sed 's/[^<]*//')"
-	date="$(git log --pretty=fuller -1 $1|grep CommitDate|sed 's/CommitDate: *//')"
+	date="$(git log --pretty=fuller -1 $commit|grep CommitDate|sed 's/CommitDate: *//')"
 	echo "Picking $commit $name|$email|$date"
+    oldName="$(git config user.name)"
+    oldEmail="$(git config user.email)"
 	git config user.name "$name"
 	git config user.email "$email"
-	GIT_COMMITTER_DATE="$date" git cherry-pick "$commit"
+    if [[ "$nodate" == "0" ]]; then
+	    GIT_COMMITTER_DATE="$date" git cherry-pick "$commit"
+    else
+        git cherry-pick "$commit"
+    fi
+    git config user.name "$oldName"
+    git config user.email "$oldEmail"
 }
 
 function git_cherry_pick_with_user()
 {
+    nodate="0"
     case "$1" in
     -h|--help)
         __cherry_pick_help
         ;;
-    *)
-        if [[ "$1" == "" ]]; then
-            __cherry_pick_help
-        else
-        oldName="$(git config user.name)"
-        oldEmail="$(git config user.email)"
-        while [[ $# -gt 0 ]]; do
-            commits="$1"
-            if [[ -n $(echo "$commits"|grep "\.\.") ]]; then
-                for commit in $(git rev-list --reverse "$commits"); do
-                    __cherry_pick_single_commit "$commit"
-                done
-            else # Single commit.
-                __cherry_pick_single_commit "$commits"
-            fi
-            shift
-        done
-        git config user.name "$oldName"
-        git config user.email "$oldEmail"
-        fi
+    -n|--no-date)
+        nodate="1"
+        shift
         ;;
+    *)
+    ;;
     esac
+    if [[ "$1" == "" ]]; then
+        __cherry_pick_help
+    else
+    while [[ $# -gt 0 ]]; do
+        commits="$1"
+        if [[ -n $(echo "$commits"|grep "\.\.") ]]; then
+            for commit in $(git rev-list --reverse "$commits"); do
+                __cherry_pick_single_commit $nodate "$commit"
+            done
+        else # Single commit.
+            __cherry_pick_single_commit $nodate "$commits"
+        fi
+        shift
+    done
+    fi
 }
