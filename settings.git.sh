@@ -46,7 +46,7 @@ function gdv()
 
 function deleteNewFiles()
 {
-    git status --short|grep '^??'|awk '{print $2}'|xargs rm -rf
+    git status --short|grep '^??'|cut -c 4-|while read -r file;do rm "$file";done
 }
 
 function editConfilicts()
