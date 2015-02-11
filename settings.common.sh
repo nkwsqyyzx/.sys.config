@@ -52,3 +52,10 @@ function mkcd ()
 {
     mkdir -p "$@" && eval cd "\"\$$#\"";
 }
+
+function sct()
+{
+    i=$1
+    if [[ $i -gt $(date +"%s")*100 ]]; then i=$i/1000; fi
+    sqlite3 "" "select datetime($i, 'unixepoch', 'localtime');" 2>>/dev/null | awk "/-------/{getline;print}"
+}
