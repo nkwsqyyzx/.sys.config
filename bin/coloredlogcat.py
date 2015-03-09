@@ -55,8 +55,6 @@ KNOWN_TAGS = {
     "AndroidRuntime": RED,
 }
 CARED_TAGS = ['AndroidRuntime', 'System.error']
-CARED_TAG_PREFIX = ""
-CARED_OTHER_MESSAGE = ""
 
 def cache_color_for_tag(tag):
     # this will allocate a unique format for the given tag
@@ -77,7 +75,7 @@ def cache_color_for_process(pid):
     return CACHED_PROCESS_COLOR[pid]
 
 TAGTYPE_WIDTH = 1
-TAG_WIDTH = 25
+TAG_WIDTH = 8
 PROCESS_WDITH = 5
 
 TAGTYPES = {
@@ -100,12 +98,20 @@ else:
     input = os.fdopen(sys.stdin.fileno(), 'r', 1)
 
 def main():
+    global TAG_WIDTH
     linebuf = StringIO.StringIO()
     count = 0
+    crashed = False
     while True:
         try:
             line = input.readline()
         except KeyboardInterrupt:
+            break
+
+        if len(line) == 0:
+            count = count + 1
+        if count > 3:
+            print('connection failed.')
             break
 
         match = retag.match(line)
@@ -113,23 +119,29 @@ def main():
             time, tagtype, tag, owner, message = match.groups()
 
             owner = owner.strip()
-            if owner in CACHED_PROCESS:
-                pass
-            elif CARED_TAG_PREFIX in tag:
-                CACHED_PROCESS.append(owner)
-            elif CARED_OTHER_MESSAGE in message:
-                pass
-            elif tag in KNOWN_TAGS:
-                pass
-            else:
-                continue
 
-            if CARED_TAG_PREFIX in tag:
-                pass
-            elif owner in CACHED_PROCESS and tag in CARED_TAGS:
+            if crashed and tag == 'AndroidRuntime':
                 pass
             else:
-                continue
+                if owner in CACHED_PROCESS:
+                    if SELF_DEFINED_PREFIX in tag:
+                        tag = tag[4:]
+                        pass
+                    elif not tag in CARED_TAGS:
+                        continue
+                elif SELF_DEFINED_PREFIX in tag:
+                    CACHED_PROCESS.append(owner)
+                    pass
+                elif CARED_OTHER_MESSAGE in message:
+                    pass
+                elif tag == 'AndroidRuntime' and 'FATAL' in message:
+                    crashed = True
+                    pass
+                else:
+                    crashed = False
+                    continue
+
+            TAG_WIDTH = max(len(tag), TAG_WIDTH)
 
             linebuf.write("%s%s%s" % (format(fg=YELLOW), time, format(reset=True)))
 
@@ -150,13 +162,16 @@ def main():
             linebuf.write(message)
             line = linebuf.getvalue()
             linebuf.truncate(0)
+        else:
+            continue
 
         print line
-        if len(line) == 0:
-            count = count + 1
-        if count > 3:
-            print('connection failed.')
-            break
+
+try:
+    from settings_local import *
+except ImportError:
+    print("you should define settings_local to configure your settings.")
+    exit()
 
 if __name__ == "__main__":
     main()
