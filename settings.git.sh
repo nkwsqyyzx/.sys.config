@@ -29,7 +29,7 @@ alias gcpa='git cherry-pick --abort'
 
 function gom()
 {
-    git ls-files -m|while read -r file;
+    git ls-files -m $*|while read -r file;
     do
         git checkout "$file";
     done
