@@ -48,3 +48,5 @@
 [mergetool "diffmerge"]
     cmd = ~/.sys.config/diffmerge-merge.sh \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
     trustExitCode = true
+[grep]
+	lineNumber = true
