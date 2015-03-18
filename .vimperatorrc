@@ -22,11 +22,22 @@ nnoremap U :undo<Space>
 nnoremap ,s :OpenWithHttps<CR>
 
 javascript <<EOF
+    googleURLCollection = [
+        /www\.google\.com/,
+        /www\.clonegoogle\.com/,
+    ];
+    function isGoogleSearch(url) {
+        for (i = 0; i < googleURLCollection.length; i++) {
+            if (googleURLCollection.get(i).test(url))
+                return true;
+        }
+        return false;
+    }
     /* 修改Google链接在新页面中打开，删除Google链接中的onmousedown事件 */
     removeMouseDownEvent = function () {
         let doc = content.document;
         let url = doc.location;
-        if (/www\.google\.com/.test(url)) {
+        if (isGoogleSearch(url)) {
             $('a', doc.activeElement).filter(function(){
                 return /^http/.test($(this).attr('href'));
             }).each(function(){
