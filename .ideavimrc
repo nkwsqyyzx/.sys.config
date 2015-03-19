@@ -1,0 +1,6 @@
+set number
+set ignorecase
+nmap / :action Find<CR>
+nmap n :action FindNext<CR>
+nmap <SPACE> <C-F>
+nmap <S-SPACE> <C-B>
