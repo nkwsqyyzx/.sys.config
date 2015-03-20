@@ -28,7 +28,7 @@ javascript <<EOF
     ];
     function isGoogleSearch(url) {
         for (i = 0; i < googleURLCollection.length; i++) {
-            if (googleURLCollection.get(i).test(url))
+            if (googleURLCollection[i].test(url))
                 return true;
         }
         return false;
