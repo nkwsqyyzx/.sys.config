@@ -13,7 +13,7 @@ def dig(word):
     found = False
     for div in soup.findAll('div', {'class':'\\"icIBahyI-group_pos\\"'}):
         for p in div.findAll('p'):
-            print(p.get_text())
+            print(p.get_text().encode('utf8'))
             found = True
 
     if not found:
