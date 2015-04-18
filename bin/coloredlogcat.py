@@ -20,7 +20,7 @@
 # written by jeff sharkey, http://jsharkey.org/
 # piping detection and popen() added by other android team members
 
-# modified by nkwsqyyzx, fell free to contact nk.wangshuanquan@gmail.com
+# modified by nkwsqyyzx, fell free to contact nk.wangshuangquan@gmail.com
 
 import os, sys, re, StringIO
 import fcntl, termios, struct
