@@ -72,22 +72,22 @@ def cache_color_for_tag(tag):
 def color_text(text, cor):
     return "%s%s%s" % (color.format(fg=cor), text, color.format(reset=True))
 
-def process_line(linebuf, line, check_process=True):
+def process_line(linebuf, line, ignore_tags, check_process=True):
     global TAG_WIDTH
     match = retag.match(line)
     if not match is None:
         time, tagtype, tag, owner, message = match.groups()
         owner = owner.strip()
-        if check_process and int(owner) not in CACHED_PROCESS:
-            return
         tag = tag.strip()
+        if (check_process and int(owner) not in CACHED_PROCESS) or tag in ignore_tags:
+            return
         TAG_WIDTH = max(len(tag), TAG_WIDTH)
         # write time
         linebuf.write(color_text(time, color.YELLOW))
         # write owner
-        linebuf.write(" ")
         proccess_color = cache_color_for_process(owner)
         linebuf.write(color_text(owner.rjust(PROCESS_WDITH), proccess_color))
+        linebuf.write(" ")
         tag_color = cache_color_for_tag(tag)
         tag = tag[-TAG_WIDTH:].rjust(TAG_WIDTH)
         linebuf.write(color_text(tag, tag_color))
@@ -98,9 +98,17 @@ def process_line(linebuf, line, check_process=True):
         linebuf.truncate(0)
         print(line)
 
+def array_argument_parser(option, opt, value, parser):
+    arr = getattr(parser.values, option.dest, None)
+    if not arr:
+        arr = []
+        setattr(parser.values, option.dest, arr)
+    arr.append(value)
+
 parser = OptionParser()
-parser.add_option("-p", "--package", dest="package", help="monitor ing package", metavar="package")
-parser.add_option("-a", "--all", action="store_true", dest="all_process", default=False, help="monitor all process")
+parser.add_option("-p", "--package", dest="package", metavar="package", help="monitor specified package")
+parser.add_option("-a", "--all", dest="all_process", action="store_true", default=False, metavar="package", help="monitor all process")
+parser.add_option('-i', '--ignore', dest="ignore_tags", type="string", action='callback', callback=array_argument_parser, metavar="tag", help="ignore specified tag")
 
 (options, args) = parser.parse_args()
 
@@ -117,6 +125,7 @@ def start_adb():
 if __name__ == "__main__":
     package = options.package
     all_process = options.all_process
+    ignore_tags = options.ignore_tags
     check_process = True
     if package:
         result = os.popen('adb shell ps|grep {0}|awk "{{print \$2,\$9}}"'.format(package)).readlines()
@@ -135,7 +144,12 @@ if __name__ == "__main__":
     else:
         check_process = False
 
+    if 0:
+        print(CACHED_PROCESS)
+        print(options)
+        exit()
+
     start_adb()
     linebuf = StringIO.StringIO()
     while True:
-        process_line(linebuf, input.readline(), check_process)
+        process_line(linebuf, input.readline(), ignore_tags, check_process)
