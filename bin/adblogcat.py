@@ -4,6 +4,7 @@ import os
 import re
 import StringIO
 import sys
+import time
 
 from optparse import OptionParser
 
@@ -149,7 +150,15 @@ if __name__ == "__main__":
         print(options)
         exit()
 
-    start_adb()
     linebuf = StringIO.StringIO()
     while True:
-        process_line(linebuf, input.readline(), ignore_tags, check_process)
+        start_adb()
+        count = 0
+        while True:
+            line = input.readline()
+            if not line or count >=5:
+                count += 1
+                print 'device unplugged.'
+                break
+            process_line(linebuf, line, ignore_tags, check_process)
+        time.sleep(10)
