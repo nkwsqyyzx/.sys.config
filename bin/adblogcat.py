@@ -106,6 +106,7 @@ def process_line(linebuf, line, options):
         linebuf.write(color_text(time, color.YELLOW))
         # write owner
         proccess_color = cache_color_for_process(owner)
+        linebuf.write(" ")
         linebuf.write(color_text(str(owner).rjust(PROCESS_WDITH), proccess_color))
         linebuf.write(" ")
         tag_color = cache_color_for_tag(tag)
