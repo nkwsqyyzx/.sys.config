@@ -128,7 +128,7 @@ def array_argument_parser(option, opt, value, parser):
 parser = OptionParser()
 parser.add_option("-p", "--package", dest="package", metavar="package", help="monitor specified package")
 parser.add_option("-a", "--all", dest="all_process", action="store_true", default=False, metavar="package", help="monitor all process")
-parser.add_option('-i', '--ignore', dest="ignore_tags", type="string", action='callback', callback=array_argument_parser, metavar="tag", help="ignore specified tag")
+parser.add_option('-i', '--ignore', dest="ignore_tags", type="string", action='callback', default=[], callback=array_argument_parser, metavar="tag", help="ignore specified tag")
 
 (options, args) = parser.parse_args()
 
