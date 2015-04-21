@@ -35,7 +35,7 @@ LATEST_USED_PROCESS_COLOR = [
 ]
 
 CACHED_PROCESS_COLOR = dict()
-CACHED_PROCESS = []
+CACHED_PROCESS = set()
 
 
 KNOWN_TAGS = {
@@ -73,21 +73,40 @@ def cache_color_for_tag(tag):
 def color_text(text, cor):
     return "%s%s%s" % (color.format(fg=cor), text, color.format(reset=True))
 
-def process_line(linebuf, line, ignore_tags, check_process=True):
+OLD_PROCESS = set()
+def process_line(linebuf, line, options):
     global TAG_WIDTH
     match = retag.match(line)
     if not match is None:
         time, tagtype, tag, owner, message = match.groups()
-        owner = owner.strip()
+        owner = int(owner.strip())
         tag = tag.strip()
-        if (check_process and int(owner) not in CACHED_PROCESS) or tag in ignore_tags:
+        if (options.package and owner not in CACHED_PROCESS):
+            if owner in OLD_PROCESS:
+                return
+            OLD_PROCESS.add(owner)
+            package = os.popen('adb shell ps|awk "\$2=={} {{print \$9}}"'.format(owner)).readlines()
+            if not package:
+                return
+            package = package[0].strip()
+            if options.all_process:
+                if package in options.package:
+                    CACHED_PROCESS.add(owner)
+                else:
+                    return
+            else:
+                if package == options.package:
+                    CACHED_PROCESS.add(owner)
+                else:
+                    return
+        if tag in options.ignore_tags:
             return
         TAG_WIDTH = max(len(tag), TAG_WIDTH)
         # write time
         linebuf.write(color_text(time, color.YELLOW))
         # write owner
         proccess_color = cache_color_for_process(owner)
-        linebuf.write(color_text(owner.rjust(PROCESS_WDITH), proccess_color))
+        linebuf.write(color_text(str(owner).rjust(PROCESS_WDITH), proccess_color))
         linebuf.write(" ")
         tag_color = cache_color_for_tag(tag)
         tag = tag[-TAG_WIDTH:].rjust(TAG_WIDTH)
@@ -127,7 +146,6 @@ if __name__ == "__main__":
     package = options.package
     all_process = options.all_process
     ignore_tags = options.ignore_tags
-    check_process = True
     if package:
         result = os.popen('adb shell ps|grep {0}|awk "{{print \$2,\$9}}"'.format(package)).readlines()
         if not result:
@@ -138,12 +156,10 @@ if __name__ == "__main__":
             if len(parts) < 2 or int(parts[0].strip()) <= 0 :
                 continue
             if not all_process and parts[1].strip() == package:
-                CACHED_PROCESS.append(int(parts[0].strip()))
+                CACHED_PROCESS.add(int(parts[0].strip()))
         if not CACHED_PROCESS:
             print("process {} not match in {}".format(color_text(package, color.RED), color_text(', '.join([p.split(' ')[1].strip() for p in result]), color.GREEN)))
             exit()
-    else:
-        check_process = False
 
     if 0:
         print(CACHED_PROCESS)
@@ -160,5 +176,5 @@ if __name__ == "__main__":
                 count += 1
                 print 'device unplugged.'
                 break
-            process_line(linebuf, line, ignore_tags, check_process)
+            process_line(linebuf, line, options)
         time.sleep(10)
