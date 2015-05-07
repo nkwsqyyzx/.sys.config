@@ -147,26 +147,6 @@ if __name__ == "__main__":
     package = options.package
     all_process = options.all_process
     ignore_tags = options.ignore_tags
-    if package:
-        result = os.popen('adb shell ps|grep {0}|awk "{{print \$2,\$9}}"'.format(package)).readlines()
-        if not result:
-            print("can't find any process match {}".format(color_text(package, color.RED)))
-            exit()
-        for line in result:
-            parts = line.split(' ')
-            if len(parts) < 2 or int(parts[0].strip()) <= 0 :
-                continue
-            if not all_process and parts[1].strip() == package:
-                CACHED_PROCESS.add(int(parts[0].strip()))
-        if not CACHED_PROCESS:
-            print("process {} not match in {}".format(color_text(package, color.RED), color_text(', '.join([p.split(' ')[1].strip() for p in result]), color.GREEN)))
-            exit()
-
-    if 0:
-        print(CACHED_PROCESS)
-        print(options)
-        exit()
-
     linebuf = StringIO.StringIO()
     while True:
         start_adb()
