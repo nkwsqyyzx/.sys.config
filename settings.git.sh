@@ -89,24 +89,24 @@ function showModifiedFilesInRevesion()
 # copy lxf's scripts.
 function __cherry_pick_help()
 {
-	echo "Usage: git_cherry_pick_with_user [-n|--no-date] <commit>..."
+    echo "Usage: git_cherry_pick_with_user [-n|--no-date] <commit>..."
 }
 
 function __cherry_pick_single_commit()
 {
     nodate="$1"
-	commit="$2"
-	committer="$(git log --pretty=fuller -1 $commit|grep 'Commit:'|sed 's/Commit: *//')"
-	name="$(echo $committer|sed 's/\(.*\) <.*/\1/')"
-	email="$(echo $committer|sed 's/[^<]*//')"
-	date="$(git log --pretty=fuller -1 $commit|grep CommitDate|sed 's/CommitDate: *//')"
-	echo "Picking $commit $name|$email|$date"
+    commit="$2"
+    committer="$(git log --pretty=fuller -1 $commit|grep 'Commit:'|sed 's/Commit: *//')"
+    name="$(echo $committer|sed 's/\(.*\) <.*/\1/')"
+    email="$(echo $committer|sed 's/[^<]*//')"
+    date="$(git log --pretty=fuller -1 $commit|grep CommitDate|sed 's/CommitDate: *//')"
+    echo "Picking $commit $name|$email|$date"
     oldName="$(git config user.name)"
     oldEmail="$(git config user.email)"
-	git config user.name "$name"
-	git config user.email "$email"
+    git config user.name "$name"
+    git config user.email "$email"
     if [[ "$nodate" == "0" ]]; then
-	    GIT_COMMITTER_DATE="$date" git cherry-pick "$commit"
+        GIT_COMMITTER_DATE="$date" git cherry-pick "$commit"
     else
         git cherry-pick "$commit"
     fi
