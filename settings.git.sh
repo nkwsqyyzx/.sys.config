@@ -21,6 +21,7 @@ alias gra='git rebase --abort'
 alias gg='git lg'
 alias gs='git status'
 alias gss='git status --short'
+alias gsr='git_recursive_status'
 alias gsfrs='git stash;git fetch;git rebase;git stash pop;'
 alias gsp='git stash pop'
 alias gcp='git cherry-pick'
@@ -141,5 +142,21 @@ function git_cherry_pick_with_user()
         fi
         shift
     done
+    fi
+}
+
+function git_recursive_status() {
+    current=$(git status --short)
+    if [[ -n $current ]];
+    then
+        pwd
+        git status --short
+    fi
+    if [[ -f .gitmodules ]];
+    then
+        cat .gitmodules|awk -F= '/path = /{print $2}'|while read dir;
+        do
+            (cd $dir;git_recursive_status)
+        done
     fi
 }
