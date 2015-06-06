@@ -3,6 +3,7 @@ alias ga='git add'
 alias gai='git add -i'
 alias gap='git add -p'
 alias gau='git add -u'
+alias gan='git_add_new_files'
 alias gb='git branch'
 alias gc='git commit'
 alias gca='git commit -a'
@@ -44,6 +45,11 @@ function gdv()
     else
         git diff|gvim -R -
     fi
+}
+
+function git_add_new_files()
+{
+    git status --short "$*"|grep '^??'|cut -c 4-|while read -r file;do git add "$file";done
 }
 
 function deleteNewFiles()
