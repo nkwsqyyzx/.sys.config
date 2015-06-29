@@ -50,6 +50,7 @@ TAGTYPES = {
     "I": "%s%s%s " % (color.format(fg=color.GREEN, bg=color.WHITE), "I".center(TAGTYPE_WIDTH), color.format(reset=True)),
     "W": "%s%s%s " % (color.format(fg=color.YELLOW, bg=color.WHITE), "W".center(TAGTYPE_WIDTH), color.format(reset=True)),
     "E": "%s%s%s " % (color.format(fg=color.RED, bg=color.WHITE), "E".center(TAGTYPE_WIDTH), color.format(reset=True)),
+    "F": "%s%s%s " % (color.format(fg=color.WHITE, bg=color.WHITE), "F".center(TAGTYPE_WIDTH), color.format(reset=True)),
 }
 
 def cache_color_for_process(pid):
