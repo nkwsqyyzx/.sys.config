@@ -27,3 +27,6 @@ obj/
 tags
 vundle
 xcuserdata
+local.properties
+.idea
+*.iml
