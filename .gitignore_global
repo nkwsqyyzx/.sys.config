@@ -30,3 +30,4 @@ xcuserdata
 local.properties
 .idea
 *.iml
+*.patch
