@@ -1,3 +1,15 @@
+# find file by name
+function fn
+{
+    if [[ "$#" -eq 1 ]]; then
+        find . -name "$1"
+    elif [[ "$#" -eq 2 ]]; then
+        find "$1" -name "$2"
+    else
+        echo "Useage:fn [DIRECTORY] <pattern>"
+    fi
+}
+
 function pulldb
 {
     for i in $(adb shell ls /data/data/$ANDROIDPRO/databases|dos2unix|grep '^message_\d\+\.db$');do adb pull "/data/data/$ANDROIDPRO/databases/$i";done
