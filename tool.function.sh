@@ -12,7 +12,12 @@ function fn
 
 function pulldb
 {
-    for i in $(adb shell ls /data/data/$ANDROIDPRO/databases|dos2unix|grep '^message_\d\+\.db$');do adb pull "/data/data/$ANDROIDPRO/databases/$i";done
+    adb shell ls /data/data|grep "$*"|dos2unix|while read package;do
+    (
+        files=$(adb shell ls /data/data/$package/databases/|dos2unix|grep db$)
+        [[ -n "$files" ]]  && echo "$files"|while read file;do adb pull /data/data/$package/databases/$file $package/$file;done
+    );
+    done
 }
 
 function pullLogAndDatabaseFromSD
