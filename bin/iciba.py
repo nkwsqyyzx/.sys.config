@@ -9,7 +9,7 @@ BASE_URL='http://open.iciba.com/huaci/dict.php?word='
 def dig(word):
     quote = urllib2.quote(word)
     html = urllib2.urlopen(BASE_URL + quote).readlines()
-    soup = bs4.BeautifulSoup(''.join(html))
+    soup = bs4.BeautifulSoup(''.join(html), "html.parser")
     found = False
     for div in soup.findAll('div', {'class':'\\"icIBahyI-group_pos\\"'}):
         for p in div.findAll('p'):
