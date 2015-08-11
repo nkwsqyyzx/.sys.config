@@ -10,6 +10,18 @@ function fn
     fi
 }
 
+# find file by file extension
+function fe
+{
+    if [[ "$#" -eq 1 ]]; then
+        find . -name "*.$1"
+    elif [[ "$#" -eq 2 ]]; then
+        find "$1" -name "*.$2"
+    else
+        echo "Useage:fe [DIRECTORY] <extension>"
+    fi
+}
+
 function pulldb
 {
     adb shell ls /data/data|grep "$*"|dos2unix|while read package;do
