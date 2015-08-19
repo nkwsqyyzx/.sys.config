@@ -60,16 +60,6 @@ function deletedb
     for i in $(adb shell ls /data/data/$ANDROIDPRO/databases|dos2unix|grep '^message_\d');do adb shell rm "/data/data/$ANDROIDPRO/databases/$i";done
 }
 
-function adblogcv
-{
-    adb logcat -C -v time $ANDROIDPRO|LANG=C LC_CTYPE=C sed -n -e '/LSH /p' -e '/AndroidRuntime/p' -e '/System.err/p' -e '/System.err.*Exception/p'
-}
-
-function adblogv
-{
-    adb logcat -v time|coloredlogcat.py
-}
-
 function useUSB() {
     export ANDROID_SERIAL=$(adb devices|awk '/device$/{print $1}'|grep -v ":5555")
 }
