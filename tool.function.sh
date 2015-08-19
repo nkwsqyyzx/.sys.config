@@ -32,14 +32,11 @@ function pulldb
     done
 }
 
-function pullLogAndDatabaseFromSD
-{
-    adb shell ls -al /sdcard/|dos2unix|grep '\b\<[0-9]\+\.\(log\|db\)$'|grep "$*"|while read -r line
+function pulllog() {
+    adb shell ls /sdcard/\*.log\|sed 's/^\/sdcard\///g'\|grep "$*"|dos2unix|while read -r line;
     do
-        file=$(echo $line|sed -e 's/  / /g' -e 's/^.*[0-9]\{4,4\}-[0-9: \-]\{12,12\}//g')
-        name=$(echo $line|sed -e 's/  / /g' -e 's/^.*\([0-9]\{4,4\}-[0-9: \-]\{11,11\}\) \([0-9]*\).\(.*\)/\2_\1.\3/g' -e 's/[- :]/_/g')
-        echo "pull $file as $name ..."
-        (adb pull /sdcard/"$file" "$name") && (adb shell rm "/sdcard/$file")
+        file="/sdcard/$line"
+        (adb pull "$file" "$line" && adb shell rm "$file")
     done
 }
 
