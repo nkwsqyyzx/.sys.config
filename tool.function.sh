@@ -72,3 +72,19 @@ function adblogv
 {
     adb logcat -v time|coloredlogcat.py
 }
+
+function useUSB() {
+    export ANDROID_SERIAL=$(adb devices|awk '/device$/{print $1}'|grep -v ":5555")
+}
+
+function usblogcat() {
+    (export ANDROID_SERIAL=$(adb devices|awk '/device$/{print $1}'|grep -v ":5555") && logcat "$*")
+}
+
+function useGenymotion() {
+    export ANDROID_SERIAL=$(adb devices|awk '/device$/{print $1}'|grep ":5555")
+}
+
+function genymotionlogcat() {
+    (export ANDROID_SERIAL=$(adb devices|awk '/device$/{print $1}'|grep ":5555") && logcat "$*")
+}
