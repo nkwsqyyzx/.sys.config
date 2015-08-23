@@ -75,3 +75,8 @@ function useGenymotion() {
 function genymotionlogcat() {
     (export ANDROID_SERIAL=$(adb devices|awk '/device$/{print $1}'|grep ":5555") && logcat "$*")
 }
+
+function syncAndroidDeviceTime() {
+    local time=$(date '+%G%m%d.%H%M%S')
+    adb shell "su 0 date -s $time"
+}
