@@ -57,7 +57,11 @@ function lsdcard
 
 function deletedb
 {
-    for i in $(adb shell ls /data/data/$ANDROIDPRO/databases|dos2unix|grep '^message_\d');do adb shell rm "/data/data/$ANDROIDPRO/databases/$i";done
+    [[ -z "$*" ]] && echo "must specify package pattern" && kill -INT $$
+    adb shell ls /data/data|grep "$*"|dos2unix|while read package;do
+        echo "remove $package's database."
+        adb shell rm -rf /data/data/$package/databases
+    done
 }
 
 function useUSB() {
