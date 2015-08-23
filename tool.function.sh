@@ -1,5 +1,5 @@
 # find file by name
-function fn
+function fn()
 {
     if [[ "$#" -eq 1 ]]; then
         find . -name "$1"
@@ -11,7 +11,7 @@ function fn
 }
 
 # find file by file extension
-function fe
+function fe()
 {
     if [[ "$#" -eq 1 ]]; then
         find . -name "*.$1"
@@ -22,7 +22,7 @@ function fe
     fi
 }
 
-function pulldb
+function pulldb()
 {
     adb shell ls /data/data|grep "$*"|dos2unix|while read package;do
     (
@@ -32,7 +32,8 @@ function pulldb
     done
 }
 
-function pulllog() {
+function pulllog()
+{
     adb shell ls /sdcard/\*.log\|sed 's/^\/sdcard\///g'\|grep "$*"|dos2unix|while read -r line;
     do
         file="/sdcard/$line"
@@ -40,7 +41,7 @@ function pulllog() {
     done
 }
 
-function deletelog
+function deletelog()
 {
     adb shell ls -al /sdcard/|dos2unix|grep '\b\<[0-9]\+\.\(log\|db\)$'|grep "$*"|while read -r line
     do
@@ -50,12 +51,12 @@ function deletelog
     done
 }
 
-function lsdcard
+function lsdcard()
 {
     adb shell ls -al /sdcard/|dos2unix|grep '\b\<[0-9]\+.\(log\|db\)$'
 }
 
-function deletedb
+function deletedb()
 {
     [[ -z "$*" ]] && echo "must specify package pattern" && kill -INT $$
     adb shell ls /data/data|grep "$*"|dos2unix|while read package;do
