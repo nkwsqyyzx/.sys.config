@@ -100,9 +100,16 @@ def process_line(linebuf, line, options):
                     CACHED_PROCESS.add(owner)
                 else:
                     return
+
+        if options.cared_tags:
+            if tag in options.cared_tags:
+                pass
+            else:
+                return
         if tag in options.ignore_tags:
             return
         TAG_WIDTH = max(len(tag), TAG_WIDTH)
+        linebuf.truncate(0)
         # write time
         linebuf.write(color_text(time, color.YELLOW))
         # write owner
@@ -117,7 +124,6 @@ def process_line(linebuf, line, options):
         linebuf.write(TAGTYPES[tagtype])
         linebuf.write(message)
         line = linebuf.getvalue()
-        linebuf.truncate(0)
         print(line)
 
 def array_argument_parser(option, opt, value, parser):
@@ -131,6 +137,7 @@ parser = OptionParser()
 parser.add_option("-p", "--package", dest="package", metavar="package", help="monitor specified package")
 parser.add_option("-a", "--all", dest="all_process", action="store_true", default=False, metavar="package", help="monitor all process")
 parser.add_option('-i', '--ignore', dest="ignore_tags", type="string", action='callback', default=[], callback=array_argument_parser, metavar="tag", help="ignore specified tag")
+parser.add_option('-c', '--cared', dest="cared_tags", type="string", action='callback', default=[], callback=array_argument_parser, metavar="tag", help="care only specified tag")
 
 (options, args) = parser.parse_args()
 
@@ -145,9 +152,6 @@ def start_adb():
         input = os.fdopen(sys.stdin.fileno(), 'r', 1)
 
 if __name__ == "__main__":
-    package = options.package
-    all_process = options.all_process
-    ignore_tags = options.ignore_tags
     linebuf = StringIO.StringIO()
     while True:
         start_adb()
