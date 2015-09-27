@@ -167,3 +167,7 @@ function git_recursive_status() {
         done
     fi
 }
+
+function git_show_modified_file_names() {
+    git ls-files -m "$*"
+}
