@@ -34,10 +34,11 @@ function pulldb()
 
 function pulllog()
 {
-    adb shell ls /sdcard/\*.log\|sed 's/^\/sdcard\///g'\|grep "$*"|dos2unix|while read -r line;
+    adb shell ls /sdcard/\*.log\|grep "$*"|dos2unix|while read -r line;
     do
-        file="/sdcard/$line"
-        (adb pull "$file" "$line" && adb shell rm "$file")
+        file="$line"
+        localFile=$(echo "$line"|sed 's/^\/sdcard\///g')
+        (adb pull "$file" "$localFile" && adb shell rm "$file")
     done
 }
 
