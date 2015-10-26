@@ -114,7 +114,7 @@ function __cherry_pick_single_commit()
     git config user.name "$name"
     git config user.email "$email"
     if [[ "$nodate" == "0" ]]; then
-        GIT_COMMITTER_DATE="$date" git cherry-pick "$commit"
+        GIT_AUTHOR_DATE="$date" && GIT_COMMITTER_DATE="$date" && git cherry-pick "$commit"
     else
         git cherry-pick "$commit"
     fi
