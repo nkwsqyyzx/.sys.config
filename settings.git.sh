@@ -10,6 +10,7 @@ alias gca='git commit -a'
 alias gd='git diff'
 alias gdt='git difftool'
 alias gdc='git diff --color'
+alias gdr='git_recursive_diff'
 alias gds='git diff --staged'
 alias gf='git fetch'
 alias gfr='git fetch;git rebase;'
@@ -170,4 +171,25 @@ function git_recursive_status() {
 
 function git_show_modified_file_names() {
     git ls-files -m "$*"
+}
+
+function git_recursive_diff() {
+    current=$(git status --short)
+    if [[ -n $current ]];
+    then
+        pwd
+        if [[ -n "$*" ]];
+        then
+            git diff "$*"
+        else
+            git diff
+        fi
+    fi
+    if [[ -f .gitmodules ]];
+    then
+        cat .gitmodules|awk -F= '/path = /{print $2}'|while read dir;
+        do
+            (cd $dir;git_recursive_diff "$*")
+        done
+    fi
 }
