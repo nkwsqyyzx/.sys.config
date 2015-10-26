@@ -1,10 +1,10 @@
 export PATH=$PATH:/usr/local/bin:/usr/bin:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/Program\ Files/Git/cmd:/usr/bin:/cygdrive/c/Program\ Files/Microsoft/Web\ Platform\ Installer:/cygdrive/c/Program\ Files/Microsoft\ ASP.NET/ASP.NET\ Web\ Pages/v1.0:/cygdrive/c/Program\ Files/Windows\ Kits/8.0/Windows\ Performance\ Toolkit:/cygdrive/c/Program\ Files/Microsoft\ SQL\ Server/110/Tools/Binn:/cygdrive/c/Program\ Files/TortoiseSVN/bin
 
+plugins=(git web-search bundler rake)
+
 ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="robbyrussell"
-
-plugin=(git)
 
 source $ZSH/oh-my-zsh.sh
 
