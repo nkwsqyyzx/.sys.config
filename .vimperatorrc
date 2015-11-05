@@ -18,6 +18,8 @@ map = +
 
 set complete=tslS
 
+set gui=nonavigation
+
 nnoremap U :undo<Space>
 nnoremap ,s :OpenWithHttps<CR>
 
