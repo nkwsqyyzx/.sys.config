@@ -14,10 +14,10 @@ function _echo_help
 {
     if [ "$1" = "-h" ] || [ "$1" = "-help" ] || [ "$1" = "--help" ] ; then
         cat <<EOF
-a - Add the current directory to the marks
-g - Go (cd) to the saved directory
-p - Open the saved directory
-x - Deletes the directory item
+A - Add the current directory to the marks
+G - Go (cd) to the saved directory
+P - Open the saved directory
+X - Deletes the directory item
 EOF
         kill -SIGINT $$
     fi
@@ -40,7 +40,7 @@ function _bookmark_name_valid
 
 _RESET
 # |tag|path
-function a
+function A
 {
     _echo_help $1
     _bookmark_name_valid "$@"
@@ -57,17 +57,17 @@ function a
     fi
 }
 
-function g
+function G
 {
     cd "$1"
 }
 
-function p
+function P
 {
     cygstart "$1"
 }
 
-function x
+function X
 {
     echo "delete not implemented $1"
 }
@@ -86,10 +86,10 @@ function _compzsh
 
 # bind completion command for g,p,d to _comp
 if [ $ZSH_VERSION ]; then
-    compctl -K _compzsh a
-    compctl -K _compzsh g
-    compctl -K _compzsh p
-    compctl -K _compzsh x
+    compctl -K _compzsh A
+    compctl -K _compzsh G
+    compctl -K _compzsh P
+    compctl -K _compzsh X
 else
     echo the script just support zsh
 fi
@@ -105,16 +105,16 @@ _tab_complete_dirmark()
 {
     case $BUFFER in
         "" )
-            BUFFER="g "
+            BUFFER="G "
             zle end-of-line
             _3tabs
             ;;
-        "g"|"p"|"x")
+        "G"|"P"|"X")
             BUFFER="$BUFFER "
             zle end-of-line
             _3tabs
             ;;
-        "g "|"p "|"x ")
+        "G "|"P "|"X ")
             _3tabs
             ;;
         * )
