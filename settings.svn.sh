@@ -22,3 +22,7 @@ do
     svn remove --keep-local --force "$file"
 done
 }
+svnrepourl()
+{
+    svn info "$*"| grep URL|sed -e s/URL:\ //g
+}
