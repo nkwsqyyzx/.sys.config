@@ -45,3 +45,6 @@ function ow()
         fi
     fi
 }
+
+BASEDIR=$(dirname $0)
+[[ -L "$BASEDIR"/bin/gvim ]] || (cd "$BASEDIR"/bin/;ln -s mac_vim_startup_script gvim)
