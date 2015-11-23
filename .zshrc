@@ -21,6 +21,8 @@ SAVEHIST=1000000
 # End of lines configured by zsh-newuser-install
 #
 
+rm -rf .zcompdump*
+
 source ~/.sys.config/common.sh
 source ~/.bashrc
 source ~/.sys.config/dirmark/zsh.sh
