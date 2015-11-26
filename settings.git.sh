@@ -193,3 +193,11 @@ function git_recursive_diff() {
         done
     fi
 }
+
+function git_svn_clone_from_branch_base() {
+    url="$*"
+    logs="$(svn log --stop-on-copy $url)"
+    revision="$(echo $logs|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
+    echo "cloning from $revision for $url"
+    git svn clone -r"$revision":HEAD "$url"
+}
