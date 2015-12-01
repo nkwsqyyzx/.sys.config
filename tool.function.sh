@@ -22,6 +22,18 @@ function fe()
     fi
 }
 
+# find & gvim file by file name pattern
+function gfe()
+{
+    if [[ "$#" -eq 1 ]]; then
+        find . -name "$1"|while read -r file;do (gvim --servername server --remote-tab-silent "$file");done
+    elif [[ "$#" -eq 2 ]]; then
+        find "$1" -name "$2"|while read -r file;do (gvim --servername server --remote-tab-silent "$file");done
+    else
+        echo "Useage:gfe [DIRECTORY] <pattern>"
+    fi
+}
+
 function pulldb()
 {
     adb shell ls /data/data|grep "$*"|dos2unix|while read package;do
