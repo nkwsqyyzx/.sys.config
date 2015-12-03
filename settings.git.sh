@@ -201,3 +201,35 @@ function git_svn_clone_from_branch_base() {
     echo "cloning from $revision for $url"
     git svn clone -r"$revision":HEAD "$url"
 }
+
+function git_svn_clone_from_last_10() {
+    url="$*"
+    logs="$(svn log -l 10 $url)"
+    revision="$(echo $logs|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
+    echo "cloning from $revision for $url"
+    git svn clone -r"$revision":HEAD "$url"
+}
+
+function git_svn_clone_from_last_20() {
+    url="$*"
+    logs="$(svn log -l 20 $url)"
+    revision="$(echo $logs|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
+    echo "cloning from $revision for $url"
+    git svn clone -r"$revision":HEAD "$url"
+}
+
+function git_svn_clone_from_last_50() {
+    url="$*"
+    logs="$(svn log -l 50 $url)"
+    revision="$(echo $logs|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
+    echo "cloning from $revision for $url"
+    git svn clone -r"$revision":HEAD "$url"
+}
+
+function git_svn_clone_from_last_100() {
+    url="$*"
+    logs="$(svn log -l 100 $url)"
+    revision="$(echo $logs|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
+    echo "cloning from $revision for $url"
+    git svn clone -r"$revision":HEAD "$url"
+}
