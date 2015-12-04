@@ -20,9 +20,8 @@ if [[ -f "$TMP_FILE" ]];then
     if [[ "$(system_profiler SPDisplaysDataType|grep -c Resolution)" -ne $(cat "$TMP_FILE") ]]; then
         defaults delete org.vim.MacVim MMTopLeftPoint
     fi
-else
-    system_profiler SPDisplaysDataType|grep -c Resolution > "$TMP_FILE"
 fi
+system_profiler SPDisplaysDataType|grep -c Resolution > "$TMP_FILE"
 
 if [ -z "$VIM_APP_DIR" ]
 then
