@@ -24,5 +24,4 @@ SAVEHIST=1000000
 rm -rf .zcompdump*
 
 source ~/.sys.config/common.sh
-source ~/.bashrc
 source ~/.sys.config/dirmark/zsh.sh
