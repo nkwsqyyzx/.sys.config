@@ -61,7 +61,7 @@ function deleteNewFiles()
 
 function editConfilicts()
 {
-    vim $(git status --short|grep ^UU|awk '{print $2}')
+    gvim $(git status --short|grep ^UU|awk '{print $2}')
 }
 
 function showConfilictsInRevesion()
