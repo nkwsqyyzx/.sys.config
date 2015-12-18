@@ -18,9 +18,9 @@ case $SYS_OS in
         gvim "$FILE_PATH"
         ;;
     mac )
-        vim "$FILE_PATH"
+        gvim -f "$FILE_PATH"
     ;;
     * )
-        vim "$FILE_PATH"
+        gvim -f "$FILE_PATH"
         ;;
 esac
