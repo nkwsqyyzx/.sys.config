@@ -33,3 +33,4 @@ local.properties
 *.patch
 .gradle
 build
+*.patch
