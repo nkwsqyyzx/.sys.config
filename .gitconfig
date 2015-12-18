@@ -28,6 +28,8 @@
 [difftool "diffmerge"]
     cmd = ~/.sys.config/diffmerge-diff.sh \"$LOCAL\" \"$REMOTE\"
     prompt = false
+[difftool "bc4"]
+    cmd = bcomp \"$LOCAL\" \"$REMOTE\"
 [merge]
     tool = gvimdiff
 [mergetool "gvimdiff"]
@@ -49,4 +51,16 @@
     cmd = ~/.sys.config/diffmerge-merge.sh \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
     trustExitCode = true
 [grep]
-	lineNumber = true
+    lineNumber = true
+[difftool]
+    prompt = false
+[mergetool "bc4"]
+    cmd = bcomp \"$LOCAL\" \"$REMOTE\"
+    trustExitCode = false
+[mergetool "p4mergetool"]
+    cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $PWD/$BASE $PWD/$REMOTE $PWD/$LOCAL $PWD/$MERGED
+    trustExitCode = false
+[mergetool]
+    keepBackup = false
+[difftool "p4mergetool"]
+    cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $LOCAL $REMOTE
