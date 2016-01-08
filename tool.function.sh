@@ -98,3 +98,9 @@ function syncAndroidDeviceTime() {
     local time=$(date '+%G%m%d.%H%M%S')
     adb shell "su 0 date -s $time"
 }
+
+function androidScreen() {
+    adb shell screencap -p /sdcard/androidScreen.png
+    adb pull /sdcard/androidScreen.png
+    adb shell rm /sdcard/androidScreen.png
+}
