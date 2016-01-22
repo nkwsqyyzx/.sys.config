@@ -75,6 +75,9 @@ def color_text(text, cor):
     return "%s%s%s" % (color.format(fg=cor), text, color.format(reset=True))
 
 def checkLog(options, owner, tag, message):
+    if options.new_process:
+        if owner in INITIAL_PROCESS:
+            return False
     if (options.package and owner not in CACHED_PROCESS):
         if owner in OLD_PROCESS:
             return False
@@ -104,6 +107,7 @@ def checkLog(options, owner, tag, message):
     return True
 
 OLD_PROCESS = set()
+INITIAL_PROCESS = set()
 def process_line(linebuf, line, options):
     global TAG_WIDTH
     match = retag.match(line)
@@ -141,6 +145,7 @@ def array_argument_parser(option, opt, value, parser):
 parser = OptionParser()
 parser.add_option("-p", "--package", dest="package", metavar="package", help="monitor specified package")
 parser.add_option("-a", "--all", dest="all_process", action="store_true", default=False, metavar="package", help="monitor all process")
+parser.add_option("-n", "--new_process", dest="new_process", action="store_true", default=False, metavar="package", help="see new process only.")
 parser.add_option('-i', '--ignore', dest="ignore_tags", type="string", action='callback', default=[], callback=array_argument_parser, metavar="tag", help="ignore specified tag")
 parser.add_option('-c', '--cared', dest="cared_tags", type="string", action='callback', default=[], callback=array_argument_parser, metavar="tag", help="care only specified tag")
 
@@ -149,6 +154,12 @@ parser.add_option('-c', '--cared', dest="cared_tags", type="string", action='cal
 input = None
 def start_adb():
     global input
+    if options.new_process:
+        pids = os.popen('adb shell ps|awk "{{print \$2}}"').readlines()
+        for pid in pids:
+            pid = pid.strip()
+            if 'PID' not in pid:
+                INITIAL_PROCESS.add(int(pid))
     if os.isatty(sys.stdin.fileno()):
         input = os.popen("adb logcat -v time")
     else:
