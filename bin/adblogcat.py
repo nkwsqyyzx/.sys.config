@@ -74,6 +74,35 @@ def cache_color_for_tag(tag):
 def color_text(text, cor):
     return "%s%s%s" % (color.format(fg=cor), text, color.format(reset=True))
 
+def checkLog(options, owner, tag, message):
+    if (options.package and owner not in CACHED_PROCESS):
+        if owner in OLD_PROCESS:
+            return False
+        OLD_PROCESS.add(owner)
+        package = os.popen('adb shell ps|awk "\$2=={} {{print \$9}}"'.format(owner)).readlines()
+        if not package:
+            return False
+        package = package[0].strip()
+        if options.all_process:
+            if package in options.package:
+                CACHED_PROCESS.add(owner)
+            else:
+                return False
+        else:
+            if package == options.package:
+                CACHED_PROCESS.add(owner)
+            else:
+                return False
+
+    if options.cared_tags:
+        if tag in options.cared_tags:
+            pass
+        else:
+            return False
+    if tag in options.ignore_tags:
+        return False
+    return True
+
 OLD_PROCESS = set()
 def process_line(linebuf, line, options):
     global TAG_WIDTH
@@ -82,31 +111,7 @@ def process_line(linebuf, line, options):
         time, tagtype, tag, owner, message = match.groups()
         owner = int(owner.strip())
         tag = tag.strip()
-        if (options.package and owner not in CACHED_PROCESS):
-            if owner in OLD_PROCESS:
-                return
-            OLD_PROCESS.add(owner)
-            package = os.popen('adb shell ps|awk "\$2=={} {{print \$9}}"'.format(owner)).readlines()
-            if not package:
-                return
-            package = package[0].strip()
-            if options.all_process:
-                if package in options.package:
-                    CACHED_PROCESS.add(owner)
-                else:
-                    return
-            else:
-                if package == options.package:
-                    CACHED_PROCESS.add(owner)
-                else:
-                    return
-
-        if options.cared_tags:
-            if tag in options.cared_tags:
-                pass
-            else:
-                return
-        if tag in options.ignore_tags:
+        if not checkLog(options, owner, tag, message):
             return
         TAG_WIDTH = max(len(tag), TAG_WIDTH)
         linebuf.truncate(0)
