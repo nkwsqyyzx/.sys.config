@@ -116,3 +116,14 @@ function up() {
         fi
     done
 }
+
+function kgitx() {
+    local pids=$(ps -A|grep GitX|grep -v grep|awk '{print $1}')
+    echo "$pids"|while read -r pid;
+    do
+        if [[ -n "$pid" ]]; then
+            kill -9 $pid
+        fi
+    done
+    gitx "$*"
+}
