@@ -117,7 +117,7 @@ def process_line(linebuf, line, options):
         tag = tag.strip()
         if not checkLog(options, owner, tag, message):
             return
-        TAG_WIDTH = max(len(tag), TAG_WIDTH)
+        TAG_WIDTH = min(max(len(tag), TAG_WIDTH), 25)
         linebuf.truncate(0)
         # write time
         linebuf.write(color_text(time, color.YELLOW))
