@@ -104,3 +104,15 @@ function androidScreen() {
     adb pull /sdcard/androidScreen.png
     adb shell rm /sdcard/androidScreen.png
 }
+
+function up() {
+    find . -d -name .git|while read -r type;
+    do
+        if [[ -n "$type" ]]; then
+            (cd "$type/.." ;
+            [[ -n "$(git config remote.origin.url)" ]] && git fetch
+            grep -c "svn-remote" ".git/config" 1>/dev/null 2>&1 && git svn fetch && git branch -f svn git-svn
+            )
+        fi
+    done
+}

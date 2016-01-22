@@ -1,6 +1,5 @@
 # good experience with svn.
 export SVN_EDITOR=vim
-alias up='svn up'
 alias st='svn st'
 alias sd='svn diff'
 alias sdv='svn diff|gvim -R -'
