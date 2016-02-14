@@ -32,16 +32,14 @@ alias gcpc='git cherry-pick --continue'
 alias gcpa='git cherry-pick --abort'
 alias cdsubmodule='GIT_ROOT=$(git rev-parse --show-toplevel 2>/dev/null) && [[ -n "$GIT_ROOT" ]] && [[ -f "$GIT_ROOT/.gitmodules" ]] && realpath=$(awk -F= "/path =/ {print substr(\$2, 2)}" "$GIT_ROOT/.gitmodules") && cd "$GIT_ROOT/$realpath"'
 
-function gom()
-{
+function gom() {
     git ls-files -m $*|while read -r file;
     do
         git checkout "$file";
     done
 }
 
-function gdv()
-{
+function gdv() {
     if [[ -n "$1" ]] ; then
         git diff "$*"|gvim -R -
     else
@@ -49,23 +47,19 @@ function gdv()
     fi
 }
 
-function git_add_new_files()
-{
+function git_add_new_files() {
     git status --short "$*"|grep '^??'|cut -c 4-|while read -r file;do git add "$file";done
 }
 
-function deleteNewFiles()
-{
+function deleteNewFiles() {
     git status --short "$*"|grep '^??'|cut -c 4-|while read -r file;do rm -rf "$file";done
 }
 
-function editConfilicts()
-{
+function editConfilicts() {
     gvim $(git status --short|grep ^UU|awk '{print $2}')
 }
 
-function showConfilictsInRevesion()
-{
+function showConfilictsInRevesion() {
     if [[ -n "$1" ]] ; then
         echo "will show $*"
     else
@@ -79,8 +73,7 @@ function showConfilictsInRevesion()
     done
 }
 
-function showModifiedFilesInRevesion()
-{
+function showModifiedFilesInRevesion() {
     if [[ -n "$1" ]] ; then
         echo "will show $*"
     else
@@ -95,13 +88,11 @@ function showModifiedFilesInRevesion()
 }
 
 # copy lxf's scripts.
-function __cherry_pick_help()
-{
+function __cherry_pick_help() {
     echo "Usage: git_cherry_pick_with_user [-n|--no-date] <commit>..."
 }
 
-function __cherry_pick_single_commit()
-{
+function __cherry_pick_single_commit() {
     nodate="$1"
     commit="$2"
     committer="$(git log --pretty=fuller -1 $commit|grep 'Commit:'|sed 's/Commit: *//')"
@@ -122,8 +113,7 @@ function __cherry_pick_single_commit()
     git config user.email "$oldEmail"
 }
 
-function git_cherry_pick_with_user()
-{
+function git_cherry_pick_with_user() {
     nodate="0"
     case "$1" in
     -h|--help)
@@ -232,4 +222,27 @@ function git_svn_clone_from_last_100() {
     revision="$(echo $logs|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
     echo "cloning from $revision for $url"
     git svn clone -r"$revision":HEAD "$url"
+}
+
+function up() {
+    find . -d -name .git|while read -r type;
+    do
+        if [[ -n "$type" ]]; then
+            (cd "$type/.." ;
+            [[ -n "$(git config remote.origin.url)" ]] && git fetch
+            grep -c "svn-remote" ".git/config" 1>/dev/null 2>&1 && git svn fetch && git branch -f svn git-svn
+            )
+        fi
+    done
+}
+
+function kgitx() {
+    local pids=$(ps -A|grep GitX|grep -v grep|awk '{print $1}')
+    echo "$pids"|while read -r pid;
+    do
+        if [[ -n "$pid" ]]; then
+            kill -9 $pid
+        fi
+    done
+    gitx "$*"
 }

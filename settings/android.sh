@@ -1,41 +1,4 @@
-# find file by name
-function fn()
-{
-    if [[ "$#" -eq 1 ]]; then
-        find . -name "$1"
-    elif [[ "$#" -eq 2 ]]; then
-        find "$1" -name "$2"
-    else
-        echo "Useage:fn [DIRECTORY] <pattern>"
-    fi
-}
-
-# find file by file extension
-function fe()
-{
-    if [[ "$#" -eq 1 ]]; then
-        find . -name "*.$1"
-    elif [[ "$#" -eq 2 ]]; then
-        find "$1" -name "*.$2"
-    else
-        echo "Useage:fe [DIRECTORY] <extension>"
-    fi
-}
-
-# find & gvim file by file name pattern
-function gfe()
-{
-    if [[ "$#" -eq 1 ]]; then
-        find . -name "$1"|while read -r file;do (gvimServer "$file");done
-    elif [[ "$#" -eq 2 ]]; then
-        find "$1" -name "$2"|while read -r file;do (gvimServer "$file");done
-    else
-        echo "Useage:gfe [DIRECTORY] <pattern>"
-    fi
-}
-
-function pulldb()
-{
+function pulldb() {
     adb shell ls /data/data|grep "$*"|dos2unix|while read package;do
     (
         files=$(adb shell ls /data/data/$package/databases/|dos2unix|grep db$)
@@ -44,8 +7,7 @@ function pulldb()
     done
 }
 
-function pulllog()
-{
+function pulllog() {
     adb shell ls /sdcard/\*.log\|grep "$*"|dos2unix|while read -r line;
     do
         file="$line"
@@ -54,8 +16,7 @@ function pulllog()
     done
 }
 
-function deletelog()
-{
+function deletelog() {
     adb shell ls -al /sdcard/|dos2unix|grep '\b\<[0-9]\+\.\(log\|db\)$'|grep "$*"|while read -r line
     do
         file=$(echo $line|sed -e 's/  / /g' -e 's/^.*[0-9]\{4,4\}-[0-9: \-]\{12,12\}//g')
@@ -64,13 +25,11 @@ function deletelog()
     done
 }
 
-function lsdcard()
-{
+function lsdcard() {
     adb shell ls -al /sdcard/|dos2unix|grep '\b\<[0-9]\+.\(log\|db\)$'
 }
 
-function deletedb()
-{
+function deletedb() {
     [[ -z "$*" ]] && echo "must specify package pattern" && kill -INT $$
     adb shell ls /data/data|grep "$*"|dos2unix|while read package;do
         echo "remove $package's database."
@@ -103,27 +62,4 @@ function androidScreen() {
     adb shell screencap -p /sdcard/androidScreen.png
     adb pull /sdcard/androidScreen.png
     adb shell rm /sdcard/androidScreen.png
-}
-
-function up() {
-    find . -d -name .git|while read -r type;
-    do
-        if [[ -n "$type" ]]; then
-            (cd "$type/.." ;
-            [[ -n "$(git config remote.origin.url)" ]] && git fetch
-            grep -c "svn-remote" ".git/config" 1>/dev/null 2>&1 && git svn fetch && git branch -f svn git-svn
-            )
-        fi
-    done
-}
-
-function kgitx() {
-    local pids=$(ps -A|grep GitX|grep -v grep|awk '{print $1}')
-    echo "$pids"|while read -r pid;
-    do
-        if [[ -n "$pid" ]]; then
-            kill -9 $pid
-        fi
-    done
-    gitx "$*"
 }
