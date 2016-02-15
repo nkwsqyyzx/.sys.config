@@ -24,6 +24,7 @@ alias gra='git rebase --abort'
 alias gg='git lg'
 alias gs='git status'
 alias gss='git status --short'
+alias gst='_git_show_commit_in_tool'
 alias gsr='git_recursive_status'
 alias gsfrs='git stash;git fetch;git rebase;git stash pop;'
 alias gsp='git stash pop'
@@ -222,6 +223,15 @@ function git_svn_clone_from_last_100() {
     revision="$(echo $logs|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
     echo "cloning from $revision for $url"
     git svn clone -r"$revision":HEAD "$url"
+}
+
+function _git_show_commit_in_tool() {
+    local commit="$1"
+    [[ -z "$commit" ]] && commit='HEAD'
+    shift
+    local tool="$1"
+    [[ -z "$tool" ]] && tool="$(git config diff.tool)"
+    git difftool --tool="$tool" "$commit" "$commit^"
 }
 
 function up() {
