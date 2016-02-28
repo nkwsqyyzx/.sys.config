@@ -1,6 +1,7 @@
 BASEDIR=$(dirname $0)
 ROOT="$BASEDIR"/settings/
 source "$ROOT"/android.sh
+source "$ROOT"/chinese_characters_adapter.sh
 source "$ROOT"/find.sh
 source "$ROOT"/git.sh
 source "$ROOT"/grep.sh
