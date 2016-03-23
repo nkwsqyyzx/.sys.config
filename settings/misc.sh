@@ -32,3 +32,17 @@ function column() {
         ;;
     esac
 }
+
+function add() {
+    case $# in
+        0)
+        awk '{sum+=$1} END {print sum}'
+        ;;
+        1)
+        awk -v c1=$1 '{sum+=$c1} END {print sum}'
+        ;;
+        *)
+            echo "Usage:add [column]"
+        ;;
+    esac
+}
