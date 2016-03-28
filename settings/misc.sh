@@ -46,3 +46,17 @@ function add() {
         ;;
     esac
 }
+
+function average() {
+    case $# in
+        0)
+        awk '{count+=1; sum+=$1} END {print sum/count}'
+        ;;
+        1)
+        awk -v c1=$1 '{count+=1; sum+=$c1} END {print sum/count}'
+        ;;
+        *)
+            echo "Usage:average [column]"
+        ;;
+    esac
+}
