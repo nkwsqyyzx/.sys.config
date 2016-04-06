@@ -158,8 +158,10 @@ def start_adb():
         pids = os.popen('adb shell ps|awk "{{print \$2}}"').readlines()
         for pid in pids:
             pid = pid.strip()
-            if 'PID' not in pid and 'deamon' not in pid:
+            try:
                 INITIAL_PROCESS.add(int(pid))
+            except ValueError:
+                pass
     if os.isatty(sys.stdin.fileno()):
         input = os.popen("adb logcat -v time")
     else:
