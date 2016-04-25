@@ -258,3 +258,16 @@ function kgitx() {
     done
     gitx "$*"
 }
+
+function git_merge_svn_from_to() {
+    local base="$2"
+    local from="$1"
+    [[ -z "$2" ]] && base="HEAD"
+    [[ -z "$1" ]] && from="trunk/svn"
+    last_merge_svn_version=$(git log --oneline --grep 'Merge trunk, ' "$base"|head -n 1|column 4)
+    [[ -z "$last_merge_svn_version" ]] && last_merge_svn_version="AAAAAAAAAAAAAAAAAAAAAAAA"
+    last_merge_commit_hash=$(git log --max-count=1 --grep "@$last_merge_svn_version " "$from^"|head -n 1|column 2)
+    [[ -z "$last_merge_commit_hash" ]] && last_merge_commit_hash="AAAAAAAAAAA"
+    latest_version=$(git log --max-count=1 "$from"|grep 'git-svn-id:'|awk -F'@' '{print $2}'|column 1)
+    [[ -n "$latest_version" ]] && git checkout "$from" && git reset "$last_merge_commit_hash" --soft && git commit --no-verify --author="TrunkMerger<>" -m"Merge trunk, $latest_version" && git rebase -i --onto "$base" HEAD~ HEAD
+}
