@@ -52,3 +52,5 @@ EOF
 " 按F/f时调用函数处理google搜索结果
 nnoremap f :js removeMouseDownEvent()<CR>f
 nnoremap F :js removeMouseDownEvent()<CR>F
+
+autocmd LocationChange .* js modes.passAllKeys = /(mail\.google\.com|google\.com\/reader)/.test(buffer.URL)
