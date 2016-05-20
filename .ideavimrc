@@ -1,6 +1,6 @@
 set number
+set relativenumber
 set ignorecase
-nmap / :action Find<CR>
-nmap n :action FindNext<CR>
-nmap <SPACE> <C-F>
-nmap <S-SPACE> <C-B>
+set incsearch
+map <SPACE> <C-F>
+map <S-SPACE> <C-B>
