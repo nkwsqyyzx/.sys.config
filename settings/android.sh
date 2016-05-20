@@ -38,19 +38,19 @@ function deletedb() {
 }
 
 function useUSB() {
-    export ANDROID_SERIAL=$(adb devices|awk '/device$/{print $1}'|grep -v ":5555")
+    export ANDROID_SERIAL=$(adb devices|awk '/device$/{print $1}'|grep -v -e ":5555" -v -e "emulator-")
 }
 
 function usblogcat() {
-    (export ANDROID_SERIAL=$(adb devices|awk '/device$/{print $1}'|grep -v ":5555") && logcat "$*")
+    (export ANDROID_SERIAL=$(adb devices|awk '/device$/{print $1}'|grep -v -e ":5555" -v -e "emulator-") && logcat "$*")
 }
 
 function useGenymotion() {
-    export ANDROID_SERIAL=$(adb devices|awk '/device$/{print $1}'|grep ":5555")
+    export ANDROID_SERIAL=$(adb devices|awk '/device$/{print $1}'|grep -e ":5555" -e "emulator-")
 }
 
 function genymotionlogcat() {
-    (export ANDROID_SERIAL=$(adb devices|awk '/device$/{print $1}'|grep ":5555") && logcat "$*")
+    (export ANDROID_SERIAL=$(adb devices|awk '/device$/{print $1}'grep -e ":5555" -e "emulator-") && logcat "$*")
 }
 
 function syncAndroidDeviceTime() {
