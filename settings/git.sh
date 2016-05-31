@@ -58,6 +58,10 @@ function deleteNewFiles() {
     git status --short "$*"|grep '^??'|cut -c 4-|while read -r file;do rm -rf "$file";done
 }
 
+function confilicts() {
+    git status --short|grep ^UU|awk '{print $2}'
+}
+
 function editConfilicts() {
     gvim $(git status --short|grep ^UU|awk '{print $2}')
 }
