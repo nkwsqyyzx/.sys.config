@@ -284,3 +284,13 @@ function git_get_svn_revision() {
     [[ -z "$1" ]] && from="HEAD"
     git log --max-count=1 "$from"|grep 'git-svn-id:'|awk -F'@' '{print $2}'|column 1
 }
+
+function git_get_last_merged_sha1() {
+    local from="$1"
+    [[ -z "$from" ]] && echo "from branch must be set" && kill -INT $$
+    local base="$2"
+    [[ -z "$base" ]] && base="HEAD"
+    last_merge_svn_version=$(git log --oneline --grep 'Merge trunk, ' "$base"|head -n 1|column 4)
+    [[ -z "$last_merge_svn_version" ]] && echo "last merge not found!" && kill -INT $$
+    git log "$from" --grep "@$last_merge_svn_version"|head -n 1|column 2
+}
