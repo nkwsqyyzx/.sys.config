@@ -3,6 +3,7 @@ alias ga='git add'
 alias gai='git add -i'
 alias gan='git_add_new_files'
 alias gap='git add -p'
+alias gar='git_add_resolved_files'
 alias gau='git add -u'
 alias gb='git branch'
 alias gc='git commit'
@@ -52,6 +53,10 @@ function gdv() {
 
 function git_add_new_files() {
     git status --short "$*"|grep '^??'|cut -c 4-|while read -r file;do git add "$file";done
+}
+
+function git_add_resolved_files() {
+    git status --short "$*"|awk '$1=="UU" {print $2}'|while read -r file;do ([[ -z "$(grep '<<<<<<< HEAD' $file)" ]] && (echo "Add $file" && git add "$file"));done
 }
 
 function deleteNewFiles() {
