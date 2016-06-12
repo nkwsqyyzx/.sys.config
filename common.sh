@@ -43,7 +43,7 @@ case $SYS_OS in
         source $_CONFIG_BASE/ConfigureVim.sh
         source $_CONFIG_BASE/platform.windows_common.sh
         # windows terminal encoding
-        source $_CONFIG_BASE/settings.locales.sh
+        source $_CONFIG_BASE/settings/locales.sh
         perfect
         ;;
 esac
