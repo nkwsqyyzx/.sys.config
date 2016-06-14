@@ -1,0 +1,25 @@
+yum -y install epel-release ; yum -y install sudo vim git gcc automake make prce-devel ncurses-devel libevent-devel openssl-devel fail2ban pptpd easy-rsa iptables-services
+
+cd
+git clone https://github.com/tmux/tmux
+cd tmux
+
+./autogen.sh && ./configure && make && make install
+
+cd
+git clone https://github.com/nginx/nginx
+cd nginx
+./auto/configure --with-http_ssl_module && make && make install && cd
+
+cd
+curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+python get-pip.py
+pip install --upgrade pip
+pip install shadowsocks
+
+
+cd
+git clone https://github.com/nkwsqyyzx/.sys.config
+echo "source ~/.sys.config/common.sh" >> .bashrc
+
+ssserver -p 8443 -k password -m rc4-md5
