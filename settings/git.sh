@@ -1,6 +1,7 @@
 # good experience with git.
 alias ga='git add'
 alias gai='git add -i'
+alias gam='git_add_modified_files'
 alias gan='git_add_new_files'
 alias gap='git add -p'
 alias gar='git_add_resolved_files'
@@ -49,6 +50,10 @@ function gdv() {
     else
         git diff|gvim -R -
     fi
+}
+
+function git_add_modified_files() {
+    git status --short "$*"|grep '^ M'|cut -c 4-|while read -r file;do git add "$file";done
 }
 
 function git_add_new_files() {
