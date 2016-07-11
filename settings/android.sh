@@ -63,3 +63,19 @@ function androidScreen() {
     adb pull /sdcard/androidScreen.png
     adb shell rm /sdcard/androidScreen.png
 }
+
+function device_proxy () {
+    file=""
+    if [[ "x$1" = "xon" ]]; then
+        file="/Users/baidu/.sys.config/bin/proxy_on"
+    elif [[ "x$1" = "xoff" ]]; then
+        file="/Users/baidu/.sys.config/bin/proxy_off"
+    fi
+    if [[ -z "$file" ]]; then
+        echo "Usage device_proxy [on|off]"
+        kill -INT $$
+    fi
+    adb shell svc wifi disable
+    adb push "$file" /data/misc/wifi/ipconfig.txt
+    adb shell svc wifi enable
+}
