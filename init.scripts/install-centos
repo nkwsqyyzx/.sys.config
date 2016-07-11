@@ -1,4 +1,4 @@
-yum -y install epel-release ; yum -y install sudo vim git gcc automake make prce-devel ncurses-devel libevent-devel openssl-devel fail2ban pptpd easy-rsa iptables-services
+yum -y install epel-release ; yum -y install sudo vim git gcc automake make prce-devel ncurses-devel libevent-devel openssl-devel fail2ban pptpd easy-rsa iptables-services libtool mysql-server wget
 
 cd
 git clone https://github.com/tmux/tmux
@@ -17,9 +17,13 @@ python get-pip.py
 pip install --upgrade pip
 pip install shadowsocks
 
-
 cd
 git clone https://github.com/nkwsqyyzx/.sys.config
 echo "source ~/.sys.config/common.sh" >> .bashrc
+echo "source ~/.sys.config/.zshrc" >> .zshrc
+
+cd
+git clone https://github.com/nkwsqyyzx/.vim --recursive
+ln -s .vim/.vimrc .vimrc
 
 ssserver -p 8443 -k password -m rc4-md5
