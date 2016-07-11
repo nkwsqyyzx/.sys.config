@@ -24,3 +24,5 @@ rm -rf .zcompdump*
 
 source ~/.sys.config/common.sh
 source ~/.sys.config/dirmark/zsh.sh
+
+alias xargs='nocorrect xargs'
