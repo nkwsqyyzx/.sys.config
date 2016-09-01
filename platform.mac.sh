@@ -7,29 +7,29 @@ export DIFFMERGE_EXE=/Applications/DiffMerge.app/Contents/MacOS/DiffMerge
 
 function proxy()
 {
-	case "$1" in
-	on)
-		sudo networksetup -setsocksfirewallproxystate Wi-Fi on
-		;;
-	off)
-		sudo networksetup -setsocksfirewallproxystate Wi-Fi off
-		;;
-	set)
-		local domain="$2"
-		local port="$3"
-		if [ -z "$domain" ] || [ -z "$port" ]; then
-			echo "Usage: proxy set domain port"
-		else
-			sudo networksetup -setsocksfirewallproxy Wi-Fi "$domain" "$port"
-		fi
-		;;
-	status|st)
-		networksetup -getsocksfirewallproxy Wi-Fi
-		;;
-	*)
-		echo "Usage: proxy {on|off|set|status}"
-		;;
-	esac
+    case "$1" in
+    on)
+        sudo networksetup -setsocksfirewallproxystate Wi-Fi on
+        ;;
+    off)
+        sudo networksetup -setsocksfirewallproxystate Wi-Fi off
+        ;;
+    set)
+        local domain="$2"
+        local port="$3"
+        if [ -z "$domain" ] || [ -z "$port" ]; then
+            echo "Usage: proxy set domain port"
+        else
+            sudo networksetup -setsocksfirewallproxy Wi-Fi "$domain" "$port"
+                fi
+                ;;
+    status|st)
+        networksetup -getsocksfirewallproxy Wi-Fi
+        ;;
+    *)
+        echo "Usage: proxy {on|off|set|status}"
+        ;;
+    esac
 }
 
 function ow()
