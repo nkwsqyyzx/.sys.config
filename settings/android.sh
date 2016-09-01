@@ -79,3 +79,7 @@ function device_proxy () {
     adb push "$file" /data/misc/wifi/ipconfig.txt
     adb shell svc wifi enable
 }
+
+function akill() {
+    adb shell ps\|grep "$1" | column 2| xargs adb shell kill
+}
