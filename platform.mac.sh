@@ -2,6 +2,7 @@ alias o='open'
 alias ou='open'
 alias ll='ls -alG'
 alias ip="ifconfig | sed -n -e '/127.0.0.1/d' -e '/inet /p'|awk '{print \$2}'"
+alias clearXcodeDerivedData='find ~/Library/Developer/Xcode/DerivedData -type d -mtime +10 -depth 1 | xargs rm -rf'
 
 export DIFFMERGE_EXE=/Applications/DiffMerge.app/Contents/MacOS/DiffMerge
 
