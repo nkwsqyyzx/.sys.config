@@ -65,14 +65,25 @@ function androidScreen() {
 }
 
 function device_proxy () {
+    BASEDIR="$HOME/.sys.config"
     file=""
+    [[ -d "$BASEDIR/bin" ]] || mkdir "$BASEDIR/bin"
     if [[ "x$1" = "xon" ]]; then
-        file="/Users/baidu/.sys.config/bin/proxy_on"
+        file="$BASEDIR/bin/proxy_on"
     elif [[ "x$1" = "xoff" ]]; then
-        file="/Users/baidu/.sys.config/bin/proxy_off"
+        file="$BASEDIR/bin/proxy_off"
+    elif [[ "x$1" = "xbackup" ]]; then
+        if [[ "x$2" == "xoff" ]]; then
+            file="$BASEDIR/bin/proxy_off"
+        else
+            file="$BASEDIR/bin/proxy_on"
+        fi
+        echo "backup device proxy settings to $file"
+        adb pull /data/misc/wifi/ipconfig.txt "$file"
+        return 0
     fi
     if [[ -z "$file" ]]; then
-        echo "Usage device_proxy [on|off]"
+        echo "Usage device_proxy [on|off|backup [on|off]]"
         kill -INT $$
     fi
     adb shell svc wifi disable
