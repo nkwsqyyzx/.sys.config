@@ -25,7 +25,7 @@ EOF
 
 function _bookmark_name_valid
 {
-    error_message=""
+    local error_message=""
     if [ -z $1 ]; then
         #echo "note:you have added an empty taged directory"
         #for future develop
@@ -45,8 +45,8 @@ function A
     _echo_help $1
     _bookmark_name_valid "$@"
     if [ -z "$error_message" ]; then
-        CURDIR=$(echo $PWD)
-        r=$(echo $Saved_DIRECTORIES | grep -e "^$CURDIR\$")
+        local CURDIR=$(echo $PWD)
+        local r=$(echo $Saved_DIRECTORIES | grep -e "^$CURDIR\$")
         if [ ! -z "$r" ] ; then
             echo found $CURDIR
         else

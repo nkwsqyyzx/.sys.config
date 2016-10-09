@@ -1,7 +1,7 @@
 function pulldb() {
     adb shell ls /data/data|grep "$*"|dos2unix|while read package;do
     (
-        files=$(adb shell ls /data/data/$package/databases/|dos2unix|grep db$)
+        local files=$(adb shell ls /data/data/$package/databases/|dos2unix|grep db$)
         [[ -n "$files" ]]  && echo "$files"|while read file;do adb pull /data/data/$package/databases/$file $package/$file;done
     );
     done
@@ -10,8 +10,8 @@ function pulldb() {
 function pulllog() {
     adb shell ls /sdcard/\*.log\|grep "$*"|dos2unix|while read -r line;
     do
-        file="$line"
-        localFile=$(echo "$line"|sed 's/^\/sdcard\///g')
+        local file="$line"
+        local localFile=$(echo "$line"|sed 's/^\/sdcard\///g')
         (adb pull "$file" "$localFile" && adb shell rm "$file")
     done
 }
@@ -19,7 +19,7 @@ function pulllog() {
 function deletelog() {
     adb shell ls -al /sdcard/|dos2unix|grep '\b\<[0-9]\+\.\(log\|db\)$'|grep "$*"|while read -r line
     do
-        file=$(echo $line|sed -e 's/  / /g' -e 's/^.*[0-9]\{4,4\}-[0-9: \-]\{12,12\}//g')
+        local file=$(echo $line|sed -e 's/  / /g' -e 's/^.*[0-9]\{4,4\}-[0-9: \-]\{12,12\}//g')
         echo "delete $file ..."
         adb shell rm "/sdcard/$file"
     done
@@ -65,8 +65,8 @@ function androidScreen() {
 }
 
 function device_proxy () {
-    BASEDIR="$HOME/.sys.config"
-    file=""
+    local BASEDIR="$HOME/.sys.config"
+    local file=""
     [[ -d "$BASEDIR/bin" ]] || mkdir "$BASEDIR/bin"
     if [[ "x$1" = "xon" ]]; then
         file="$BASEDIR/bin/proxy_on"

@@ -110,17 +110,17 @@ function __cherry_pick_help() {
 }
 
 function __cherry_pick_single_commit() {
-    nodate="$1"
-    commit="$2"
-    committer="$(git log --pretty=fuller -1 $commit|grep 'Commit:'|sed 's/Commit: *//')"
-    name="$(echo $committer|sed 's/\(.*\) <.*/\1/')"
-    email="$(echo $committer|sed 's/[^<]*//')"
-    date="$(git log --pretty=fuller -1 $commit|grep CommitDate|sed 's/CommitDate: *//')"
-    echo "Picking $commit $name|$email|$date"
-    oldName="$(git config user.name)"
-    oldEmail="$(git config user.email)"
+    local nodate="$1"
+    local commit="$2"
+    local committer="$(git log --pretty=fuller -1 $commit|grep 'Commit:'|sed 's/Commit: *//')"
+    local name="$(echo $committer|sed 's/\(.*\) <.*/\1/')"
+    local email="$(echo $committer|sed 's/[^<]*//')"
+    local date="$(git log --pretty=fuller -1 $commit|grep CommitDate|sed 's/CommitDate: *//')"
+    local oldName="$(git config user.name)"
+    local oldEmail="$(git config user.email)"
     git config user.name "$name"
     git config user.email "$email"
+    echo "Picking $commit $name|$email|$date"
     if [[ "$nodate" == "0" ]]; then
         GIT_AUTHOR_DATE="$date" && GIT_COMMITTER_DATE="$date" && git cherry-pick "$commit"
     else
@@ -131,7 +131,7 @@ function __cherry_pick_single_commit() {
 }
 
 function git_cherry_pick_with_user() {
-    nodate="0"
+    local nodate="0"
     case "$1" in
     -h|--help)
         __cherry_pick_help
@@ -147,7 +147,7 @@ function git_cherry_pick_with_user() {
         __cherry_pick_help
     else
     while [[ $# -gt 0 ]]; do
-        commits="$1"
+        local commits="$1"
         if [[ -n $(echo "$commits"|grep "\.\.") ]]; then
             for commit in $(git rev-list --reverse "$commits"); do
                 __cherry_pick_single_commit $nodate "$commit"
@@ -161,7 +161,7 @@ function git_cherry_pick_with_user() {
 }
 
 function git_recursive_status() {
-    current=$(git status --short)
+    local current=$(git status --short)
     if [[ -n $current ]];
     then
         pwd
@@ -181,7 +181,7 @@ function git_show_modified_file_names() {
 }
 
 function git_recursive_diff() {
-    current=$(git status --short)
+    local current=$(git status --short)
     if [[ -n $current ]];
     then
         pwd
@@ -206,36 +206,36 @@ function git_svn_current_dir_url() {
 }
 
 function git_svn_clone_from_branch_base() {
-    url="$*"
-    revision="$(svn log --stop-on-copy $url|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
+    local url="$*"
+    local revision="$(svn log --stop-on-copy $url|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
     echo "cloning from $revision for $url"
     git svn clone -r"$revision":HEAD "$url"
 }
 
 function git_svn_clone_from_last_10() {
-    url="$*"
-    revision="$(svn log -l 10 $url|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
+    local url="$*"
+    local revision="$(svn log -l 10 $url|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
     echo "cloning from $revision for $url"
     git svn clone -r"$revision":HEAD "$url"
 }
 
 function git_svn_clone_from_last_20() {
-    url="$*"
-    revision="$(svn log -l 20 $url|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
+    local url="$*"
+    local revision="$(svn log -l 20 $url|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
     echo "cloning from $revision for $url"
     git svn clone -r"$revision":HEAD "$url"
 }
 
 function git_svn_clone_from_last_50() {
-    url="$*"
-    revision="$(svn log -l 50 $url|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
+    local url="$*"
+    local revision="$(svn log -l 50 $url|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
     echo "cloning from $revision for $url"
     git svn clone -r"$revision":HEAD "$url"
 }
 
 function git_svn_clone_from_last_100() {
-    url="$*"
-    revision="$(svn log -l 100 $url|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
+    local url="$*"
+    local revision="$(svn log -l 100 $url|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
     echo "cloning from $revision for $url"
     git svn clone -r"$revision":HEAD "$url"
 }
@@ -277,7 +277,7 @@ function git_merge_svn_from_to() {
     local from="$1"
     [[ -z "$2" ]] && base="HEAD"
     [[ -z "$1" ]] && from="trunk/svn"
-    last_merge_svn_version=$(git log --oneline --grep 'Merge trunk, ' "$base"|head -n 1|column 4)
+    local last_merge_svn_version=$(git log --oneline --grep 'Merge trunk, ' "$base"|head -n 1|column 4)
     [[ -n "$last_merge_svn_version" ]] && last_merge_commit_hash=$(git log --max-count=1 --grep "@$last_merge_svn_version " "$from^"|head -n 1|column 2)
     [[ -n "$last_merge_commit_hash" ]] && latest_version=$(git log --max-count=1 "$from"|grep 'git-svn-id:'|awk -F'@' '{print $2}'|column 1)
     [[ -n "$latest_version" ]] && git checkout "$from" && git reset "$last_merge_commit_hash" --soft && git commit --no-verify --author="TrunkMerger<>" -m"Merge trunk, $latest_version" && git rebase -i --onto "$base" HEAD~ HEAD

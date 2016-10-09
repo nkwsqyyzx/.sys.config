@@ -55,7 +55,7 @@ function mkcd ()
 
 function sct()
 {
-    i=$1
+    local i=$1
     if [[ $i -gt $(date +"%s")*100 ]]; then i=$i/1000; fi
     sqlite3 "" "select datetime($i, 'unixepoch', 'localtime');" 2>>/dev/null | awk '/[0-9]+-/{print $0}'
 }
