@@ -207,40 +207,35 @@ function git_svn_current_dir_url() {
 
 function git_svn_clone_from_branch_base() {
     url="$*"
-    logs="$(svn log --stop-on-copy $url)"
-    revision="$(echo $logs|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
+    revision="$(svn log --stop-on-copy $url|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
     echo "cloning from $revision for $url"
     git svn clone -r"$revision":HEAD "$url"
 }
 
 function git_svn_clone_from_last_10() {
     url="$*"
-    logs="$(svn log -l 10 $url)"
-    revision="$(echo $logs|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
+    revision="$(svn log -l 10 $url|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
     echo "cloning from $revision for $url"
     git svn clone -r"$revision":HEAD "$url"
 }
 
 function git_svn_clone_from_last_20() {
     url="$*"
-    logs="$(svn log -l 20 $url)"
-    revision="$(echo $logs|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
+    revision="$(svn log -l 20 $url|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
     echo "cloning from $revision for $url"
     git svn clone -r"$revision":HEAD "$url"
 }
 
 function git_svn_clone_from_last_50() {
     url="$*"
-    logs="$(svn log -l 50 $url)"
-    revision="$(echo $logs|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
+    revision="$(svn log -l 50 $url|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
     echo "cloning from $revision for $url"
     git svn clone -r"$revision":HEAD "$url"
 }
 
 function git_svn_clone_from_last_100() {
     url="$*"
-    logs="$(svn log -l 100 $url)"
-    revision="$(echo $logs|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
+    revision="$(svn log -l 100 $url|awk -F\| '/^r[0-9]+/{print $ 1}'|tail -n 1|sed 's/r//'|sed 's/ //g')"
     echo "cloning from $revision for $url"
     git svn clone -r"$revision":HEAD "$url"
 }
