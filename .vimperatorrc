@@ -16,7 +16,7 @@ set hintchars=jksdflaghioweqprumnctyvbxz
 
 map = +
 
-set complete=tslS
+set complete=hbtlfsS
 
 set gui=nonavigation
 
