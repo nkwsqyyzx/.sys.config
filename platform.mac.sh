@@ -6,8 +6,7 @@ alias clearXcodeDerivedData='find ~/Library/Developer/Xcode/DerivedData -type d 
 
 export DIFFMERGE_EXE=/Applications/DiffMerge.app/Contents/MacOS/DiffMerge
 
-function proxy()
-{
+function proxy() {
     case "$1" in
     on)
         sudo networksetup -setsocksfirewallproxystate Wi-Fi on
@@ -33,13 +32,12 @@ function proxy()
     esac
 }
 
-function ow()
-{
+function ow() {
     if [[ -n "$@" ]]; then
         (cd "$@" && ow)
     else
         if ls *.xcodeproj 2>&1 1>/dev/null; then
-            for i in *.xcodeproj;open "$i"
+            for i in *.xcodeproj; do open "$i"; done
         else
             echo "ERROR, xcode project not exists in '$(pwd)' !"
             echo "Use this in xcode project directory or use 'ow <DIRECTORY>'"
