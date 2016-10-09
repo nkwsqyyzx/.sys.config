@@ -201,6 +201,10 @@ function git_recursive_diff() {
     fi
 }
 
+function git_svn_current_dir_url() {
+    git svn info | awk '/^URL: / {print $2}'
+}
+
 function git_svn_clone_from_branch_base() {
     url="$*"
     logs="$(svn log --stop-on-copy $url)"
