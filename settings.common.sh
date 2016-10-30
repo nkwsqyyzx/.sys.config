@@ -65,3 +65,6 @@ function gvimServer() {
     [[ -z "$server" ]] && server='idea_common'
     gvim --servername "$server" --remote-tab-silent "$*"
 }
+
+# the following commands are using to enhance the origin commands
+alias df='df -h'
