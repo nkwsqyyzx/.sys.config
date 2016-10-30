@@ -62,6 +62,6 @@ alias gvimdir='fzf --bind "enter:execute(gvim --servername idea_common --remote-
 
 function gvimServer() {
     local server=$(gvim --serverlist|grep -v VIM|head -1)
-    [[ -z "$server" ]] && server='SERVER'
+    [[ -z "$server" ]] && server='idea_common'
     gvim --servername "$server" --remote-tab-silent "$*"
 }
