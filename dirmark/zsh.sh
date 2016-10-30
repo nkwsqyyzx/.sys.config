@@ -5,13 +5,11 @@ DIRECTORIES=~/.DIRECTORIES
 touch "$DIRECTORIES"
 
 # load saved DIRECTORIES to memory
-function _RESET
-{
+function _RESET {
     export Saved_DIRECTORIES="$(cat "$DIRECTORIES")"
 }
 
-function _echo_help
-{
+function _echo_help {
     if [ "$1" = "-h" ] || [ "$1" = "-help" ] || [ "$1" = "--help" ] ; then
         cat <<EOF
 A - Add the current directory to the marks
@@ -23,8 +21,7 @@ EOF
     fi
 }
 
-function _bookmark_name_valid
-{
+function _bookmark_name_valid {
     local error_message=""
     if [ -z $1 ]; then
         #echo "note:you have added an empty taged directory"
@@ -40,8 +37,7 @@ function _bookmark_name_valid
 
 _RESET
 # |tag|path
-function A
-{
+function A {
     _echo_help $1
     _bookmark_name_valid "$@"
     if [ -z "$error_message" ]; then
@@ -57,30 +53,25 @@ function A
     fi
 }
 
-function G
-{
+function G {
     cd "$1"
 }
 
-function P
-{
+function P {
     cygstart "$1"
 }
 
-function X
-{
+function X {
     echo "delete not implemented $1"
 }
 
 # return all diretoires in cached
-function _l
-{
+function _l {
     echo $Saved_DIRECTORIES | cut -d'|' -f3
 }
 
 # ZSH completion command
-function _compzsh
-{
+function _compzsh {
     reply=("${(@f)$(_l)}")
 }
 

@@ -39,8 +39,7 @@ alias L='less -R'
 # http://www.oreillynet.com/onlamp/blog/2007/01/whats_in_your_bash_history.html
 # Compress the cd, ls -l series of commands.
 alias lc='cl'
-function cl ()
-{
+function cl () {
     if [ $# = 0 ]; then
         cd && ll
     else
@@ -48,13 +47,11 @@ function cl ()
     fi
 }
 
-function mkcd ()
-{
+function mkcd () {
     mkdir -p "$@" && eval cd "\"\$$#\"";
 }
 
-function sct()
-{
+function sct() {
     local i=$1
     if [[ $i -gt $(date +"%s")*100 ]]; then i=$i/1000; fi
     sqlite3 "" "select datetime($i, 'unixepoch', 'localtime');" 2>>/dev/null | awk '/[0-9]+-/{print $0}'
