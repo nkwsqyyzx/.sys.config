@@ -11,6 +11,7 @@ source $ZSH/oh-my-zsh.sh
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=** r:|=**'
 zstyle ':completion:*:*' ignored-patterns '*ORIG_HEAD'
+zstyle ':completion:*:*' ignored-patterns 'origin/HEAD'
 
 compinit -u
 # End of lines added by compinstall
