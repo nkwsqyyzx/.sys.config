@@ -7,5 +7,5 @@ source "$ROOT"/git.sh
 source "$ROOT"/grep.sh
 source "$ROOT"/locales.sh
 source "$ROOT"/misc.sh
-source "$ROOT"/nocorrect.sh
+[[ -n "$(echo $SHELL|grep zsh)" ]] && source "$ROOT"/nocorrect.sh
 source "$ROOT"/svn.sh
