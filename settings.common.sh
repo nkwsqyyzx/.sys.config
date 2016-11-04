@@ -8,7 +8,7 @@ export HISTFILESIZE=1000000000
 export HISTSIZE=1000000
 # append history
 
-if which shopt >/dev/null; then
+if which shopt >/dev/null 2>&1; then
     shopt -s histappend
 fi
 # after the command finish,append it
