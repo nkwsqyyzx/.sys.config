@@ -13,7 +13,7 @@
 # or by un-commenting and editing the following line:
 # VIM_APP_DIR=/Applications
 
-BASEDIR=$(dirname $0)
+BASEDIR="$_CONFIG_BASE/bin"
 TMP_FILE="$BASEDIR/.mac_vim_Displays"
 
 if [[ -f "$TMP_FILE" ]];then

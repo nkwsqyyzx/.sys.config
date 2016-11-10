@@ -11,7 +11,10 @@
 # usage: source ~/$_CONFIG_BASE/common.sh
 #"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-_CONFIG_BASE=$HOME/.sys.config
+[[ "$SHELL_TYPE" == "bash" ]] && ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+[[ "$SHELL_TYPE" == "zsh" ]] && ROOT="$(dirname $0)"
+
+export _CONFIG_BASE="$ROOT"
 
 export PATH=$PATH:"$_CONFIG_BASE/bin/"
 
