@@ -1,3 +1,4 @@
+export SHELL_TYPE=zsh
 plugins=(web-search bundler rake)
 
 ZSH=$HOME/.oh-my-zsh
