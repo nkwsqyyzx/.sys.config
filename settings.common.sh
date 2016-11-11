@@ -68,3 +68,10 @@ function gvimServer() {
 
 # the following commands are using to enhance the origin commands
 alias df='df -h'
+
+# autojump
+case $SYS_OS in
+    linux|mac )
+        source $HOME/.autojump/etc/profile.d/autojump.sh
+    ;;
+esac

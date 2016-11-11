@@ -16,13 +16,13 @@
 
 export _CONFIG_BASE="$ROOT"
 
+# this script is wrote to detect system.
+source $_CONFIG_BASE/system.detect.sh
+
 export PATH=$PATH:"$_CONFIG_BASE/bin/"
 
 source $_CONFIG_BASE/settings.common.sh
 source $_CONFIG_BASE/settings.all.sh
-
-# this script is wrote to detect system.
-source $_CONFIG_BASE/system.detect.sh
 
 # system dependent settings
 case $SYS_OS in
