@@ -60,3 +60,8 @@ function average() {
         ;;
     esac
 }
+
+function qr() {
+    local fname="$(date|sed 's/[^0-9]//g')"
+    qrcode '$1' > $fname.png && o $fname.png && (sleep 1 && rm $fname.png)
+}
