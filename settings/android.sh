@@ -70,6 +70,7 @@ function device_proxy () {
     [[ -d "$BASEDIR/bin" ]] || mkdir "$BASEDIR/bin"
     if [[ "x$1" = "xon" ]]; then
         file="$BASEDIR/bin/proxy_on"
+        [[ -f "$2" ]] && file="$2"
     elif [[ "x$1" = "xoff" ]]; then
         file="$BASEDIR/bin/proxy_off"
     elif [[ "x$1" = "xbackup" ]]; then
@@ -77,6 +78,7 @@ function device_proxy () {
             file="$BASEDIR/bin/proxy_off"
         else
             file="$BASEDIR/bin/proxy_on"
+            [[ -n "$3" ]] && file="$3"
         fi
         echo "backup device proxy settings to $file"
         adb pull /data/misc/wifi/ipconfig.txt "$file"
