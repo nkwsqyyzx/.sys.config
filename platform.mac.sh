@@ -46,3 +46,10 @@ function ow() {
 }
 
 [[ -L "$_CONFIG_BASE"/bin/gvim ]] || (cd "$_CONFIG_BASE"/bin/;ln -s mac_vim_startup_script gvim)
+
+function _qrcode() {
+    local fname="$(date|sed 's/[^0-9]//g')"
+    qrcode "$1" > $fname.png && o $fname.png && (sleep 1 && rm $fname.png)
+}
+
+alias qrcode='_qrcode'

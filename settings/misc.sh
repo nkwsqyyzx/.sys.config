@@ -61,7 +61,9 @@ function average() {
     esac
 }
 
-function qr() {
-    local fname="$(date|sed 's/[^0-9]//g')"
-    qrcode '$1' > $fname.png && o $fname.png && (sleep 1 && rm $fname.png)
+function setjdk() {
+    if [ $# -ne 0 ]; then
+        export JAVA_HOME=`/usr/libexec/java_home -v $@`
+        export PATH=$JAVA_HOME/bin:$PATH
+    fi
 }
