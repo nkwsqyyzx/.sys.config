@@ -254,7 +254,9 @@ function up() {
     do
         if [[ -n "$type" ]]; then
             (cd "$type/.." && pwd;
-            [[ -n "$(git config remote.origin.url)" ]] && git fetch
+            for i in $(/bin/ls .git/refs/remotes);do
+                [[ -d ".git/refs/remotes/$i" ]] && (git fetch $i || rm -rf .git/refs/remotes/$i)
+            done
             grep -c "svn-remote" ".git/config" 1>/dev/null 2>&1 && git svn fetch && git branch -f svn git-svn
             )
         fi
