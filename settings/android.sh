@@ -96,3 +96,13 @@ function device_proxy () {
 function akill() {
     adb shell ps\|grep "$1" | column 2| xargs adb shell kill
 }
+
+function apackagename() {
+    aapt dump badging "$1"|grep "^package:"|sed "s/ /_/g"|sed "s/'/ /g"|awk '{print $2}'
+}
+
+function ainstall() {
+    local fname="$(date|sed 's/[^0-9]//g')"
+    fname="$fname.apk"
+    wget -O "$fname" "$1" && (adb install -r "$fname" || (n=`apackagename $fname` && (echo "remove $n first!!!" && adb uninstall $n) && adb install $fname))
+}
