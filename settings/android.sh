@@ -58,10 +58,12 @@ function syncAndroidDeviceTime() {
     adb shell "su 0 date -s $time"
 }
 
-function androidScreen() {
-    adb shell screencap -p /sdcard/androidScreen.png
-    adb pull /sdcard/androidScreen.png
-    adb shell rm /sdcard/androidScreen.png
+function asnapshot() {
+    local fname="snapshot_$(date|sed 's/[^0-9]//g').png"
+    adb shell screencap -p /sdcard/asnapshot.png
+    adb pull /sdcard/asnapshot.png "$fname"
+    adb shell rm /sdcard/asnapshot.png
+    open "$fname"
 }
 
 function device_proxy () {
