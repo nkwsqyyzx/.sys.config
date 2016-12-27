@@ -37,7 +37,6 @@ LATEST_USED_PROCESS_COLOR = [
 CACHED_PROCESS_COLOR = dict()
 CACHED_PROCESS = set()
 
-
 KNOWN_TAGS = {
     "Process": color.BLUE,
     "System.err": color.GREEN,
@@ -52,6 +51,8 @@ TAGTYPES = {
     "E": "%s%s%s " % (color.format(fg=color.RED, bg=color.WHITE), "E".center(TAGTYPE_WIDTH), color.format(reset=True)),
     "F": "%s%s%s " % (color.format(fg=color.WHITE, bg=color.WHITE), "F".center(TAGTYPE_WIDTH), color.format(reset=True)),
 }
+
+MAX_PROCESS_ID = -1
 
 def cache_color_for_process(pid):
     if not pid in CACHED_PROCESS_COLOR:
@@ -104,6 +105,8 @@ def checkLog(options, owner, tag, message):
             return False
     if tag in options.ignore_tags:
         return False
+    if options.max_process > 0:
+        return owner > MAX_PROCESS_ID
     return True
 
 OLD_PROCESS = set()
@@ -148,12 +151,14 @@ parser.add_option("-a", "--all", dest="all_process", action="store_true", defaul
 parser.add_option("-n", "--new_process", dest="new_process", action="store_true", default=False, metavar="package", help="see new process only.")
 parser.add_option('-i', '--ignore', dest="ignore_tags", type="string", action='callback', default=[], callback=array_argument_parser, metavar="tag", help="ignore specified tag")
 parser.add_option('-c', '--cared', dest="cared_tags", type="string", action='callback', default=[], callback=array_argument_parser, metavar="tag", help="care only specified tag")
+parser.add_option('-m', '--max', dest="max_process", type="int", action='callback', default=0, callback=array_argument_parser, metavar="tag", help="1 to show log only got process id over with current max id")
 
 (options, args) = parser.parse_args()
 
 input = None
 def start_adb():
     global input
+    global MAX_PROCESS_ID
     if options.new_process:
         pids = os.popen('adb shell ps|awk "{{print \$2}}"').readlines()
         for pid in pids:
@@ -162,6 +167,16 @@ def start_adb():
                 INITIAL_PROCESS.add(int(pid))
             except ValueError:
                 pass
+    if options.max_process > 0:
+        pids = os.popen('adb shell ps|awk "{{print \$2}}"').readlines()
+        for pid in pids:
+            pid = pid.strip()
+            try:
+                MAX_PROCESS_ID = max(int(pid), MAX_PROCESS_ID)
+            except ValueError:
+                pass
+        print 'MAX_PROCESS_ID is ' + str(MAX_PROCESS_ID)
+
     if os.isatty(sys.stdin.fileno()):
         input = os.popen("adb logcat -v time")
     else:
