@@ -1,18 +1,19 @@
-# ignore and delete duplicate
-export HISTCONTROL=ignoreboth
-# ignore the following commands
-export HISTIGNORE="[ ]*:&:bg:fg:exit:history"
-# the filesize
-export HISTFILESIZE=1000000000
-# the history items count
-export HISTSIZE=1000000
-# append history
-
-if which shopt >/dev/null 2>&1; then
-    shopt -s histappend
+if [[ "$SHELL_TYPE" == "zsh" ]]; then
+    # ignore and delete duplicate
+    export HISTCONTROL=ignoreboth
+    # ignore the following commands
+    export HISTIGNORE="[ ]*:&:bg:fg:exit:history"
+    # the filesize
+    export HISTFILESIZE=1000000000
+    # the history items count
+    export HISTSIZE=1000000
+    # append history
+    if which shopt >/dev/null 2>&1; then
+        shopt -s histappend
+    fi
+    # after the command finish,append it
+    PROMPT_COMMAND="history -n;history -a;$PROMPT_COMMAND"
 fi
-# after the command finish,append it
-PROMPT_COMMAND="history -n;history -a;$PROMPT_COMMAND"
 
 # good experience with ls.
 alias la='ls -al'
