@@ -21,9 +21,20 @@ cd
 git clone https://github.com/nkwsqyyzx/.sys.config
 echo "source ~/.sys.config/common.sh" >> .bashrc
 echo "source ~/.sys.config/.zshrc" >> .zshrc
+ln -s ~/.sys.config/.tmux.conf .tmux.conf
+
+cd
+git clone git://github.com/joelthelion/autojump.git && cd autojump && ./install.py && cd .. && rm -rf autojump
 
 cd
 git clone https://github.com/nkwsqyyzx/.vim --recursive
 ln -s .vim/.vimrc .vimrc
 
+# shadowsocks
 ssserver -p 8443 -k password -m rc4-md5
+
+# libreswan only for centos7
+yum install -y nss-devel nspr-devel pkgconfig pam-devel libcap-ng-devel libselinux-devel curl-devel flex bison gcc make fipscheck-devel unbound-devel libevent-devel xmlto audit-libs-devel systemd-devel
+
+# wget https://raw.githubusercontent.com/hwdsl2/setup-ipsec-vpn/master/vpnsetup_centos.sh
+# edit vpnsetup_centos.sh and run
