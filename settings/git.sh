@@ -20,6 +20,7 @@ alias gdt='git difftool'
 alias gf='git fetch'
 alias gfr='git fetch;git rebase;'
 alias gg='git lg'
+alias ggerritpush='git_push_for_review'
 alias ggrep='git grep'
 alias glp='git log -p'
 alias gm='git merge'
@@ -299,4 +300,16 @@ function git_get_last_merged_sha1() {
     last_merge_svn_version=$(git log --oneline --grep 'Merge trunk, ' "$base"|head -n 1|column 4)
     [[ -z "$last_merge_svn_version" ]] && echo "last merge not found!" && kill -INT $$
     git log "$from" --grep "@$last_merge_svn_version"|head -n 1|column 2
+}
+
+function git_push_for_review() {
+    local origin="$1"
+    local branch="$2"
+    [[ -z "$origin" ]] && origin=origin
+    [[ -z "$branch" ]] && branch=$(git symbolic-ref --quiet HEAD) && branch=${branch#refs/heads/}
+    if [[ -n "$branch" ]]; then
+        git push "$origin" HEAD:refs/for/"$branch"
+    else
+        echo "no branch related" && kill -INT $$
+    fi
 }
