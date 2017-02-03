@@ -33,6 +33,9 @@ alias ogoogle='ou https://www.google.com.tw'
 alias oengoogle='ou https://www.google.com/ncr'
 alias oweibo='ou http://weibo.com'
 
+# disable this line if you still use emacs!
+alias emacs=vim
+
 # better less
 alias L='less -R'
 
