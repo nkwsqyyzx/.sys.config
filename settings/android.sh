@@ -61,6 +61,8 @@ function syncAndroidDeviceTime() {
 function asnapshot() {
     local fname="snapshot_$(date|sed 's/[^0-9]//g').png"
     adb shell screencap -p /sdcard/asnapshot.png
+    local file=$(adb shell "ls /sdcard/asnapshot.png 2>/dev/null")
+    [[ -z "$file" ]] && sleep 1 && adb shell screencap -p /sdcard/asnapshot.png
     adb pull /sdcard/asnapshot.png "$fname"
     adb shell rm /sdcard/asnapshot.png
     open "$fname"
