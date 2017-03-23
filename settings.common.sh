@@ -76,6 +76,6 @@ alias df='df -h'
 # autojump
 case $SYS_OS in
     linux|mac )
-        source $HOME/.autojump/etc/profile.d/autojump.sh
+        [[ -f "$HOME/.autojump/etc/profile.d/autojump.sh" ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
     ;;
 esac
