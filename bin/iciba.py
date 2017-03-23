@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!env python
 
 import bs4
 import urllib2
