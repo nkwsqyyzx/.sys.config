@@ -67,3 +67,13 @@ function setjdk() {
         export PATH=$JAVA_HOME/bin:$PATH
     fi
 }
+
+function vps_download() {
+    if [ $# -ne 2 ]; then
+        echo "Usage:vps_download user@your_own_vps your_url"
+        kill -INT $$
+    fi
+    local name=$(echo "$2" | sed "s/.*\///g")
+    ssh $1 -t "(cd /tmp;rm -rf $name;wget -O $name $2)"
+    scp $1:"/tmp/$name" "$name"
+}
