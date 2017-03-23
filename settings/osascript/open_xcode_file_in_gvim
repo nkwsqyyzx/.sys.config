@@ -1,0 +1,23 @@
+#!/usr/bin/osascript
+on run
+    set current_document_path to ""
+    tell application "Xcode"
+        if it is not running
+            return
+        end if
+        set last_word_in_main_window to (word -1 of (get name of window 1))
+        if (last_word_in_main_window is "Edited") then
+            activate application "Xcode"
+            tell application "System Events" to keystroke "s" using command down
+            set last_word_in_main_window to (word -1 of (get name of window 1))
+        end if
+        set last_word_in_main_window to (word -1 of (get name of window 1))
+        set current_document to document 1 whose name ends with last_word_in_main_window
+        set current_document_path to path of current_document
+        set l to selected character range of current_document
+        set o to first item of l
+    end tell
+    set cursor to quote & "+goto " & o + 1 & quote & " "
+    set target_script to "/usr/local/bin/gvim --remote-tab-silent " & cursor & current_document_path
+    do shell script target_script
+end run
