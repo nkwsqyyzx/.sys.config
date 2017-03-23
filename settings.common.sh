@@ -62,11 +62,11 @@ function sct() {
 }
 
 alias glpdir='fzf --bind "enter:execute(git log -p {})"'
-alias gvimdir='fzf --bind "enter:execute(gvim --servername idea_common --remote-tab-silent {})"'
+alias gvimdir='fzf --bind "enter:execute(gvim --remote-tab-silent {})"'
 
 function gvimServer() {
-    local server=$(gvim --serverlist|grep -v VIM|head -1)
-    [[ -z "$server" ]] && server='idea_common'
+    local server=$(gvim --serverlist|head -1)
+    [[ -z "$server" ]] && server='VIM'
     gvim --servername "$server" --remote-tab-silent "$*"
 }
 
