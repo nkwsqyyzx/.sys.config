@@ -13,6 +13,7 @@
     br = branch
     ca = commit -a
     ci = commit
+    cm = !git log -n 1 --pretty=tformat:%s%n%n%b|sed '/Change-Id:/d' | git commit -e -F -
     co = checkout
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue) <%an>%Creset' --abbrev-commit
     olg = log -p -1 --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue) <%an>%Creset' --abbrev-commit
