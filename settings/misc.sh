@@ -77,3 +77,23 @@ function vps_download() {
     ssh $1 -t "(cd /tmp;rm -rf $name;wget -O $name $2)"
     scp $1:"/tmp/$name" "$name"
 }
+
+function base64_decode() {
+    if [ $# -ne 1 ]; then
+        echo "Usage:base64_decode your_base64_encoded_string"
+        kill -INT $$
+    fi
+    if which jq 1>/dev/null; then
+        python -m base64 -d <<<"$1" | jq .
+    else
+        python -m base64 -d <<<"$1"
+    fi
+}
+
+function base64_encode() {
+    if [ $# -ne 1 ]; then
+        echo "Usage:base64_encode your_string"
+        kill -INT $$
+    fi
+    python -m base64 <<<"$1"
+}
