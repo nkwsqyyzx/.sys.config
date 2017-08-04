@@ -78,6 +78,26 @@ function vps_download() {
     scp $1:"/tmp/$name" "$name"
 }
 
+function url_encode() {
+    python3 <(cat <<'EOF'
+import sys
+import urllib.parse
+
+print(urllib.parse.quote(sys.argv[1]))
+EOF
+) $*
+}
+
+function url_decode() {
+    python3 <(cat <<'EOF'
+import sys
+import urllib.parse
+
+print(urllib.parse.unquote(sys.argv[1]))
+EOF
+) $*
+}
+
 function base64_decode() {
     if [ $# -ne 1 ]; then
         echo "Usage:base64_decode your_base64_encoded_string"
