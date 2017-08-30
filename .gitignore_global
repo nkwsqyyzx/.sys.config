@@ -5,6 +5,9 @@
 *.apk
 *.db
 *.db-journal
+*.iml
+*.info
+*.patch
 *.pyc
 *.suo
 *.swo
@@ -14,6 +17,8 @@
 *.usr
 *.xcodeproj/
 *~
+.gradle
+.idea
 .ropeproject
 .settings
 .svn
@@ -21,16 +26,11 @@ Bin/
 Debug/
 Obj/
 bin/
+build
 gen/
 lint.xml
+local.properties
 obj/
 tags
 vundle
 xcuserdata
-local.properties
-.idea
-*.iml
-*.patch
-.gradle
-build
-*.patch
