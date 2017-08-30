@@ -41,8 +41,32 @@ function add() {
         1)
         awk -v c1=$1 '{sum+=$c1} END {print sum}'
         ;;
+        2)
+        awk -v c1=$1 -v c2=$2 '{s1+=$c1; s2+=$c2} END {print s1, s2}'
+        ;;
+        3)
+        awk -v c1=$1 -v c2=$2 -v c3=$3 '{s1+=$c1; s2+=$c2; s3+=$c3} END {print s1, s2, s3}'
+        ;;
+        4)
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 '{s1+=$c1; s2+=$c2; s3+=$c3; s4+=$c4} END {print s1, s2, s3, s4}'
+        ;;
+        5)
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 '{s1+=$c1; s2+=$c2; s3+=$c3; s4+=$c4; s5+=$c5} END {print s1, s2, s3, s4, s5}'
+        ;;
+        6)
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c5=$5 '{s1+=$c1; s2+=$c2; s3+=$c3; s4+=$c4; s5+=$c5; s6+=$c6} END {print s1, s2, s3, s4, s5, s6}'
+        ;;
+        7)
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 '{s1+=$c1; s2+=$c2; s3+=$c3; s4+=$c4; s5+=$c5; s6+=$c6; s7+=$c7} END {print s1, s2, s3, s4, s5, s6, s7}'
+        ;;
+        8)
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 -v c8=$8 '{s1+=$c1; s2+=$c2; s3+=$c3; s4+=$c4; s5+=$c5; s6+=$c6; s7+=$c7; s8+=$c8} END {print $s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8}'
+        ;;
+        9)
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 -v c8=$8 -v c9=$9 '{s1+=$c1; s2+=$c2; s3+=$c3; s4+=$c4; s5+=$c5; s6+=$c6; s7+=$c7; s8+=$c8; s9+=$c9} END {print $s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9}'
+        ;;
         *)
-            echo "Usage:add [column]"
+        echo "Usage:add [column1] [column2] [column3] [column4] [column5]"
         ;;
     esac
 }
