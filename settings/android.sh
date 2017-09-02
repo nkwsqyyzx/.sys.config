@@ -106,7 +106,11 @@ function apackagename() {
 }
 
 function ainstall() {
-    local fname="$(date|sed 's/[^0-9]//g')"
-    fname="$fname.apk"
-    wget -O "$fname" "$1" && ([[ -n "$(adb install -r $fname|grep '^Failure')" ]] && (n=`apackagename $fname` && (echo "remove $n first!!!" && adb uninstall $n) && adb install $fname))
+    if [[ -f "$1" ]]; then
+        local fname="$1"
+    else
+        local fname="$(date|sed 's/[^0-9]//g').apk"
+        wget -O "$fname" "$1"
+    fi
+    ([[ -n "$(adb install -r $fname|grep '^Failure')" ]] && (n=`apackagename $fname` && (echo "remove $n first!!!" && adb uninstall $n) && adb install $fname))
 }
