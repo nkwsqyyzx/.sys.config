@@ -141,3 +141,9 @@ function base64_encode() {
     fi
     python -m base64 <<<"$1"
 }
+
+function pji() {
+    local fname="$(date|sed 's/[^0-9]//g')"
+    fname="$fname.backup"
+    pj "$1" >"$fname" && mv "$fname" "$1"
+}
