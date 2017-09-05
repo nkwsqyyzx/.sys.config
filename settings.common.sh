@@ -75,7 +75,14 @@ alias df='df -h'
 
 # autojump
 case $SYS_OS in
-    linux|mac )
+    linux)
         [[ -f "$HOME/.autojump/etc/profile.d/autojump.sh" ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
+    ;;
+    mac)
+        if [[ -f "$HOME"/.autojump/etc/profile.d/autojump.sh ]]; then
+            source "$HOME"/.autojump/etc/profile.d/autojump.sh
+        elif [[ -f "$(brew --prefix)"/etc/profile.d/autojump.sh ]]; then
+            source "$(brew --prefix)"/etc/profile.d/autojump.sh
+        fi
     ;;
 esac
