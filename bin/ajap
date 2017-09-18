@@ -1,0 +1,42 @@
+#!env python3
+import fileinput
+import json
+import sys
+
+
+def ajap(root):
+    """
+    json a string as much as possible
+    """
+    if not root or not isinstance(root, dict):
+        return
+    for k in root:
+        v = root[k]
+        if isinstance(v, str):
+            try:
+                j = json.loads(v, encoding='unicode')
+                ajap(j)
+                root[k] = j
+            except Exception:
+                pass
+        elif isinstance(v, dict):
+            ajap(v)
+        elif isinstance(v, list):
+            for (index, value) in enumerate(v):
+                ajap(value)
+                v[index] = value
+        else:
+            pass
+
+
+if __name__ == '__main__':
+    data = None
+    if len(sys.argv) > 1:
+        with open(sys.argv[1]) as f:
+            data = f.read()
+    else:
+        data = ''.join(fileinput.input())
+    if data:
+        root = json.loads(data, encoding='utf-8')
+        ajap(root)
+        print(json.dumps(root, ensure_ascii=False, indent=4))
