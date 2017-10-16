@@ -8,3 +8,4 @@ source "$ROOT"/locales.sh
 source "$ROOT"/misc.sh
 [[ "$SHELL_TYPE" == "zsh" ]] && source "$ROOT"/nocorrect.sh
 source "$ROOT"/svn.sh
+source "$ROOT"/aliases.sh
