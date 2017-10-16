@@ -31,5 +31,3 @@ alias gvimdir='fzf --bind "enter:execute(gvim --remote-tab-silent {})"'
 alias df='df -h'
 
 alias lc='cl'
-
-alias tail='tail -F --retry'
