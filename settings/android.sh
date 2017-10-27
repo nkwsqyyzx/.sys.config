@@ -114,3 +114,7 @@ function ainstall() {
     fi
     ([[ -n "$(adb install -r $fname|grep '^Failure')" ]] && (n=`apackagename $fname` && (echo "remove $n first!!!" && adb uninstall $n) && adb install $fname))
 }
+
+function ainput() {
+    adb shell input text "$*"
+}
