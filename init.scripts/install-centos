@@ -32,6 +32,8 @@ ln -s .vim/.vimrc .vimrc
 
 # open port for shadowsocks
 firewall-cmd --zone=public --add-port=8443/tcp --permanent && firewall-cmd --reload
+# default port for python server
+firewall-cmd --zone=public --add-port=8000/tcp --permanent && firewall-cmd --reload
 
 # shadowsocks
 ssserver -p 8443 -k password -m rc4-md5
