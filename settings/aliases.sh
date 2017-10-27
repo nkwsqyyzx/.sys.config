@@ -31,3 +31,11 @@ alias gvimdir='fzf --bind "enter:execute(gvim --remote-tab-silent {})"'
 alias df='df -h'
 
 alias lc='cl'
+
+if [[ -n "$(strings /usr/bin/tail|grep FreeBSD)" ]]; then
+    # BSD implemention, macOS
+    alias ftail='tail -F'
+else
+    # gnu implemention, normal linux
+    alias ftail='tail -F --retry'
+fi
