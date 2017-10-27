@@ -31,6 +31,31 @@ function proxy() {
     esac
 }
 
+function proxy_auto() {
+    case "$1" in
+    on)
+        sudo networksetup -setautoproxystate Wi-Fi on
+        ;;
+    off)
+        sudo networksetup -setautoproxystate Wi-Fi off
+        ;;
+    set)
+        local domain="$2"
+        if [ -z "$domain" ]; then
+            echo "Usage: proxy set domain port"
+        else
+            sudo networksetup -setautoproxyurl Wi-Fi "$domain"
+        fi
+        ;;
+    status|st)
+        networksetup -getautoproxyurl Wi-Fi
+        ;;
+    *)
+        echo "Usage: proxy_auto {on|off|set|status}"
+        ;;
+    esac
+}
+
 function ow() {
     if [[ -n "$@" ]]; then
         (cd "$@" && ow)
