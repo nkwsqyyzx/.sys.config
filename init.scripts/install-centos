@@ -1,5 +1,21 @@
 yum -y install epel-release ; yum -y install sudo vim git gcc automake make prce-devel ncurses-devel libevent-devel openssl-devel fail2ban pptpd easy-rsa iptables-services libtool mysql-server wget
 
+systemctl enable fail2ban
+
+cat <<EOF >/etc/fail2ban/jail.local
+[DEFAULT]
+# Ban hosts for 10 hours:
+bantime = 36000
+
+# Override /etc/fail2ban/jail.d/00-firewalld.conf:
+banaction = iptables-multiport
+
+[sshd]
+enabled = true
+EOF
+
+systemctl restart fail2ban
+
 cd
 git clone https://github.com/tmux/tmux
 cd tmux
