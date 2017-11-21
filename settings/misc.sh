@@ -162,8 +162,46 @@ function base64_encode() {
     python -m base64 <<<"$1"
 }
 
-function pji() {
-    local fname="$(date|sed 's/[^0-9]//g')"
-    fname="$fname.backup"
-    pj "$1" >"$fname" && mv "$fname" "$1"
+function pj() {
+    local fname=""
+    local origin=""
+    while getopts ":i:" o; do
+        case "${o}" in
+            i)
+                origin="$OPTARG"
+                fname="$(date|sed 's/[^0-9]//g')_back"
+                ;;
+        esac
+    done
+    shift $((OPTIND-1))
+    if [[ -z "$origin" ]]; then
+        origin="$1"
+    fi
+    if [[ -n "$fname" ]]; then
+        /usr/bin/env pj "$origin" >"$fname" && mv "$fname" "$origin"
+    else
+        /usr/bin/env pj "$origin"
+    fi
+}
+
+function ajap() {
+    local fname=""
+    local origin=""
+    while getopts ":i:" o; do
+        case "${o}" in
+            i)
+                origin="$OPTARG"
+                fname="$(date|sed 's/[^0-9]//g')_back"
+                ;;
+        esac
+    done
+    shift $((OPTIND-1))
+    if [[ -z "$origin" ]]; then
+        origin="$1"
+    fi
+    if [[ -n "$fname" ]]; then
+        /usr/bin/env ajap <"$origin">"$fname" && mv "$fname" "$origin"
+    else
+        /usr/bin/env ajap <"$origin"
+    fi
 }
