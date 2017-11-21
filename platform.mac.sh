@@ -81,6 +81,8 @@ alias qrcode='_qrcode'
 function clearStupidLogs() {
     # xcode related files
     find ~/Library/Developer/Xcode/DerivedData -type d -mtime +10 -depth 1 | xargs rm -rf
+    # AndroidStudio related logs
+    find ~/Library/Logs/AndroidStudio* -type f -mtime +2 | xargs rm -rf
     # logs such as idea related files
     find ~/Library/Logs -type f -mtime +2 | xargs rm -rf
 }
