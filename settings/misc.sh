@@ -125,23 +125,21 @@ function refresh_log() {
 }
 
 function url_encode() {
-    python3 <(cat <<'EOF'
+    cat <<EOF | python3 - "$*"
 import sys
 import urllib.parse
 
 print(urllib.parse.quote(sys.argv[1]))
 EOF
-) $*
 }
 
 function url_decode() {
-    python3 <(cat <<'EOF'
+    cat <<EOF | python3 - "$*"
 import sys
 import urllib.parse
 
 print(urllib.parse.unquote(sys.argv[1]))
 EOF
-) $*
 }
 
 function base64_decode() {
