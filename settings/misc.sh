@@ -102,6 +102,28 @@ function vps_download() {
     scp $1:"/tmp/$name" "$name"
 }
 
+function ln_log() {
+    /bin/ls -alt|column 9|grep '[0-9]\{1,\}'|sed 's/\.[0-9]\+$//'|sort|uniq | while read -r link; do
+        local log=$(/bin/ls -alt "$link."[0-9]*|column 9|grep '[0-9]\{1,\}'|head -n 1)
+        echo "$log"
+        if [[ -L "$link" ]]; then
+            real=$(readlink "$link")
+            if [[ ! "x$real" == "x$log" ]]; then
+                rm -rf "$link"
+            fi
+        fi
+        if [[ ! -f "$link" ]]; then
+            ln -s "$log" "$link"
+        fi
+    done
+}
+
+function refresh_log() {
+    while sleep 60; do
+        ln_log
+    done
+}
+
 function url_encode() {
     python3 <(cat <<'EOF'
 import sys
