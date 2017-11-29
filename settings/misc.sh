@@ -103,7 +103,7 @@ function vps_download() {
 }
 
 function ln_log() {
-    /bin/ls -alt|column 9|grep '[0-9]\{1,\}'|sed 's/\.[0-9]\+$//'|sort|uniq | while read -r link; do
+    /bin/ls -alt|column 9|grep '[0-9]\{1,\}$'|sed 's/\.[0-9]\+$//'|sort|uniq|while read -r link; do
         local log=$(/bin/ls -alt "$link."[0-9]*|column 9|grep '[0-9]\{1,\}'|head -n 1)
         echo "$log"
         if [[ -L "$link" ]]; then
