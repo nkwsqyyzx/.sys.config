@@ -313,3 +313,6 @@ function git_push_for_review() {
         echo "no branch related" && kill -INT $$
     fi
 }
+
+# better git ui
+which scmpuff 1>/dev/null 2>&1  && eval "$(scmpuff init -s)"
