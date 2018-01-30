@@ -53,6 +53,7 @@
     trustExitCode = true
 [grep]
     lineNumber = true
+    extendedRegexp = true
 [difftool]
     prompt = false
 [mergetool "bc4"]
