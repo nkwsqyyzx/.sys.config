@@ -30,7 +30,9 @@ build
 gen/
 lint.xml
 local.properties
+node_modules
 obj/
+package-lock.json
 tags
 vundle
 xcuserdata
