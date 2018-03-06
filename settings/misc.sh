@@ -180,7 +180,11 @@ function pj() {
     if [[ -n "$fname" ]]; then
         /usr/bin/env pj "$origin" >"$fname" && mv "$fname" "$origin"
     else
-        /usr/bin/env pj "$origin"
+        if [[ -n "$origin" ]]; then
+            /usr/bin/env pj "$origin"
+        else
+            /usr/bin/env pj
+        fi
     fi
 }
 
@@ -202,6 +206,10 @@ function ajap() {
     if [[ -n "$fname" ]]; then
         /usr/bin/env ajap <"$origin">"$fname" && mv "$fname" "$origin"
     else
-        /usr/bin/env ajap <"$origin"
+        if [[ -n "$origin" ]]; then
+            /usr/bin/env ajap <"$origin"
+        else
+            /usr/bin/env ajap
+        fi
     fi
 }
