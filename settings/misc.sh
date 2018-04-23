@@ -97,7 +97,7 @@ function vps_download() {
         echo "Usage:vps_download user@your_own_vps your_url"
         kill -INT $$
     fi
-    local name=$(echo "$2" | sed "s/.*\///g")
+    local name=$(echo "$2" | sed "s/.*\///g" | sed 's/[^a-zA-Z0-9]/0/g')
     ssh $1 -t "(cd /tmp;rm -rf $name;wget -O $name $2)"
     scp $1:"/tmp/$name" "$name"
 }
