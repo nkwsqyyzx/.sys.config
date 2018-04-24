@@ -1,37 +1,31 @@
 function column() {
-    unalias __awk__
-    if [[ -n "${FS}" ]]; then
-        alias __awk__='env awk -F"${FS}"'
-    else
-        alias __awk__='env awk'
-    fi
     case $# in
         1)
-        __awk__ -v c1=$1 '{print $c1}'
+        awk -v c1=$1 '{print $c1}'
         ;;
         2)
-        __awk__ -v c1=$1 -v c2=$2 '{print $c1, $c2}'
+        awk -v c1=$1 -v c2=$2 '{print $c1, $c2}'
         ;;
         3)
-        __awk__ -v c1=$1 -v c2=$2 -v c3=$3 '{print $c1, $c2, $c3}'
+        awk -v c1=$1 -v c2=$2 -v c3=$3 '{print $c1, $c2, $c3}'
         ;;
         4)
-        __awk__ -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 '{print $c1, $c2, $c3, $c4}'
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 '{print $c1, $c2, $c3, $c4}'
         ;;
         5)
-        __awk__ -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 '{print $c1, $c2, $c3, $c4, $c5}'
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 '{print $c1, $c2, $c3, $c4, $c5}'
         ;;
         6)
-        __awk__ -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 '{print $c1, $c2, $c3, $c4, $c5, $c6}'
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 '{print $c1, $c2, $c3, $c4, $c5, $c6}'
         ;;
         7)
-        __awk__ -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 '{print $c1, $c2, $c3, $c4, $c5, $c6, $c7}'
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 '{print $c1, $c2, $c3, $c4, $c5, $c6, $c7}'
         ;;
         8)
-        __awk__ -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 -v c8=$8 '{print $c1, $c2, $c3, $c4, $c5, $c6, $c7, $c8}'
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 -v c8=$8 '{print $c1, $c2, $c3, $c4, $c5, $c6, $c7, $c8}'
         ;;
         9)
-        __awk__ -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 -v c8=$8 -v c9=$9 '{print $c1, $c2, $c3, $c4, $c5, $c6, $c7, $c8, $c9}'
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 -v c8=$8 -v c9=$9 '{print $c1, $c2, $c3, $c4, $c5, $c6, $c7, $c8, $c9}'
         ;;
         *)
             echo "Usage:col column [column ...]"
@@ -40,42 +34,36 @@ function column() {
 }
 
 function add() {
-    unalias __awk__
-    if [[ -n "${FS}" ]]; then
-        alias __awk__='awk -F"${FS}"'
-    else
-        alias __awk__='awk'
-    fi
     case $# in
         0)
-        __awk__ '{sum+=$1} END {print sum}'
+        awk '{sum+=$1} END {print sum}'
         ;;
         1)
-        __awk__ -v c1=$1 '{sum+=$c1} END {print sum}'
+        awk -v c1=$1 '{sum+=$c1} END {print sum}'
         ;;
         2)
-        __awk__ -v c1=$1 -v c2=$2 '{s1+=$c1; s2+=$c2} END {print s1, s2}'
+        awk -v c1=$1 -v c2=$2 '{s1+=$c1; s2+=$c2} END {print s1, s2}'
         ;;
         3)
-        __awk__ -v c1=$1 -v c2=$2 -v c3=$3 '{s1+=$c1; s2+=$c2; s3+=$c3} END {print s1, s2, s3}'
+        awk -v c1=$1 -v c2=$2 -v c3=$3 '{s1+=$c1; s2+=$c2; s3+=$c3} END {print s1, s2, s3}'
         ;;
         4)
-        __awk__ -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 '{s1+=$c1; s2+=$c2; s3+=$c3; s4+=$c4} END {print s1, s2, s3, s4}'
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 '{s1+=$c1; s2+=$c2; s3+=$c3; s4+=$c4} END {print s1, s2, s3, s4}'
         ;;
         5)
-        __awk__ -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 '{s1+=$c1; s2+=$c2; s3+=$c3; s4+=$c4; s5+=$c5} END {print s1, s2, s3, s4, s5}'
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 '{s1+=$c1; s2+=$c2; s3+=$c3; s4+=$c4; s5+=$c5} END {print s1, s2, s3, s4, s5}'
         ;;
         6)
-        __awk__ -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c5=$5 '{s1+=$c1; s2+=$c2; s3+=$c3; s4+=$c4; s5+=$c5; s6+=$c6} END {print s1, s2, s3, s4, s5, s6}'
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c5=$5 '{s1+=$c1; s2+=$c2; s3+=$c3; s4+=$c4; s5+=$c5; s6+=$c6} END {print s1, s2, s3, s4, s5, s6}'
         ;;
         7)
-        __awk__ -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 '{s1+=$c1; s2+=$c2; s3+=$c3; s4+=$c4; s5+=$c5; s6+=$c6; s7+=$c7} END {print s1, s2, s3, s4, s5, s6, s7}'
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 '{s1+=$c1; s2+=$c2; s3+=$c3; s4+=$c4; s5+=$c5; s6+=$c6; s7+=$c7} END {print s1, s2, s3, s4, s5, s6, s7}'
         ;;
         8)
-        __awk__ -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 -v c8=$8 '{s1+=$c1; s2+=$c2; s3+=$c3; s4+=$c4; s5+=$c5; s6+=$c6; s7+=$c7; s8+=$c8} END {print $s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8}'
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 -v c8=$8 '{s1+=$c1; s2+=$c2; s3+=$c3; s4+=$c4; s5+=$c5; s6+=$c6; s7+=$c7; s8+=$c8} END {print $s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8}'
         ;;
         9)
-        __awk__ -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 -v c8=$8 -v c9=$9 '{s1+=$c1; s2+=$c2; s3+=$c3; s4+=$c4; s5+=$c5; s6+=$c6; s7+=$c7; s8+=$c8; s9+=$c9} END {print $s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9}'
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 -v c8=$8 -v c9=$9 '{s1+=$c1; s2+=$c2; s3+=$c3; s4+=$c4; s5+=$c5; s6+=$c6; s7+=$c7; s8+=$c8; s9+=$c9} END {print $s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9}'
         ;;
         *)
         echo "Usage:add [column1] [column2] [column3] [column4] [column5]"
@@ -84,18 +72,12 @@ function add() {
 }
 
 function average() {
-    unalias __awk__
-    if [[ -n "${FS}" ]]; then
-        alias __awk__='awk -F"${FS}"'
-    else
-        alias __awk__='awk'
-    fi
     case $# in
         0)
-        __awk__ '{count+=1; sum+=$1} END {print sum/count}'
+        awk '{count+=1; sum+=$1} END {print sum/count}'
         ;;
         1)
-        __awk__ -v c1=$1 '{count+=1; sum+=$c1} END {print sum/count}'
+        awk -v c1=$1 '{count+=1; sum+=$c1} END {print sum/count}'
         ;;
         *)
             echo "Usage:average [column]"
