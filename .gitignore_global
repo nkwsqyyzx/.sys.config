@@ -36,3 +36,5 @@ package-lock.json
 tags
 vundle
 xcuserdata
+venv
+xcshareddata

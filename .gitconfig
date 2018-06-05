@@ -24,6 +24,7 @@
     zipHead = !git archive --format=zip HEAD --output
 [log]
     date = local
+    extendedRegexp = true
 [diff]
     tool = diffmerge
 [difftool "diffmerge"]
