@@ -8,6 +8,13 @@ def ajap(root):
     """
     json a string as much as possible
     """
+    if isinstance(root, str):
+        try:
+            j = json.loads(root, encoding='unicode')
+            ajap(j)
+            return j
+        except Exception:
+            pass
     if not root or not isinstance(root, dict):
         return
     for k in root:
@@ -23,8 +30,9 @@ def ajap(root):
             ajap(v)
         elif isinstance(v, list):
             for (index, value) in enumerate(v):
-                ajap(value)
-                v[index] = value
+                x = ajap(value)
+                if x:
+                    v[index] = x
         else:
             pass
 
