@@ -28,7 +28,42 @@ function column() {
         awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 -v c8=$8 -v c9=$9 '{print $c1, $c2, $c3, $c4, $c5, $c6, $c7, $c8, $c9}'
         ;;
         *)
-            echo "Usage:col column [column ...]"
+            echo "Usage:column column [column ...]"
+        ;;
+    esac
+}
+
+function ncolumn() {
+    case $# in
+        1)
+        awk -v c1=$1 '{$c1=""; print}'
+        ;;
+        2)
+        awk -v c1=$1 -v c2=$2 '{$c1=""; $c2=""; print}'
+        ;;
+        3)
+        awk -v c1=$1 -v c2=$2 -v c3=$3 '{$c1=""; $c2=""; $c3; print}'
+        ;;
+        4)
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 '{$c1=""; $c2=""; $c3=""; $c4; print}'
+        ;;
+        5)
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 '{$c1=""; $c2=""; $c3=""; $c4=""; $c5; print}'
+        ;;
+        6)
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 '{$c1=""; $c2=""; $c3=""; $c4=""; $c5=""; $c6; print}'
+        ;;
+        7)
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 '{$c1=""; $c2=""; $c3=""; $c4=""; $c5=""; $c6=""; $c7; print}'
+        ;;
+        8)
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 -v c8=$8 '{$c1=""; $c2=""; $c3=""; $c4=""; $c5=""; $c6=""; $c7=""; $c8; print}'
+        ;;
+        9)
+        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 -v c8=$8 -v c9=$9 '{$c1=""; $c2=""; $c3=""; $c4=""; $c5=""; $c6=""; $c7=""; $c8=""; $c9; print}'
+        ;;
+        *)
+            echo "Usage:ncolumn column [column ...]"
         ;;
     esac
 }
