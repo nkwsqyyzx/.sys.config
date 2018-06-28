@@ -1,36 +1,27 @@
 function column() {
-    case $# in
-        1)
-        awk -v c1=$1 '{print $c1}'
-        ;;
-        2)
-        awk -v c1=$1 -v c2=$2 '{print $c1, $c2}'
-        ;;
-        3)
-        awk -v c1=$1 -v c2=$2 -v c3=$3 '{print $c1, $c2, $c3}'
-        ;;
-        4)
-        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 '{print $c1, $c2, $c3, $c4}'
-        ;;
-        5)
-        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 '{print $c1, $c2, $c3, $c4, $c5}'
-        ;;
-        6)
-        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 '{print $c1, $c2, $c3, $c4, $c5, $c6}'
-        ;;
-        7)
-        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 '{print $c1, $c2, $c3, $c4, $c5, $c6, $c7}'
-        ;;
-        8)
-        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 -v c8=$8 '{print $c1, $c2, $c3, $c4, $c5, $c6, $c7, $c8}'
-        ;;
-        9)
-        awk -v c1=$1 -v c2=$2 -v c3=$3 -v c4=$4 -v c5=$5 -v c6=$6 -v c7=$7 -v c8=$8 -v c9=$9 '{print $c1, $c2, $c3, $c4, $c5, $c6, $c7, $c8, $c9}'
-        ;;
-        *)
-            echo "Usage:column column [column ...]"
-        ;;
-    esac
+    PYTHON_CMD=$(cat <<EOF
+args = '$*'.split(' ')
+aargs = []
+fields = []
+remain = []
+for (index, arg) in enumerate(args):
+    if arg.startswith('-'):
+        aargs.append("{}'{}'".format(arg[0:2], arg[2:]))
+        continue
+    if not arg.isdigit():
+        remain = args[index:]
+        break
+    fields.append(arg)
+vlist = ' '.join(['-v c{}={}'.format(i, v) for (i, v) in enumerate(fields)])
+plist = ', '.join(['\$c{}'.format(i) for i in range(0, len(fields))])
+pargs = '{print ' + plist + '}'
+rargs = ' '.join(remain)
+aargs = ' '.join(aargs)
+print("awk {} {} '{}' {}".format(aargs, vlist, pargs, rargs))
+EOF
+)
+    awk_cmd=$(python -c "$PYTHON_CMD")
+    eval "${awk_cmd}"
 }
 
 function ncolumn() {
