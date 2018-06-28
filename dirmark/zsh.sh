@@ -92,13 +92,16 @@ _3tabs()
     zle expand-or-complete
 }
 
+function xxxx() {
+    cat ~/Library/autojump/autojump.txt | sort -nr | column 2 | fzf +s
+}
+
 _tab_complete_dirmark()
 {
     case $BUFFER in
         "" )
-            BUFFER="G "
-            zle end-of-line
-            _3tabs
+            BUFFER=" cd \"$(xxxx)\""
+            zle accept-line
             ;;
         "G"|"P"|"X")
             BUFFER="$BUFFER "
