@@ -9,3 +9,4 @@ source "$ROOT"/misc.sh
 [[ "$SHELL_TYPE" == "zsh" ]] && source "$ROOT"/nocorrect.sh
 source "$ROOT"/svn.sh
 source "$ROOT"/aliases.sh
+source "$ROOT"/cd.sh

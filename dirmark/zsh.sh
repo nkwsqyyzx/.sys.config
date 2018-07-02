@@ -92,12 +92,6 @@ _3tabs()
     zle expand-or-complete
 }
 
-function _print_selected_dir() {
-    if [[ -r "${AUTOJUMP_WEIGHT_FILE}" ]]; then
-        cat ~/Library/autojump/autojump.txt | sort -nr | column 2 | fzf +s
-    fi
-}
-
 _tab_complete_dirmark()
 {
     case $BUFFER in
@@ -128,5 +122,3 @@ _tab_complete_dirmark()
 }
 zle -N _tab_complete_dirmark
 bindkey "\t" _tab_complete_dirmark
-
-export AUTOJUMP_WEIGHT_FILE="$(type j 1>/dev/null 2>/dev/null && j -s | tail -1 | column 2)"
