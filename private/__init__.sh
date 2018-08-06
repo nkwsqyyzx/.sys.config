@@ -1,5 +1,5 @@
 # 只加载sh结尾的文件
-for f in "${_CONFIG_BASE}"/private/[a-z]*.sh; do
+find "${_CONFIG_BASE}/private/" -type f -name "[a-z]*.sh"|while read -r f; do
     if [[ -f "${f}" ]]; then
         source "${f}"
     fi
