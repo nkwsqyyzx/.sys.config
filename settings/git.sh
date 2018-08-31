@@ -36,6 +36,7 @@ alias gsp='git stash pop'
 alias gsr='git_recursive_status'
 alias gss='git status --short'
 alias gst='_git_show_commit_in_tool'
+alias gt='git log --tags --simplify-by-decoration --pretty="format:%ci	%d"'
 alias cdsubmodule='GIT_ROOT=$(git rev-parse --show-toplevel 2>/dev/null) && [[ -n "$GIT_ROOT" ]] && [[ -f "$GIT_ROOT/.gitmodules" ]] && realpath=$(awk -F= "/path =/ {print substr(\$2, 2)}" "$GIT_ROOT/.gitmodules") && cd "$GIT_ROOT/$realpath"'
 
 function gom() {
