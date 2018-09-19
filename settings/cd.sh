@@ -2,7 +2,7 @@ export AUTOJUMP_WEIGHT_FILE="$(type j 1>/dev/null 2>/dev/null && j -s | tail -1 
 
 function _print_selected_dir() {
     if [[ -r "${AUTOJUMP_WEIGHT_FILE}" ]]; then
-        cat "${AUTOJUMP_WEIGHT_FILE}" | sort -nr | column 2 | fzf +s
+        cat "${AUTOJUMP_WEIGHT_FILE}" | sort -nr | column -F'\t' 2 | fzf +s
     fi
 }
 
