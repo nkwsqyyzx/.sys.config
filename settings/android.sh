@@ -118,3 +118,7 @@ function ainstall() {
 function ainput() {
     adb shell input text "$*"
 }
+
+if [[ -n "${ANDROID_HOME}" ]]; then
+    export PATH="$PATH:${ANDROID_HOME}/platform-tools"
+fi
