@@ -137,3 +137,20 @@ if [[ -n "${ANDROID_HOME}" ]]; then
         echo "No android build tools found, last known path:${tools_dir}!"
     fi
 fi
+
+function monitor_top_activity() {
+    oldActvity=""
+    displayName=""
+    currentActivity=$(adb shell dumpsys window windows | grep -E 'mCurrentFocus')
+    while true; do
+        if [[ $oldActvity != $currentActivity && $currentActivity != *"=null"* ]]; then
+            displayName=${currentActivity##* }
+            displayName=${displayName%%\}*}
+            displayName=${displayName//\// }
+            echo $(date -R "+%Y-%m-%d %H:%M:%S") "$displayName"
+            oldActvity=$currentActivity
+        fi
+        currentActivity=$(adb shell dumpsys window windows | grep -E 'mCurrentFocus')
+        sleep 1
+    done
+}
