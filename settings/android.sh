@@ -120,5 +120,20 @@ function ainput() {
 }
 
 if [[ -n "${ANDROID_HOME}" ]]; then
-    export PATH="$PATH:${ANDROID_HOME}/platform-tools"
+    export PATH="$PATH:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/tools"
+    tools_dir=''
+    for dir in "${ANDROID_HOME}"/build-tools/*; do
+        if [[ -z "${tools_dir}" ]]; then
+            tools_dir="${dir}"
+        else
+            if [[ "${dir}" > "${tools_dir}" ]]; then
+                tools_dir="${dir}"
+            fi
+        fi
+    done
+    if [[ -f "${tools_dir}/aapt" ]]; then
+        export PATH="$PATH:${tools_dir}"
+    else
+        echo "No android build tools found, last known path:${tools_dir}!"
+    fi
 fi
