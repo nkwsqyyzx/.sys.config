@@ -154,3 +154,12 @@ function monitor_top_activity() {
         sleep 1
     done
 }
+
+function enable_wifi_debug() {
+    echo "setting port to 5555, take 2 seconds... ..."
+    adb shell setprop service.adb.tcp.port 5555
+    adb tcpip 5555
+    sleep 2
+    device_ip=$(adb shell ifconfig wlan0 | awk '/inet addr:/{print $0}' | awk -F: '{print $2}' | awk '{print $1}')
+    echo "WiFi debug enable at device ip ${device_ip}"
+}
