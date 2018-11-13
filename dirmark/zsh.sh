@@ -101,10 +101,6 @@ _tab_complete_dirmark()
             if [[ -n "${dir}" ]]; then
                 BUFFER=" cd \"${dir}\""
                 zle accept-line
-            else
-                BUFFER="G "
-                zle end-of-line
-                _3tabs
             fi
             ;;
         "G"|"P"|"X")
