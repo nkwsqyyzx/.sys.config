@@ -18,7 +18,13 @@ case $SYS_OS in
         gvim "$FILE_PATH"
         ;;
     mac )
-        gvim -f "$FILE_PATH"
+        vimbin=""
+        if [[ -n "$TMUX" ]]; then
+            vimbin=vim
+        else
+            vimbin=gvim
+        fi
+        $vimbin -f "$FILE_PATH"
     ;;
     * )
         vim -f "$FILE_PATH"

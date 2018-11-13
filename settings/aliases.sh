@@ -39,3 +39,7 @@ else
     # gnu implemention, normal linux
     alias ftail='tail -F --retry'
 fi
+
+if [[ -n "$TMUX" ]]; then
+    alias gvim=vim
+fi
