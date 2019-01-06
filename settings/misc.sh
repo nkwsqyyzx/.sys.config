@@ -13,7 +13,7 @@ for (index, arg) in enumerate(args):
         break
     fields.append(arg)
 vlist = ' '.join(['-v c{}={}'.format(i, v) for (i, v) in enumerate(fields)])
-plist = ', '.join(['\$c{}'.format(i) for i in range(0, len(fields))])
+plist = ' "\t" '.join(['\$c{}'.format(i) for i in range(0, len(fields))])
 pargs = '{print ' + plist + '}'
 rargs = ' '.join(remain)
 aargs = ' '.join(aargs)
