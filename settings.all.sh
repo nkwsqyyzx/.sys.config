@@ -6,6 +6,7 @@ source "$ROOT"/git.sh
 source "$ROOT"/grep.sh
 source "$ROOT"/locales.sh
 source "$ROOT"/misc.sh
+source "$ROOT"/awk.sh
 [[ "$SHELL_TYPE" == "zsh" ]] && source "$ROOT"/nocorrect.sh
 source "$ROOT"/svn.sh
 source "$ROOT"/aliases.sh
