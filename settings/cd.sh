@@ -10,7 +10,7 @@ function _print_selected_dir() {
             fi
             export AUTOJUMP_WEIGHT_FILE_LINES=${lines}
         fi
-        sort -nr "${AUTOJUMP_WEIGHT_FILE}" | head -n $((${AUTOJUMP_WEIGHT_FILE_LINES})) | awk '{print $2}' | fzf +s
+        sort -nr "${AUTOJUMP_WEIGHT_FILE}" | head -n $((${AUTOJUMP_WEIGHT_FILE_LINES})) | awk -F"\t" '{print $2}' | fzf +s
     fi
 }
 
