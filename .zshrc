@@ -27,3 +27,13 @@ rm -rf .zcompdump*
 
 source ~/.sys.config/common.sh
 source ~/.sys.config/dirmark/zsh.sh
+
+# 远程登录时，显示特别的提示符
+function is_remote() {
+    if [[ -n "$SSH_CONNECTION" ]]; then
+        echo "🌞🐷 "
+    fi
+}
+
+local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ ) %{$fg_bold[red]%}"
+PROMPT='${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(is_remote)$(git_prompt_info)'
