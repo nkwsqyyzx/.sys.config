@@ -2,18 +2,26 @@
 
 git -C "$(brew --repo homebrew/core)" fetch --unshallow
 
-brew install tmux fzf autojump ipython python@2 wget cmake jq ag ack
+brew install tmux fzf autojump ipython python@2 wget cmake jq ag ack libjpeg zlib
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-git clone https://github.com/nkwsqyyzx/.sys.config.git
+if [[ ! -d ~/.sys.config ]]; then
+    git clone https://github.com/nkwsqyyzx/.sys.config.git
+fi
+
 echo "source ~/.sys.config/.bashrc" >> ~/.bashrc
 echo "source ~/.sys.config/.zshrc" >> ~/.zshrc
 (cd; ln -s ~/.sys.config/.tmux.conf)
 
-git clone --recursive https://github.com/nkwsqyyzx/.vim.git
-(cd; ln -s ~/.vim/.vimrc)
-(cd ~/.vim/bundle/YouCompleteMe;./install.py)
+if [[ ! -d ~/.vim ]]; then
+    git clone --recursive https://github.com/nkwsqyyzx/.vim.git
+    (cd; ln -s ~/.vim/.vimrc)
+fi
+
+if [[ -f ~/.vim/bundle/YouCompleteMe/install.py ]]; then
+    (cd ~/.vim/bundle/YouCompleteMe;git submodule update --init --recursive;./install.py)
+fi
 
 brew cask install google-chrome android-studio pycharm-ce
 
