@@ -101,3 +101,23 @@ function average() {
         ;;
     esac
 }
+
+function count_group_by() {
+    case $# in
+        0)
+        awk '{s[$0] += 1} END { for (i in s) {print i "\t" s[i]} }'
+        ;;
+        1)
+        awk -v c1=$1 '{s[$c1] += 1} END { for (i in s) {print i "\t" s[i]} }'
+        ;;
+        2)
+        awk -v c1=$1 -v c2=$2 '{s[$c1"\t"$c2] += 1} END { for (i in s) {print i "\t" s[i]} }'
+        ;;
+        3)
+        awk -v c1=$1 -v c2=$2 -v c3=$3 '{s[$c1"\t"$c2"\t"$c3] += 1} END { for (i in s) {print i "\t" s[i]} }'
+        ;;
+        *)
+        echo "Usage:count_group_by [group_key]"
+        ;;
+    esac
+}
