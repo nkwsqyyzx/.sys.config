@@ -131,3 +131,54 @@ function count_group_by() {
         ;;
     esac
 }
+
+function sum_group_by() {
+    local key_column_indexes=()
+    local value_column_indexes=()
+    local awk_args=""
+    local remain=""
+    local p=""
+    while [[ "$1" != "" ]]; do
+        case $1 in
+            -r)
+            shift
+            remain="$1"
+            p=""
+            ;;
+            -p)
+            shift
+            awk_args="$1"
+            p=""
+            ;;
+            -k)
+            shift
+            p=key
+            key_column_indexes+=("$1")
+            ;;
+            -v)
+            shift
+            p=value
+            value_column_indexes+=("$1")
+            ;;
+            -h|help)
+            echo "sum_group_by -k column [column] -v column [column] -p \"AWK_ARGS\" -r \"INPUT_FILE\""
+            kill -INT $$
+            ;;
+            *)
+            case ${p} in
+            key)
+            key_column_indexes+=("$1")
+            ;;
+            value)
+            value_column_indexes+=("$1")
+            ;;
+            esac
+            p=""
+            ;;
+        esac
+        shift
+    done
+
+    local awk_cmd=$(call_python_function.py ~/.sys.config/py/tools/ awk.Tool.sum_group_by "$key_column_indexes" "$value_column_indexes" "$awk_args" "$remain")
+    eval "${awk_cmd}"
+}
