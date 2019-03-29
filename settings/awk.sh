@@ -1,26 +1,36 @@
 function column() {
-    PYTHON_CMD=$(cat <<EOF
-args = '$*'.split(' ')
-awk_args = []
-fields = []
-remain = []
-for (index, arg) in enumerate(args):
-    if arg.startswith('-'):
-        awk_args.append("{}'{}'".format(arg[0:2], arg[2:]))
-        continue
-    if not arg.isdigit():
-        remain = args[index:]
-        break
-    fields.append(arg)
-v_list = ' '.join(['-v c{}={}'.format(i, v) for (i, v) in enumerate(fields)])
-p_list = ' "\t" '.join(['\$c{}'.format(i) for i in range(0, len(fields))])
-p_args = '{print ' + p_list + '}'
-r_args = ' '.join(remain)
-awk_args = ' '.join(awk_args)
-print("awk {} {} '{}' {}".format(awk_args, v_list, p_args, r_args))
-EOF
-)
-    awk_cmd=$(python -c "$PYTHON_CMD")
+    local key_column_indexes=()
+    local awk_args=""
+    local remain=""
+    while [[ "$1" != "" ]]; do
+        case $1 in
+            -r)
+            shift
+            remain="$1"
+            p=""
+            ;;
+            -p)
+            shift
+            awk_args="$1"
+            p=""
+            ;;
+            -k)
+            shift
+            p=key
+            key_column_indexes+=("$1")
+            ;;
+            -h|help)
+            echo "column [-k] column1 [column2...] -p \"AWK_ARGS\" -r \"INPUT_FILE\""
+            kill -INT $$
+            ;;
+            *)
+            key_column_indexes+=("$1")
+            ;;
+        esac
+        shift
+    done
+
+    awk_cmd=$(call_python_function.py ~/.sys.config/py/tools/ awk.Tool.column "$key_column_indexes" "$awk_args" "$remain")
     eval "${awk_cmd}"
 }
 
