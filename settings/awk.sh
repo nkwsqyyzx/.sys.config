@@ -4,6 +4,9 @@ function column() {
     local remain=""
     while [[ "$1" != "" ]]; do
         case $1 in
+            -F*)
+            awk_args="$1"
+            ;;
             -r)
             shift
             remain="$1"
@@ -140,6 +143,9 @@ function sum_group_by() {
     local p=""
     while [[ "$1" != "" ]]; do
         case $1 in
+            -F*)
+            awk_args="$1"
+            ;;
             -r)
             shift
             remain="$1"
