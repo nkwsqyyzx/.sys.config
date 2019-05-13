@@ -136,6 +136,10 @@ if [[ -n "${ANDROID_HOME}" ]]; then
     else
         echo "No android build tools found, last known path:${tools_dir}!"
     fi
+
+    if [[ -d "${ANDROID_HOME}/ndk" ]]; then
+        export ANDROID_NDK_HOME="${ANDROID_HOME}/ndk"
+    fi
 fi
 
 function monitor_top_activity() {
