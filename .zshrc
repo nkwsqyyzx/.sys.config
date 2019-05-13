@@ -35,5 +35,11 @@ function is_remote() {
     fi
 }
 
+function remote_name() {
+    if [[ -n "$SSH_CONNECTION" ]]; then
+        echo "%{$fg[blue]%}$(uname -n)%{$reset_color%} "
+    fi
+}
+
 local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ ) %{$fg_bold[red]%}"
-PROMPT='${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(is_remote)$(git_prompt_info)'
+PROMPT='${ret_status} $(remote_name)%{$fg[cyan]%}%c%{$reset_color%} $(is_remote)$(git_prompt_info)'
