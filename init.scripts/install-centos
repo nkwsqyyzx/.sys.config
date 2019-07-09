@@ -1,4 +1,4 @@
-yum -y install epel-release ; yum -y install sudo vim git gcc automake make prce-devel ncurses-devel libevent-devel openssl-devel fail2ban pptpd easy-rsa iptables-services libtool mysql-server wget
+yum -y install epel-release ; yum -y install sudo vim git gcc automake make prce-devel ncurses-devel libevent-devel openssl-devel fail2ban pptpd easy-rsa iptables-services libtool mysql-server wget tmux nginx
 
 systemctl enable fail2ban
 
