@@ -25,3 +25,6 @@ function _bash_enter_selected_dir() {
 if [[ "x${SHELL_TYPE}" = "xbash" ]]; then
     bind -x '"\C-X\C-X":"_bash_enter_selected_dir"'
 fi
+
+type -a autojump 1>/dev/null 2>/dev/null || echo "You should configure autojump, in mac, use:\nbrew install autojump"
+type -a fzf 1>/dev/null 2>/dev/null || echo "You should configure fzf, in mac, use:\nbrew install fzf"
