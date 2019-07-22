@@ -1,0 +1,13 @@
+#!/bin/bash
+#ip2int:ip地址转整型
+#int2ip:整型转ip
+function _ip2int(){
+    A=$(echo $1 | cut -d '.' -f1)
+    B=$(echo $1 | cut -d '.' -f2)
+    C=$(echo $1 | cut -d '.' -f3)
+    D=$(echo $1 | cut -d '.' -f4)
+    result=$(($A<<24|$B<<16|$C<<8|$D))
+    echo $result
+}
+
+_ip2int "$*"

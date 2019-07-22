@@ -1,0 +1,13 @@
+#!/bin/bash
+#ip2int:ip地址转整型
+#int2ip:整型转ip
+function _int2ip(){
+    A=$((($1 & 0xff000000)>>24))
+    B=$((($1 & 0x00ff0000)>>16))
+    C=$((($1 & 0x0000ff00)>>8))
+    D=$(($1 & 0x000000ff))
+    result=$A.$B.$C.$D
+    echo $result
+}
+
+_int2ip "$*"
