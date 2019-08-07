@@ -2,15 +2,7 @@ export AUTOJUMP_WEIGHT_FILE="$(type autojump 1>/dev/null 2>/dev/null && autojump
 
 function _print_selected_dir() {
     if [[ -r "${AUTOJUMP_WEIGHT_FILE}" ]]; then
-        if [[ -z "${AUTOJUMP_WEIGHT_FILE_LINES}" ]]; then
-            local lines=$(wc -l "${AUTOJUMP_WEIGHT_FILE}"|awk '{print $1}')
-            lines="$((${lines}/2))"
-            if [[ ${lines} -lt 100 ]]; then
-                lines=100
-            fi
-            export AUTOJUMP_WEIGHT_FILE_LINES=${lines}
-        fi
-        sort -nr "${AUTOJUMP_WEIGHT_FILE}" | head -n $((${AUTOJUMP_WEIGHT_FILE_LINES})) | awk -F"\t" '{print $2}' | fzf +s
+        sort -nr "${AUTOJUMP_WEIGHT_FILE}" | awk -F"\t" '{print $2}' | fzf +s
     fi
 }
 
