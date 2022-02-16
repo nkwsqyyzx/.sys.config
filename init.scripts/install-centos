@@ -71,7 +71,7 @@ source /etc/profile
 echo $JAVA_HOME
 echo $JRE_HOME
 cd ~
-sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo wget --no-check-certificate -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
 sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
 sudo yum -y install jenkins
 sudo systemctl start jenkins.service

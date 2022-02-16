@@ -1,4 +1,4 @@
-alias mk_password="echo $(openssl rand -base64 16 | head -c 16)"
+alias mk_password="openssl rand -base64 16 | head -c 16"
 alias vic="vim -R -c 'execute \"silent !echo \" . &fileencoding | q'"
 function setjdk() {
     if [ $# -ne 0 ]; then
@@ -12,7 +12,7 @@ function vps_download() {
         echo "Usage:vps_download user@your_own_vps your_url"
         kill -INT $$
     fi
-    local name=$(echo "$2" | sed "s/.*\///g" | sed 's/[^a-zA-Z0-9\.\-]/0/g')
+    local name=$(echo "$2" | sed "s/.*\///g" | sed 's/[^a-z_A-Z0-9\.\-]/0/g')
     ssh $1 -t "(cd /tmp;rm -rf $name;wget -O $name $2)"
     scp $1:"/tmp/$name" "$name"
 }

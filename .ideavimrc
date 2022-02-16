@@ -4,3 +4,4 @@ set ignorecase
 set incsearch
 map <SPACE> <C-F>
 map <S-SPACE> <C-B>
+set ideajoin

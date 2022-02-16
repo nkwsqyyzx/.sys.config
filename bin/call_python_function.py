@@ -17,7 +17,7 @@ if __name__ == "__main__":
     if os.path.isdir(dir_name):
         sys.path.insert(0, dir_name)
     else:
-        exit(-1)
+        exit(1)
 
     method_name = sys.argv[2]
 
@@ -32,6 +32,11 @@ if __name__ == "__main__":
     # pass all the parameters from the third until the end of
     # what the function needs & ignore the rest
     args = inspect.getfullargspec(the_func)
-    z = len(args[0]) + 3
-    params = sys.argv[3:z]
-    the_func(*params)
+    z = len(args.args) + 3
+    if not args.varargs:
+        params = sys.argv[3:z]
+    else:
+        params = sys.argv[3:]
+    result = the_func(*params)
+    if result is not None:
+        print(result)

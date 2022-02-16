@@ -38,3 +38,4 @@ vundle
 xcuserdata
 venv
 xcshareddata
+.lock
