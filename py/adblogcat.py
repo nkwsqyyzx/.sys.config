@@ -1,7 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 """
-    adblogcat.py
+    logcat.py
 
     Use to output specified adb logcat.
     :copyright: (c) 2018 by nk.wangshuangquan@gmail.com
@@ -9,17 +9,21 @@
 """
 import os
 import re
+import subprocess
 import sys
-import StringIO
-
+from io import StringIO
 from optparse import OptionParser
 
-from tools.color import Color
+try:
+    from py.tools.color import Color
+except ModuleNotFoundError:
+    # noinspection PyUnresolvedReferences
+    from tools.color import Color
 
 TAG_WIDTH = 8
 PROCESS_WIDTH = 5
 
-re_tag = re.compile("^\d\d-\d\d (\d\d:\d\d:\d\d\.\d\d\d) ([A-Z])/([^\(]+)\(([^\)]+)\): (.*)$")
+re_tag = re.compile(r"^\d\d-\d\d (\d\d:\d\d:\d\d\.\d\d\d) ([A-Z])/([^\(]+)\(([^\)]+)\): (.*)$")
 
 LATEST_USED_TAG_COLOR = [
     Color.RED,
@@ -173,7 +177,7 @@ class AdbLogger(object):
                     MAX_PROCESS_ID = max(int(pid), MAX_PROCESS_ID)
                 except ValueError:
                     pass
-            print 'MAX_PROCESS_ID is ' + str(MAX_PROCESS_ID)
+            print('MAX_PROCESS_ID is ' + str(MAX_PROCESS_ID))
         if os.isatty(sys.stdin.fileno()):
             f = os.popen("adb logcat -v time")
         else:
@@ -203,7 +207,9 @@ parser.add_option('-m', '--max', dest="max_process", type="int", action='callbac
 
 
 if __name__ == '__main__':
-    line_buf = StringIO.StringIO()
+    print(options)
+    line_buf = StringIO()
+    '''
     while True:
         count = 0
         fd = AdbLogger.open_input(options)
@@ -213,3 +219,23 @@ if __name__ == '__main__':
                 continue
             AdbLogger.process_line(line_buf, one_line, options)
         time.sleep(10)
+    '''
+    if os.isatty(sys.stdin.fileno()):
+        # 创建adb子进程
+        with subprocess.Popen(['adb', 'logcat', '-v', 'time'], text=True, stdout=subprocess.PIPE) as p:
+            while True:
+                _line = p.stdout.readline()
+                AdbLogger.process_line(line_buf, _line, options)
+    else:
+        """
+        with fileinput.input(sys.stdin) as f_input:
+            for _line in f_input:
+                AdbLogger.process_line(line_buf, _line, options)
+        """
+        while True:
+            try:
+                _line = sys.stdin.readline()
+                AdbLogger.process_line(line_buf, _line, options)
+            except:
+                pass
+
