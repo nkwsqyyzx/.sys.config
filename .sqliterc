@@ -1,0 +1,10 @@
+.output /dev/null
+PRAGMA synchronous = OFF;
+PRAGMA foreign_keys = ON;
+PRAGMA journal_mode = MEMORY;
+PRAGMA locking_mode = EXCLUSIVE;
+PRAGMA cache_size = -500000;
+.header on
+.timer on
+.mode column
+.output stdout

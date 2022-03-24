@@ -5,7 +5,7 @@ alias ip="ifconfig | sed -n -e '/127.0.0.1/d' -e '/inet /p'|awk '{print \$2}'"
 
 export DIFFMERGE_EXE=/Applications/DiffMerge.app/Contents/MacOS/DiffMerge
 
-function proxy() {
+function _proxy() {
     case "$1" in
     on)
         sudo networksetup -setsocksfirewallproxystate Wi-Fi on

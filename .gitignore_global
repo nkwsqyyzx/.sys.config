@@ -19,6 +19,7 @@
 *~
 .gradle
 .idea
+.lock
 .ropeproject
 .settings
 .svn
@@ -38,4 +39,3 @@ vundle
 xcuserdata
 venv
 xcshareddata
-.lock

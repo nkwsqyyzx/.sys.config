@@ -167,3 +167,67 @@ function enable_wifi_debug() {
     device_ip=$(adb shell ifconfig wlan0 | awk '/inet addr:/{print $0}' | awk -F: '{print $2}' | awk '{print $1}')
     echo "WiFi debug enable at device ip ${device_ip}"
 }
+
+function enable_gradle_script_debug() {
+    if [[ "$*" == "1" ]]; then
+        export GRADLE_OPTS="-Dorg.gradle.debug=true -Dorg.gradle.daemon=false"
+        echo "gradle script debug enabled."
+    else
+        export GRADLE_OPTS=""
+        echo "gradle script debug disabled."
+    fi
+}
+
+function adb_export_databases() {
+    local package=$1
+    local tmp=$(mktemp)
+    adb -d shell "run-as $package ls databases/ | grep db$" | while read -r name; do
+        echo "adb -d shell \"run-as $package cat databases/$name\" >$name" >> $tmp
+    done
+
+    sh $tmp
+    rm -rf $tmp
+}
+
+function execute_android_cmd() {
+    local cmd="$1"
+    local package="$2"
+    adb shell am start -a android.intent.action.VIEW  -d "${cmd}" "${package}"
+}
+
+function adb_upload_files() {
+    local package="$1"
+    local _file="$2"
+    local _path="$3"
+
+    if [[ -z "$package" ]]; then
+        echo "usage: adb_upload_files PACKAGE_NAME LOCAL_FILE REMOTE_FILE"
+        kill -INT $$
+    fi
+    if [[ -z "$_file" ]]; then
+        echo "usage: adb_upload_files PACKAGE_NAME LOCAL_FILE REMOTE_FILE"
+        kill -INT $$
+    fi
+    if [[ -z "$_path" ]]; then
+        echo "usage: adb_upload_files PACKAGE_NAME LOCAL_FILE REMOTE_FILE"
+        kill -INT $$
+    fi
+
+    function _load_local_file() {
+        sleep 1 && nc 127.0.0.1 9999 <$_file
+    }
+
+    local tmp=$(mktemp)
+
+    adb forward tcp:9999 tcp:9999
+
+    _load_local_file &
+
+    cat <<EOF >$tmp
+run-as $package
+nc -l -p 9999 >$_path
+ls -al $_path
+EOF
+echo "tmp is $tmp"
+#adb shell <$tmp
+}
