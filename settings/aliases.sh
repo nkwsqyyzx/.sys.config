@@ -43,3 +43,5 @@ fi
 if [[ -n "$TMUX" ]]; then
     alias gvim=vim
 fi
+
+alias wget='wget --content-disposition'
