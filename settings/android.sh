@@ -105,6 +105,16 @@ function apackagename() {
     aapt dump badging "$1"|grep "^package:"|sed "s/ /_/g"|sed "s/'/ /g"|awk '{print $2}'
 }
 
+function apkinfo() {
+    local _fzf=1
+    type -a fzf 1>/dev/null 2>/dev/null || _fzf=0
+    if [[ "${_fzf}" -eq 1 ]]; then
+        aapt dump badging "$1" | fzf
+    else
+        aapt dump badging "$1"
+    fi
+}
+
 function ainstall() {
     if [[ -f "$1" ]]; then
         local fname="$1"
