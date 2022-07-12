@@ -10,7 +10,7 @@ def ajap(root):
     """
     if isinstance(root, str):
         try:
-            j = json.loads(root, encoding='unicode')
+            j = json.loads(root)
             ajap(j)
             return j
         except Exception:
@@ -21,7 +21,7 @@ def ajap(root):
         v = root[k]
         if isinstance(v, str):
             try:
-                j = json.loads(v, encoding='unicode')
+                j = json.loads(v)
                 ajap(j)
                 root[k] = j
             except Exception:
@@ -45,6 +45,6 @@ if __name__ == '__main__':
     else:
         data = ''.join(fileinput.input())
     if data:
-        root = json.loads(data, encoding='utf-8')
+        root = json.loads(data)
         ajap(root)
         print(json.dumps(root, ensure_ascii=False, indent=4))
