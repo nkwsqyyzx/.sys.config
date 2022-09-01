@@ -43,3 +43,12 @@ function remote_name() {
 
 local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ ) %{$fg_bold[red]%}"
 PROMPT='${ret_status} $(remote_name)%{$fg[cyan]%}%c%{$reset_color%} $(is_remote)$(git_prompt_info)'
+
+# 创建一个内存级的文件夹
+if [[ ! -e /tmp/1/memory ]]; then
+    mkdir -p /tmp/1
+    if [[ -d /dev/shm ]]; then
+        mkdir -p /dev/shm/memory
+        ln -s /dev/shm/memory /tmp/1
+    fi
+fi

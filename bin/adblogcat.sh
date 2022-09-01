@@ -1,3 +1,4 @@
+#!/bin/bash
 process_name=$1
 extra_filter=$2
 
@@ -46,7 +47,9 @@ while true; do
     else
         if [[ ${new_process} != "${old_process}" ]]; then
             # 干掉那些僵尸进程
-            ps -f | awk '$3==1{print $2}' | xargs kill -9
+            ps -f | awk '$3==1{print $2}' | while read -r p; do
+                kill -9 $p
+            done
             if [[ -f /tmp/adb_logcat_old_pid ]]; then
                 kill -9 $(cat /tmp/adb_logcat_old_pid)
                 sleep 1
