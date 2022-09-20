@@ -51,4 +51,12 @@ if [[ ! -e /tmp/1/memory ]]; then
         mkdir -p /dev/shm/memory
         ln -s /dev/shm/memory /tmp/1
     fi
+
+    if [[ "${SYS_OS}" == 'mac' ]]; then
+        if [[ ! -d /Volumes/RAMDisk/ ]]; then
+            # 创建一个G的内存硬盘
+            diskutil erasevolume HFS+ "RAMDisk" `hdiutil attach -nomount ram://2097152`
+        fi
+        ln -s /Volumes/RAMDisk/ /tmp/1/memory
+    fi
 fi
