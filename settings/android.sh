@@ -1,11 +1,10 @@
 function fail_with_zero() {
     echo "$*"
-    exit 0
 }
 
 function fail_with_non_zero() {
     echo "$*"
-    exit 1
+    kill -INT $$
 }
 
 function pulldb() {
@@ -228,8 +227,8 @@ function adb_export_file() {
 
 function adb_ls_as_pkg() {
     local package=$1
-    local path=$2
-    adb -d shell "run-as $package ls $path" 2>/dev/null || fail_with_non_zero "path 根目录以.开头！！！"
+    local dir=$2
+    adb -d shell "run-as $package ls $dir" 2>/dev/null || fail_with_non_zero "path 根目录以.开头！！！"
 }
 
 function execute_android_cmd() {
