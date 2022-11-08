@@ -1,3 +1,13 @@
+function fail_with_zero() {
+    echo "$*"
+    exit 0
+}
+
+function fail_with_non_zero() {
+    echo "$*"
+    exit 1
+}
+
 function pulldb() {
     adb shell ls /data/data|grep "$*"|dos2unix|while read package;do
     (
@@ -190,13 +200,36 @@ function enable_gradle_script_debug() {
 
 function adb_export_databases() {
     local package=$1
+    local pattern=$2
+    if [[ -z "$pattern" ]]; then
+        pattern="^"
+    fi
     local tmp=$(mktemp)
-    adb -d shell "run-as $package ls databases/ | grep db$" | while read -r name; do
+    adb -d shell "run-as $package ls databases/ | grep db$" | grep "$pattern" | while read -r name; do
         echo "adb -d shell \"run-as $package cat databases/$name\" >$name" >> $tmp
     done
 
     sh $tmp
     rm -rf $tmp
+}
+
+function adb_export_file() {
+    local package=$1
+    local file_path=$2
+    local tmp=$(mktemp tmpXXXXXX)
+    adb -d shell "run-as $package cat $file_path" >> $tmp
+    if [[ $? -eq 0 ]] ; then
+        echo "save $file_path to file $tmp"
+    else
+        rm "$tmp"
+        fail_with_non_zero "$file_path export failed!, see error before!"
+    fi
+}
+
+function adb_ls_as_pkg() {
+    local package=$1
+    local path=$2
+    adb -d shell "run-as $package ls $path" 2>/dev/null || fail_with_non_zero "path 根目录以.开头！！！"
 }
 
 function execute_android_cmd() {
