@@ -22,12 +22,19 @@ if __name__ == "__main__":
     method_name = sys.argv[2]
 
     # split this into module, class and function name
-    module_name, class_name, func_name = method_name.split(".")
+    parts = method_name.split(".")
+    if len(parts) == 3:
+        # call_python_function.py dir_name filename.classname.staticfunction arg0 arg1 arg2 ...
+        module_name, class_name, func_name = parts
+    else:
+        # call_python_function.py dir_name filename.toplevelfunction arg0 arg1 arg2 ...
+        module_name, func_name = parts
+        class_name = ''
 
     # get pointers to the objects based on the string names
     the_module = importlib.import_module(module_name)
-    the_class = getattr(the_module, class_name)
-    the_func = getattr(the_class, func_name)
+    the_class = getattr(the_module, class_name) if class_name else ''
+    the_func = getattr(the_class or the_module, func_name)
 
     # pass all the parameters from the third until the end of
     # what the function needs & ignore the rest
