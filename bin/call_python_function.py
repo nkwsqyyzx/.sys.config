@@ -6,6 +6,30 @@ import inspect
 import os
 import sys
 
+
+def _fmt_pd(df):
+    from tabulate import tabulate
+    return tabulate(df, headers='keys', tablefmt='psql')
+
+
+def _pretty_fmt(df):
+    if df is None:
+        return
+    if '1' == os.environ.get('DISABLE_PYTHON_OUTPUT_FMT', '0'):
+        # 支持通过环境变量关闭format输出
+        return df
+    try:
+        if "'pandas.core.frame.DataFrame'" in str(df.__class__):
+            return _fmt_pd(df)
+        elif "'pandas.core.series.Series'" in str(df.__class__):
+            import pandas as pd
+            return _fmt_pd(pd.DataFrame(df))
+        else:
+            return df
+    except:
+        return df
+
+
 if __name__ == "__main__":
     cmd_folder = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile(inspect.currentframe()))[0]))
     if cmd_folder not in sys.path:
@@ -44,6 +68,6 @@ if __name__ == "__main__":
         params = sys.argv[3:z]
     else:
         params = sys.argv[3:]
-    result = the_func(*params)
+    result = _pretty_fmt(the_func(*params))
     if result is not None:
         print(result)
