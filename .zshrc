@@ -52,7 +52,7 @@ if [[ ! -e /tmp/1/memory ]]; then
         ln -s /dev/shm/memory /tmp/1
     fi
 
-    if [[ "${SYS_OS}" == 'mac' ]]; then
+    if [[ "$ENABLE_MEMORY_DISK_OSX" == '1' ]] && [[ "${SYS_OS}" == 'mac' ]]; then
         if [[ ! -d /Volumes/RAMDisk/ ]]; then
             # 创建一个G的内存硬盘
             diskutil erasevolume HFS+ "RAMDisk" `hdiutil attach -nomount ram://2097152`
