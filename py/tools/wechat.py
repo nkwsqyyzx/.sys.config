@@ -7,8 +7,9 @@
     :copyright: (c) 2022 by nkwsqyyzx@gmail.com
     :license: BSD, see LICENSE for more details.
 """
-import requests
 import json
+
+import requests
 
 
 def _json(text):
@@ -66,3 +67,24 @@ class Tool(object):
         res = _json(r.text)
         errmsg = res.get('errmsg', 'ok')
         return errmsg
+
+
+def robot_send_text(secret: str, content: str):
+    """
+    usage: call_python_function.py ~/.sys.config/py/tools/ wechat.robot_send_text [secret] [content]
+    :param secret:  微信自定义机器人
+    :param content:  消息文本
+    :return:
+    """
+    msg = {
+        'msgtype': 'text',
+        'text': {'content': content},
+    }
+
+    headers = {"Content-Type": "application/json;charset=utf-8"}
+    url = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=' + secret
+    body = json.dumps(msg)
+    res = requests.post(url, data=body, headers=headers, timeout=10)
+    r = res.json()
+    if r['errcode'] != 0:
+        raise Exception(f'{r}')
