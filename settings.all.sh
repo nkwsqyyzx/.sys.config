@@ -11,4 +11,5 @@ source "$ROOT"/awk.sh
 source "$ROOT"/svn.sh
 source "$ROOT"/aliases.sh
 source "$ROOT"/cd.sh
+source "$ROOT/../autoload/__init__.sh"
 source "$ROOT/../private/__init__.sh"
