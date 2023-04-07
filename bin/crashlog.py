@@ -145,7 +145,11 @@ if __name__ == "__main__":
         start_adb()
         count = 0
         while True:
-            line = input.readline()
+            try:
+                line = input.readline()
+            except Exception as e:
+                print(f'error read line {e}')
+                continue
             if not line or count >=5:
                 count += 1
                 print('device unplugged.')
