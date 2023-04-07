@@ -1,11 +1,11 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 import os
 import re
-import StringIO
 import sys
 import time
 
+from io import StringIO
 from optparse import OptionParser
 
 import color
@@ -140,7 +140,7 @@ def start_adb():
         input = os.fdopen(sys.stdin.fileno(), 'r', 1)
 
 if __name__ == "__main__":
-    linebuf = StringIO.StringIO()
+    linebuf = StringIO()
     while True:
         start_adb()
         count = 0
@@ -148,7 +148,7 @@ if __name__ == "__main__":
             line = input.readline()
             if not line or count >=5:
                 count += 1
-                print 'device unplugged.'
+                print('device unplugged.')
                 break
             process_line(linebuf, line, options)
         time.sleep(10)
