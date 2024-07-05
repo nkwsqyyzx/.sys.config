@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # thanks to https://stackoverflow.com/questions/3987041/run-function-from-the-command-line
+# 开源版本 https://github.com/nkwsqyyzx/.sys.config/blob/master/bin/call_python_function.py
 
 import importlib
 import inspect

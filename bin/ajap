@@ -22,8 +22,10 @@ def ajap(root):
         if isinstance(v, str):
             try:
                 j = json.loads(v)
-                ajap(j)
-                root[k] = j
+                if isinstance(j, dict) or isinstance(j, list):
+                    ajap(j)
+                else:
+                    root[k] = v
             except Exception:
                 pass
         elif isinstance(v, dict):
