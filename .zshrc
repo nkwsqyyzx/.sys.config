@@ -44,19 +44,42 @@ function remote_name() {
 local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ ) %{$fg_bold[red]%}"
 PROMPT='${ret_status} $(remote_name)%{$fg[cyan]%}%c%{$reset_color%} $(is_remote)$(git_prompt_info)'
 
-# 创建一个内存级的文件夹
-if [[ ! -e /tmp/1/memory ]]; then
-    mkdir -p /tmp/1
-    if [[ -d /dev/shm ]]; then
-        mkdir -p /dev/shm/memory
-        ln -s /dev/shm/memory /tmp/1
-    fi
+# # 创建一个内存级的文件夹
+# if [[ ! -e /tmp/1/memory ]]; then
+#     mkdir -p /tmp/1
+#     if [[ -d /dev/shm ]]; then
+#         mkdir -p /dev/shm/memory
+#         (cd /tmp/1; ln -s /Volumes/RAMDisk memory)
+#     fi
+# 
+#     if [[ "$ENABLE_MEMORY_DISK_OSX" == '1' ]] && [[ "${SYS_OS}" == 'mac' ]]; then
+#         if [[ ! -d /Volumes/RAMDisk/ ]]; then
+#             # 创建一个2G的内存硬盘
+#             diskutil erasevolume HFS+ "RAMDisk" `hdiutil attach -nomount ram://4194304`
+#             mkdir -p /Volumes/RAMDisk/root
+#         fi
+#         (cd /tmp/1; ln -s /Volumes/RAMDisk/root memory)
+#     fi
+# fi
 
-    if [[ "$ENABLE_MEMORY_DISK_OSX" == '1' ]] && [[ "${SYS_OS}" == 'mac' ]]; then
-        if [[ ! -d /Volumes/RAMDisk/ ]]; then
-            # 创建一个G的内存硬盘
-            diskutil erasevolume HFS+ "RAMDisk" `hdiutil attach -nomount ram://2097152`
-        fi
-        ln -s /Volumes/RAMDisk/ /tmp/1/memory
-    fi
-fi
+# pnpm
+export PNPM_HOME="/Users/nahco3/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+#
+export PYTHONPATH=.
+
+# ~/bin 优先 (覆盖系统 cc → claude --dangerously-skip-permissions)
+export PATH="$HOME/bin:$PATH"
+
+# claude shell alias (跳过权限)
+alias claude='/usr/local/bin/claude --dangerously-skip-permissions'
+
+# Hermes Agent — ensure ~/.local/bin is on PATH
+export PATH="$HOME/.local/bin:$PATH"
+
+# OpenClaw Completion
+[ -f "/Users/nahco3/.openclaw/completions/openclaw.zsh" ] && source "/Users/nahco3/.openclaw/completions/openclaw.zsh"

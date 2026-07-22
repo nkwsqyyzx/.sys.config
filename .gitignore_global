@@ -39,3 +39,6 @@ vundle
 xcuserdata
 venv
 xcshareddata
+logs
+.claude
+.playwright-cli/

@@ -331,5 +331,14 @@ function git_log_patch_fzf() {
 FZF-EOF"
 }
 
+function git_reflog_patch_fzf() {
+    git reflog | fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+      --bind "ctrl-m:execute:
+                (grep -o '^[a-f0-9]\{7\}' | head -1 |
+                xargs -I % sh -c 'git log --color=always % | less -R') << 'FZF-EOF'
+                {}
+FZF-EOF"
+}
+
 # better git ui
 which scmpuff 1>/dev/null 2>&1  && eval "$(scmpuff init -s)"

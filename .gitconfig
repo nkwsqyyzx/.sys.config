@@ -1,6 +1,6 @@
 [user]
     name = nkwsqyyzx
-    email = nk.wangshuangquan@gmail.com
+    email = nkwsqyyzx@gmail.com
 [color]
     diff = auto
     status = auto
@@ -30,6 +30,9 @@
 [difftool "diffmerge"]
     cmd = ~/.sys.config/diffmerge-diff.sh \"$LOCAL\" \"$REMOTE\"
     prompt = false
+[difftool "meld"]
+    prompt = false
+    cmd = open -W -a Meld --args \"$LOCAL\" \"$REMOTE\"
 [difftool "bc4"]
     cmd = bcomp \"$LOCAL\" \"$REMOTE\"
 [merge]
@@ -67,3 +70,5 @@
     keepBackup = false
 [difftool "p4mergetool"]
     cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $LOCAL $REMOTE
+[http]
+	postBuffer = 1048576000

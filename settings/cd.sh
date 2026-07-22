@@ -1,5 +1,9 @@
 export AUTOJUMP_WEIGHT_FILE="$(type autojump 1>/dev/null 2>/dev/null && autojump -s | tail -1 | awk '{print $2}')"
 
+# if [[ -f "${_CONFIG_BASE}/third/z/z.sh" ]]; then
+#     source "${_CONFIG_BASE}/third/z/z.sh"
+# fi
+
 function _print_selected_dir() {
     if [[ -r "${AUTOJUMP_WEIGHT_FILE}" ]]; then
         sort -nr "${AUTOJUMP_WEIGHT_FILE}" | awk -F"\t" '{print $2}' | fzf +s
