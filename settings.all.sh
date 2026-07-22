@@ -1,5 +1,6 @@
 ROOT="$_CONFIG_BASE/settings"
 source "$ROOT"/android.sh
+source "$ROOT"/autojump.sh
 source "$ROOT"/chinese_characters_adapter.sh
 source "$ROOT"/find.sh
 source "$ROOT"/git.sh

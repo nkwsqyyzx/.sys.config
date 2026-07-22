@@ -42,16 +42,4 @@ function gvimServer() {
     gvim --servername "$server" --remote-tab-silent "$*"
 }
 
-# autojump
-case $SYS_OS in
-    linux)
-        [[ -f "$HOME/.autojump/etc/profile.d/autojump.sh" ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
-    ;;
-    mac)
-        if [[ -f "$HOME"/.autojump/etc/profile.d/autojump.sh ]]; then
-            source "$HOME"/.autojump/etc/profile.d/autojump.sh
-        elif [[ -f "$(brew --prefix)"/etc/profile.d/autojump.sh ]]; then
-            source "$(brew --prefix)"/etc/profile.d/autojump.sh
-        fi
-    ;;
-esac
+# autojump 配置已移到 settings/autojump.sh (按主题拆分)
