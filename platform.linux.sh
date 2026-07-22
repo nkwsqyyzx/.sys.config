@@ -1,7 +1,5 @@
-# Linuxbrew (canonical env setup: PATH + INFOPATH etc.)
-if [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-fi
+# Linuxbrew shellenv 已在 common.sh 早加载 (cd.sh 检查 autojump/fzf 之前)
+# 这里只保留 aliases
 
 alias o="nautilus"
 alias ou="xdg-open"

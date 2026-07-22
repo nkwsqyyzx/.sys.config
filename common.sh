@@ -19,6 +19,11 @@ export _CONFIG_BASE="$ROOT"
 # this script is wrote to detect system.
 source $_CONFIG_BASE/system.detect.sh
 
+# Linuxbrew PATH 早加载: 让后续 settings/*.sh (cd.sh 检查 autojump/fzf 等) 能看到 brew 安装的工具
+if [[ "$SYS_OS" == "linux" && -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
 export PATH=$PATH:"$_CONFIG_BASE/bin/"
 
 source $_CONFIG_BASE/settings.common.sh

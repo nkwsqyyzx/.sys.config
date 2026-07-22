@@ -18,7 +18,8 @@ function _bash_enter_selected_dir() {
     fi
 }
 
-if [[ "x${SHELL_TYPE}" = "xbash" ]]; then
+# bind -x 只在交互式 bash 跑 (非交互会触发 "line editing not enabled" 警告)
+if [[ "x${SHELL_TYPE}" = "xbash" ]] && [[ $- == *i* ]]; then
     bind -x '"\C-X\C-X":"_bash_enter_selected_dir"'
 fi
 
